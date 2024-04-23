@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bigshot+One:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bruno+Ace:wght@400&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --font-inter: Inter;
+  --font-bruno-ace: "Bruno Ace";
+  --font-bigshot-one: "Bigshot One";
+
+  /* font sizes */
+  --font-size-base: 16px;
+  --font-size-11xl: 30px;
+  --font-size-xl: 20px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-darkslategray: #244242;
+
+  /* Paddings */
+  --padding-4xs: 9px;
+  --padding-3xs-1: 9.1px;
+
+  /* Border radiuses */
+  --br-smi: 13px;
+  --br-12xl: 31px;
+}

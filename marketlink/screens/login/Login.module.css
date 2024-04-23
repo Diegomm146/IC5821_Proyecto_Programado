@@ -1,0 +1,60 @@
+.loginContainer {
+  background: #E4ECE5;
+  text-align: center;
+  width: 80%;
+  height: 100vh; 
+  margin: 0 auto; 
+  display: grid;
+  place-items: center;
+}
+
+.loginLogo {
+  margin-bottom: 20px;
+  /* Include logo image styling here */
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.iniciarSesion {
+  font-family: 'Inter', sans-serif;
+  color: #244242;
+  margin-bottom: 20px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+}
+
+.inputs{
+  font-family: 'Inter', sans-serif;
+  padding: 5px;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  width: 30%;
+  place-items: center;
+  border: none;
+}
+
+.botonTransparente {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  background: transparent;
+  border: 5px solid #244242;
+  border-radius: 20px;
+  padding: 2px;
+  margin-top: 20px;
+  width: 30%;
+  cursor: pointer;
+  color: #244242;
+  font-weight: bold;
+}
+

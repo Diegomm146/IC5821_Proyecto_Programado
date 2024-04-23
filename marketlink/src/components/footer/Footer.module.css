@@ -1,0 +1,18 @@
+.footer {
+    background-color: #244242; /* Replace with the actual color code from your image */
+    padding: 20px 0;
+  }
+  
+.footer_button {
+    border-radius: 20px; /* Adjust as needed for the desired rounded corners */
+    border: none;
+    background-color: #83AF4B; /* Replace with the button color from your image */
+    color: white; /* Set the text color to white */
+    margin: 0 auto; /* Center button horizontally */
+    display: block; /* Necessary to center with auto margins */
+    font-size: 1rem; /* Adjust as needed */
+    padding: 0.5rem 1rem; /* Adjust as needed */
+}
+  
+  /* Add media queries if necessary to handle different screen sizes */
+  

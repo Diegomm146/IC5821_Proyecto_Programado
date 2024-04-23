@@ -1,0 +1,10 @@
+.header {
+    background-color: #244242; 
+  }
+
+.whiteTextButton {
+  color: white; 
+  background-color: transparent; 
+  border: none; 
+  text-align: right; 
+}

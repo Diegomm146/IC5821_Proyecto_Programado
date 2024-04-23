@@ -1,0 +1,9 @@
+.mainContainer {
+    background: #E4ECE5;
+    text-align: center;
+    width: 80%;
+    height: 100vh; 
+    margin: 0 auto; 
+    display: grid;
+    place-items: center;
+  }

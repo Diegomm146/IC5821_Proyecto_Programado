@@ -1,8 +1,13 @@
 
-import Login from '../screens/login/Login'; // Assuming the file path is correct, make sure the necessary dependencies are installed.
+import React from 'react';
+import Login from '../screens/login/Login'; 
+import RegisterClient from '../screens/registerClient/RegisterClient';
+import ClientProfile from '../screens/clientProfile/ClientProfile';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
 
 function App(){
-  return <div><Login></Login></div>;
+  return <div><ClientProfile/></div>;
 }
 
 export default App;
