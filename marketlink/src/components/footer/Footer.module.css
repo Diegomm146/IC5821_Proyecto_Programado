@@ -4,14 +4,15 @@
   }
   
 .footer_button {
-    border-radius: 20px; /* Adjust as needed for the desired rounded corners */
-    border: none;
-    background-color: #83AF4B; /* Replace with the button color from your image */
-    color: white; /* Set the text color to white */
-    margin: 0 auto; /* Center button horizontally */
-    display: block; /* Necessary to center with auto margins */
-    font-size: 1rem; /* Adjust as needed */
-    padding: 0.5rem 1rem; /* Adjust as needed */
+    text-align: center;
+    font-family: 'Inter', sans-serif;    
+    background-color: transparent; 
+    border: 5px solid #83AF4B;
+    border-radius: 31px;
+    color: #83AF4B; 
+    margin: 0 auto;
+    font-weight: bold; 
+    width: 40%;
 }
   
   /* Add media queries if necessary to handle different screen sizes */

@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <Container>
         <Row>
-          <Col >
+          <Col className="text-center">
             <Button className={styles.footer_button}>Acerca</Button>
           </Col>
           <Col className="text-center">

@@ -1,5 +1,6 @@
 .header {
     background-color: #244242; 
+    max-height: 80px;
   }
 
 .whiteTextButton {

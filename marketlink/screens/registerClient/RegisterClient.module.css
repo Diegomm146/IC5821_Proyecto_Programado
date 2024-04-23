@@ -1,4 +1,4 @@
-.loginContainer {
+.loginContainerRegisterClient {
     background: #E4ECE5;
     text-align: center;
     width: 80%;
@@ -10,10 +10,9 @@
   
   .loginLogo {
     margin-bottom: 20px;
-    /* Include logo image styling here */
   }
   
-  .rows {
+  .rowsRegisterClient {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,19 +20,19 @@
     height: 100%;
   }
   
-  .iniciarSesion {
+  .iniciarSesionRegisterClient {
     font-family: 'Inter', sans-serif;
     color: #244242;
     margin-bottom: 20px;
   }
   
-  .formContainer {
+  .formContainerRegisterClient {
     display: flex;
     flex-direction: column;
     align-items: center; /* Center items horizontally */
   }
   
-  .inputs{
+  .inputsRegisterClient {
     font-family: 'Inter', sans-serif;
     padding: 5px;
     text-align: center;
@@ -44,7 +43,7 @@
     border: none;
   }
   
-  .botonTransparente {
+  .botonTransparenteRegisterClient {
     text-align: center;
     font-family: 'Inter', sans-serif;
     background: transparent;
