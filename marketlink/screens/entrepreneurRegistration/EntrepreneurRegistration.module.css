@@ -1,0 +1,61 @@
+.registrationContainer {
+    background-color: #E4ECE5;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registrationLogo {
+    margin-bottom: 20px;
+}
+
+.formRows {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.registrationTitle {
+    font-family: 'Inter', sans-serif;
+    color: #244242;
+    margin-bottom: 20px;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px; /* Increase the max-width as per your requirement */
+    margin: auto;
+}
+
+.formInputs {
+    font-family: 'Inter', sans-serif;
+    padding: 10px;
+    text-align: left;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px; /* Increase the max-width as per your requirement */
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+}
+
+.submitButton {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    background-color: #343a40;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    margin-top: 1rem;
+}

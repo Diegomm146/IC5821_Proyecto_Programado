@@ -1,0 +1,85 @@
+
+.profileHeader {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+background-color: var(--color-white);
+}
+
+.profileInfo,
+.profileDescription {
+text-align: center;
+}
+
+.entrepreneurName {
+font-size: var(--font-size-11xl);
+font-family: var(--font-bigshot-one);
+color: var(--color-darkslategray);
+}
+
+.descriptionCard {
+background-color: #e9ecef;
+border: none;
+margin-top: 1rem;
+}
+
+.logo {
+width: 100px; 
+height: 100px;
+background-color: #adb5bd; 
+display: inline-block;
+border-radius: var(--br-smi);
+}
+
+.productsTitle {
+font-size: var(--font-size-xl);
+margin: 1rem 0;
+}
+
+.productCard {
+border-radius: var(--br-smi);
+text-align: center;
+}
+
+.productImage {
+height: 150px;
+object-fit: cover;
+border-top-left-radius: var(--br-smi);
+border-top-right-radius: var(--br-smi);
+}
+
+.productName {
+font-size: var(--font-size-xl);
+color: var(--color-darkslategray);
+margin-top: .5rem;
+}
+
+.productPrice {
+font-size: var(--font-size-base);
+color: var(--color-darkslategray);
+}
+
+.addButton {
+background-color: #28a745;
+border: none;
+margin-left: 1rem;
+border-radius: var(--br-smi);
+}
+
+.footer {
+display: flex;
+justify-content: space-around;
+padding: 1rem;
+background-color: var(--color-darkslategray);
+position: fixed;
+bottom: 0;
+width: 100%;
+}
+
+.footerButton {
+background-color: transparent;
+border: none;
+color: var(--color-white);
+font-size: var(--font-size-base);
+}
