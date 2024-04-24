@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from '../screens/login/Login';
 import RegisterClient from '../screens/registerClient/RegisterClient';
