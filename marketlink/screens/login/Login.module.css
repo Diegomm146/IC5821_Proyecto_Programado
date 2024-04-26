@@ -6,6 +6,7 @@
   margin: 0 auto; 
   display: grid;
   place-items: center;
+  padding-top: 100px;
 }
 
 .loginLogo {
@@ -58,3 +59,8 @@
   font-weight: bold;
 }
 
+.botonTransparente:hover {
+  color: #83AF4B;
+  background: transparent;
+  border: 5px solid #83AF4B;
+}

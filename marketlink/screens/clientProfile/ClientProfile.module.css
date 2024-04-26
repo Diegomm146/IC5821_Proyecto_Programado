@@ -2,82 +2,48 @@
   background: #E4ECE5;
   text-align: center;
   width: 80%;
+  padding-top: 100px;
   height: 100vh; 
   margin: 0 auto; 
   display: grid;
   place-items: center;
 }
-.loginContainerRegisterClient {
-    background: #E4ECE5;
-    text-align: center;
-    width: 80%;
-    height: 100vh; 
-    margin: 0 auto; 
-    display: grid;
-    place-items: center;
-}
-  
-.loginLogo {
-    margin-bottom: 20px;
-}
-  
-.rowsClientProfile {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-  
-.iniciarSesionRegisterClient {
-    font-family: 'Inter', sans-serif;
-    color: #244242;
-    margin-bottom: 20px;
-}
-  
-.formContainerClientProfile {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center items horizontally */
-}
-  
-.inputsClientProfile {
-  font-family: 'Inter', sans-serif;
-  padding: 5px;
-  text-align: center;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  width: 30%;
-  place-items: center;
-  border: none;
+
+.ppClientProfile {
+  width:50%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.botonTransparenteRegisterClient {
+.cardClientProfile {
+  border-radius: 20px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.editButtonClientProfile {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin-right: auto;
+}
+.buttonClientProfile {
   text-align: center;
   font-family: 'Inter', sans-serif;
   background: transparent;
   border: 5px solid #244242;
   border-radius: 20px;
   padding: 2px;
-  margin-top: 20px;
-  width: 30%;
   cursor: pointer;
   color: #244242;
   font-weight: bold;
-}
-  
-.input-with-image {
-  position: relative;
+  margin-top: 15px;
 }
 
-.input-with-image input[type="text"] {
-  padding-right: 10px; /* Adjust as needed */
-}
-
-.input-with-image .button-image {
-  position: absolute;
-  top: 50%;
-  right: 5px; /* Adjust as needed */
-  transform: translateY(-50%);
-  cursor: pointer;
+.buttonClientProfile:hover {
+  color: #83AF4B;
+  background: transparent;
+  border: 5px solid #83AF4B;
 }

@@ -15,5 +15,11 @@
     width: 40%;
 }
   
+
+.footer_button:hover {
+    color: #E4ECE5;
+    border: 5px solid #E4ECE5;
+    background-color: #244242;
+  }
   /* Add media queries if necessary to handle different screen sizes */
   

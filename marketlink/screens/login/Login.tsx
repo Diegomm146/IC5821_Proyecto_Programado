@@ -9,7 +9,7 @@ const Login: FunctionComponent = () => {
       <div className="row h-100">
         <div className="col">
           <div className={`${styles.rows} row`} style={{height: "25%"}}>
-            <img src="https://via.placeholder.com/100" alt="logo" style={{ maxWidth: "300px", maxHeight: "200px", paddingTop: "5%"}} />
+            <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px"}} />{'Market Link'}
           </div>
           <div className={`${styles.rows} row`} style={{height: "15%"}}>
             <h1 className={styles.iniciarSesion}>Iniciar sesión</h1>

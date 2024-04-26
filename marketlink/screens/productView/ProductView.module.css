@@ -1,0 +1,61 @@
+.mainContainerProductView {
+    background: #E4ECE5;
+    text-align: center;
+    width: 80%;
+    padding-top: 100px;
+    height: 100vh; 
+    margin: 0 auto; 
+  }
+
+.mainImgProductView {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+  }
+
+.imgProductView{
+    width: 60%;
+    margin: auto;
+    padding: 5%;
+    transition: transform 0.3s;
+}
+.imgProductView:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.buttonProductView{
+    text-align: center;
+    font-family: 'Inter', sans-serif;    
+    background-color: transparent; 
+    border: 5px solid #83AF4B;
+    border-radius: 31px;
+    color: #83AF4B; 
+    width: 160px;
+    margin: 0 auto;
+    font-weight: bold; 
+}
+
+.descriptionProductView{
+    text-align: left;
+    font-family: 'Inter', sans-serif;    
+    color: #244242; 
+    font-weight: bold; 
+}
+
+.buttonProductView:hover {
+    color: #244242;
+    border: 5px solid #244242;
+    background: transparent;
+  }
+
+.cantidadProductView{
+    text-align: center;
+    font-family: 'Inter', sans-serif;    
+    background-color: white; 
+    border: none;
+    border-radius: 31px;
+    color: #244242; 
+    width: 160px;
+    margin: 0 auto;
+    font-weight: bold; 
+}

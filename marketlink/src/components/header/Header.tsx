@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 
 const Header = () => {
   return (
-    <Navbar variant="dark" expand="lg" className={styles.header}>
+    <Navbar variant="dark" fixed="top" className={styles.header}>
       <Container>
         <Navbar.Brand href="#home">
           <img

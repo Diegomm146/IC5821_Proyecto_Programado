@@ -6,6 +6,8 @@ import ClientProfile from '../screens/clientProfile/ClientProfile';
 import EntrepreneurRegistration from '../screens/entrepreneurRegistration/EntrepreneurRegistration';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
+import ProductView from '../screens/productView/ProductView';
+import Checkout from '../screens/checkout/Checkout';
 
 function App() {
   return (
@@ -14,7 +16,8 @@ function App() {
       <Route path="/" element={<LayoutWithHeaderAndFooter><ClientProfile /></LayoutWithHeaderAndFooter>} />
       <Route path="/login" element={<LayoutWithHeaderAndFooter><Login /></LayoutWithHeaderAndFooter>} />
       <Route path="/register-client" element={<LayoutWithHeaderAndFooter><RegisterClient /></LayoutWithHeaderAndFooter>} />
-
+      <Route path="/product-view" element={<LayoutWithHeaderAndFooter><ProductView /></LayoutWithHeaderAndFooter>} /> 
+      <Route path="/checkout" element={<LayoutWithHeaderAndFooter><Checkout /></LayoutWithHeaderAndFooter>} />
       {/* */}
       <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
     </Routes>
