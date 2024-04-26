@@ -1,0 +1,33 @@
+.mainContainerClientOrders {
+    background: #E4ECE5;
+    text-align: center;
+    width: 80%;
+    padding-top: 150px;
+    height: 100vh; 
+    margin: 0 auto; 
+    display: grid;
+}
+
+.textClientOrders {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #244242;
+    height:50%;
+    text-align:left;
+}
+
+.bigTextClientOrders {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #244242;
+    height:100%;
+    text-align:left;
+}
+
+.imgProductoClientOrders {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}

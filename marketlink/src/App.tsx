@@ -8,6 +8,8 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import ProductView from '../screens/productView/ProductView';
 import Checkout from '../screens/checkout/Checkout';
+import ClientOrders from '../screens/clientOrders/ClientOrders';
+import Cart from '../screens/cart/Cart';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Route path="/register-client" element={<LayoutWithHeaderAndFooter><RegisterClient /></LayoutWithHeaderAndFooter>} />
       <Route path="/product-view" element={<LayoutWithHeaderAndFooter><ProductView /></LayoutWithHeaderAndFooter>} /> 
       <Route path="/checkout" element={<LayoutWithHeaderAndFooter><Checkout /></LayoutWithHeaderAndFooter>} />
+      <Route path="/client-orders" element={<LayoutWithHeaderAndFooter><ClientOrders /></LayoutWithHeaderAndFooter>} />
+      <Route path="/cart" element={<LayoutWithHeaderAndFooter><Cart /></LayoutWithHeaderAndFooter>} />
       {/* */}
       <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
     </Routes>
