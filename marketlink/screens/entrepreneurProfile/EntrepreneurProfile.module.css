@@ -1,85 +1,65 @@
-
-.profileHeader {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 1rem;
-background-color: var(--color-white);
-}
-
-.profileInfo,
-.profileDescription {
-text-align: center;
-}
-
-.entrepreneurName {
-font-size: var(--font-size-11xl);
-font-family: var(--font-bigshot-one);
-color: var(--color-darkslategray);
-}
-
-.descriptionCard {
-background-color: #e9ecef;
-border: none;
-margin-top: 1rem;
-}
-
-.logo {
-width: 100px; 
-height: 100px;
-background-color: #adb5bd; 
-display: inline-block;
-border-radius: var(--br-smi);
-}
-
-.productsTitle {
-font-size: var(--font-size-xl);
-margin: 1rem 0;
-}
-
-.productCard {
-border-radius: var(--br-smi);
-text-align: center;
-}
-
-.productImage {
-height: 150px;
-object-fit: cover;
-border-top-left-radius: var(--br-smi);
-border-top-right-radius: var(--br-smi);
-}
-
-.productName {
-font-size: var(--font-size-xl);
-color: var(--color-darkslategray);
-margin-top: .5rem;
-}
-
-.productPrice {
-font-size: var(--font-size-base);
-color: var(--color-darkslategray);
-}
-
-.addButton {
-background-color: #28a745;
-border: none;
-margin-left: 1rem;
-border-radius: var(--br-smi);
-}
-
-.footer {
-display: flex;
-justify-content: space-around;
-padding: 1rem;
-background-color: var(--color-darkslategray);
-position: fixed;
-bottom: 0;
-width: 100%;
-}
-
-.footerButton {
-background-color: transparent;
-border: none;
-color: var(--color-white);
-font-size: var(--font-size-base);
-}
+.container {
+    padding: 2rem;
+    background-color: #f0f0f0; /* Adjust the color to match your screenshot */
+  }
+  
+  .profileHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .profileName {
+    font-size: 2rem; /* Adjust size as needed */
+    font-weight: bold;
+  }
+  
+  .profileLogo {
+    /* Add styles for logo container */
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    background-color: #ccc; /* Placeholder color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .profileDescription {
+    background-color: #c8e6c9; /* Adjust background color as needed */
+    padding: 1rem;
+    border-radius: 0.5rem; /* Adjust border-radius as needed */
+  }
+  
+  .productRow {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .productCard {
+    margin: 0.5rem;
+    flex-basis: calc(25% - 1rem); /* Adjust width for 4 cards per row */
+    text-align: center;
+  }
+  
+  .addButton {
+    /* Add styles for add product button */
+    background-color: #4caf50; /* Adjust button color as needed */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .footer {
+    /* Add styles for footer */
+    position: relative; /* Adjust as needed */
+    bottom: 0;
+    width: 100%;
+    /* Add more styles as needed */
+  }
+  
