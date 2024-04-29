@@ -56,5 +56,9 @@
     color: #244242;
     font-weight: bold;
   }
-  
+  .botonTransparenteRegisterClient:hover {
+    color: #83AF4B;
+    border: 5px solid #83AF4B;
+    background: transparent;
+  }
   

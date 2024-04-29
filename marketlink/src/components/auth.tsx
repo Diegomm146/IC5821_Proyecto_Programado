@@ -1,4 +1,4 @@
-import { auth } from "../firebaseConfig"
+import { auth } from "../firebase/firebaseConfig"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useState } from "react"
 

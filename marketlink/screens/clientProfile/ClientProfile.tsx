@@ -5,8 +5,13 @@ import Stack from 'react-bootstrap/Stack';
 import Image from 'react-bootstrap/Image';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { auth } from "../../src/firebase/firebaseConfig";
 
 const ClientProfile: FunctionComponent = () => {
+  const user = auth.currentUser;
+  const email = user?.email;
+  const name = user?.name;
+  console.log(email, name, "hola");
   return (
     <html>
         <body className={styles.mainContainerClientProfile}>

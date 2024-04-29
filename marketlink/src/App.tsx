@@ -10,18 +10,20 @@ import ProductView from '../screens/productView/ProductView';
 import Checkout from '../screens/checkout/Checkout';
 import ClientOrders from '../screens/clientOrders/ClientOrders';
 import Cart from '../screens/cart/Cart';
+import Home from '../screens/home/Home';
 
 function App() {
   return (
     <Routes>
       {/* */}
-      <Route path="/" element={<LayoutWithHeaderAndFooter><ClientProfile /></LayoutWithHeaderAndFooter>} />
+      <Route path="/client-profile" element={<LayoutWithHeaderAndFooter><ClientProfile /></LayoutWithHeaderAndFooter>} />
       <Route path="/login" element={<LayoutWithHeaderAndFooter><Login /></LayoutWithHeaderAndFooter>} />
       <Route path="/register-client" element={<LayoutWithHeaderAndFooter><RegisterClient /></LayoutWithHeaderAndFooter>} />
       <Route path="/product-view" element={<LayoutWithHeaderAndFooter><ProductView /></LayoutWithHeaderAndFooter>} /> 
       <Route path="/checkout" element={<LayoutWithHeaderAndFooter><Checkout /></LayoutWithHeaderAndFooter>} />
       <Route path="/client-orders" element={<LayoutWithHeaderAndFooter><ClientOrders /></LayoutWithHeaderAndFooter>} />
       <Route path="/cart" element={<LayoutWithHeaderAndFooter><Cart /></LayoutWithHeaderAndFooter>} />
+      <Route path="/home" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
       {/* */}
       <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
     </Routes>
