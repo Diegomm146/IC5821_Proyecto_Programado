@@ -6,3 +6,49 @@
     height: 100vh; 
     margin: 0 auto; 
   }
+
+
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding: 16px;
+}
+.titles {
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  color: #244242;
+  margin-bottom: 16px;
+  margin-left: 32px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.imgItemHome {
+  max-width: 175px; 
+  height: auto; 
+  border-radius: 10px;
+}
+
+.textItemHome {
+  font-family: 'Inter', sans-serif;
+  color: #244242;
+  font-weight: bold;
+  text-align: left;
+}
+
+
+.horizontalScroll {
+  display: flex;  
+  flex-direction: row; 
+  margin: auto;
+  max-width: 90%;
+  overflow-x: auto; 
+  white-space: nowrap;
+}
+
+.horizontalScroll > * {
+  flex-shrink: 0;  
+  min-width: 100px; 
+  white-space: normal; 
+}

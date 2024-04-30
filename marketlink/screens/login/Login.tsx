@@ -15,14 +15,12 @@ const Login: FunctionComponent = () => {
     try {
       console.log("Submitting form with data:", { email, password, isSignedIn });
       setIsSignedIn(true)
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
+      
       const x = getAuth();
       console.log(x);
-      // window.location.href = "/home";
+      window.location.href = "/home";
     } catch (error) {
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // console.log(errorCode, errorMessage)
     }
   }
 

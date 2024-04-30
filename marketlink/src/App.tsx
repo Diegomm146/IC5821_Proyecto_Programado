@@ -11,6 +11,7 @@ import Checkout from '../screens/checkout/Checkout';
 import ClientOrders from '../screens/clientOrders/ClientOrders';
 import Cart from '../screens/cart/Cart';
 import Home from '../screens/home/Home';
+import EntrepreneurProfile from '../screens/entrepreneurProfile/EntrepreneurProfile';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/cart" element={<LayoutWithHeaderAndFooter><Cart /></LayoutWithHeaderAndFooter>} />
       <Route path="/home" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
       {/* */}
+      <Route path="/entrepreneur-profile" element={<LayoutWithHeaderAndFooter><EntrepreneurProfile /></LayoutWithHeaderAndFooter>} />
       <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
     </Routes>
   );
