@@ -17,7 +17,6 @@ const EntrepreneurRegistration: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
     console.log("Submitting form with data:", { businessName, email, password, phoneNumber, description, logo });
   
     try {
@@ -50,7 +49,7 @@ const EntrepreneurRegistration: React.FC = () => {
       await addEntrepreneur(entrepreneur);
       console.log("Entrepreneur added to Firestore with ID:", user.uid);
   
-      window.location.href = "/entrepreneur-profile";
+      window.location.href = "/login";
     } catch (e) {
       console.error("Error in user registration and data insertion:", e);
     }
@@ -142,4 +141,5 @@ const EntrepreneurRegistration: React.FC = () => {
     </Container>
   );
 };
+
 export default EntrepreneurRegistration;

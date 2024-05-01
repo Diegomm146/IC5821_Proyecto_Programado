@@ -1,13 +1,19 @@
 import { Container, Navbar, Nav, Button, Dropdown } from 'react-bootstrap';
 import { Person, Cart } from 'react-bootstrap-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/login'); 
+  };
+
   return (
     <Navbar variant="dark" fixed="top" className={styles.header}>
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand as={Link} to="/">
           <img
             alt=""
             src="/../../../image.png"
@@ -18,7 +24,7 @@ const Header = () => {
           {'Market Link'}
         </Navbar.Brand>
         <Nav className="ml-auto">
-          <Button variant="outline-light" className="mx-2">
+          <Button variant="outline-light" className="mx-2" onClick={handleLoginClick}>
             <strong>Iniciar Sesión</strong>
           </Button>
           <Dropdown>
@@ -27,7 +33,7 @@ const Header = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item as={Link} to="/register-entrepreneur">Emprendedor</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Cliente</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/register-client">Cliente</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <Button variant="outline-light" className="mx-2">

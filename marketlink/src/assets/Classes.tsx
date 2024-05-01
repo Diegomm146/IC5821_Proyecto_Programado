@@ -34,19 +34,19 @@ export class Product {
 
 export class Entrepreneur {
     id: string;
+    description: string;
     email: string;
     logoURL: string;
     name: string;
     phoneNumber: string;
-    province: string;
 
-    constructor(id: string, email: string, logoURL: string, name: string, phoneNumber: string, province: string) {
+    constructor(id: string, description: string ,email: string, logoURL: string, name: string, phoneNumber: string) {
         this.id = id;
+        this.description = description;
         this.email = email;
         this.logoURL = logoURL;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.province = province;
     }
 }
 

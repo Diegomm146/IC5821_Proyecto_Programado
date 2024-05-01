@@ -12,27 +12,8 @@ import ClientOrders from '../screens/clientOrders/ClientOrders';
 import Cart from '../screens/cart/Cart';
 import Home from '../screens/home/Home';
 import EntrepreneurProfile from '../screens/entrepreneurProfile/EntrepreneurProfile';
+import { ToastContainer } from 'react-toastify';
 
-function App() {
-  return (
-    <Routes>
-      {/* */}
-      <Route path="/client-profile" element={<LayoutWithHeaderAndFooter><ClientProfile /></LayoutWithHeaderAndFooter>} />
-      <Route path="/login" element={<LayoutWithHeaderAndFooter><Login /></LayoutWithHeaderAndFooter>} />
-      <Route path="/register-client" element={<LayoutWithHeaderAndFooter><RegisterClient /></LayoutWithHeaderAndFooter>} />
-      <Route path="/product-view" element={<LayoutWithHeaderAndFooter><ProductView /></LayoutWithHeaderAndFooter>} /> 
-      <Route path="/checkout" element={<LayoutWithHeaderAndFooter><Checkout /></LayoutWithHeaderAndFooter>} />
-      <Route path="/client-orders" element={<LayoutWithHeaderAndFooter><ClientOrders /></LayoutWithHeaderAndFooter>} />
-      <Route path="/cart" element={<LayoutWithHeaderAndFooter><Cart /></LayoutWithHeaderAndFooter>} />
-      <Route path="/home" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
-      {/* */}
-      <Route path="/entrepreneur-profile" element={<LayoutWithHeaderAndFooter><EntrepreneurProfile /></LayoutWithHeaderAndFooter>} />
-      <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
-    </Routes>
-  );
-}
-
-// componente que contiene header y footer para separar aquellas pantallas que no lo requierien
 function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
   return (
     <div>
@@ -40,6 +21,26 @@ function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
       {children}
       <Footer />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register-client" element={<RegisterClient />} />
+        <Route path="/client-profile" element={<ClientProfile />} />
+        <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
+        <Route path="/product-view" element={<ProductView />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/client-orders" element={<ClientOrders />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/entrepreneur-profile" element={<EntrepreneurProfile />} />
+      </Routes>
+      <ToastContainer position="top-center" />
+    </>
   );
 }
 

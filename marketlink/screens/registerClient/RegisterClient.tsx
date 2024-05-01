@@ -27,7 +27,7 @@ const RegisterClient: FunctionComponent = () => {
       console.log("Firestore document set for user:", user.uid);
 
       // Redirect or handle post-registration logic
-      window.location.href = "/entrepreneur-profile";
+      window.location.href = "/login";
     } catch (error:any) {
       console.error("Error in user registration:", error);
 
