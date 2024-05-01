@@ -14,7 +14,7 @@ export class Product {
     id: string;
     category: string;
     description: string;
-    entrepreneur: string; // If entrepreneur should be a complex object, define its type or interface
+    entrepreneur: string;
     imagesURL: string;
     name: string;
     price: number;

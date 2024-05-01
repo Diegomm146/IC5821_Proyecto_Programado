@@ -19,12 +19,12 @@ const ClientProfile: FunctionComponent = () => {
             <Image className={styles.ppClientProfile}  src="../../../defaultpp.png" thumbnail />
             <Card  className={styles.cardClientProfile}>
               <Card.Body style={{ display: "flex", alignItems: "center" }}>
-                <span>Correo electrónico</span>
+                <span>Email</span>
               </Card.Body>
             </Card>
             <Card  className={styles.cardClientProfile}>
               <Card.Body style={{ display: "flex", alignItems: "center" }}>
-                <span>Nombre de usuario</span>
+                <span>Username</span>
                 <a href="#" className={styles.editButton} style={{ marginLeft: "auto" }}>
                   <img src="../../../edit.png" alt="logo" style={{width:"55%"}} />
                 </a>
@@ -32,15 +32,15 @@ const ClientProfile: FunctionComponent = () => {
             </Card>
             <Card  className={styles.cardClientProfile}>
               <Card.Body style={{ display: "flex", alignItems: "center" }}>
-                <span>Contraseña</span>
+                <span>Password</span>
                 <a href="#" className={styles.editButton} style={{ marginLeft: "auto" }}>
                   <img src="../../../edit.png" alt="logo" style={{width:"55%"}} />
                 </a>
               </Card.Body>
             </Card>
             
-            <Button className={styles.buttonClientProfile}>Métodos de pago</Button>{' '}
-            <Button className={styles.buttonClientProfile}>Pedidos realizados</Button>{' '}
+            <Button className={styles.buttonClientProfile}>Payment Methods</Button>{' '}
+            <Button className={styles.buttonClientProfile}>Orders</Button>{' '}
           </Stack>
         </body>
     </html>

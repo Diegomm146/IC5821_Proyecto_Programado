@@ -12,7 +12,7 @@ const ClientOrders: FunctionComponent = () => {
         <body className={styles.mainContainerClientOrders}>
         <Container>
             <Row>
-                <h1 className={styles.titleClientOrders}>Pedidos realizados</h1>
+                <h1 className={styles.titleClientOrders}>Orders Placed</h1>
             </Row>
             <Row>
                 <Col md={{ span: 10, offset: 1 }} style={{maxHeight: '700px', overflowY: 'auto'}}>
@@ -39,50 +39,50 @@ const Order: FunctionComponent = () => {
                 <Col>
                     <Row className={styles.textClientOrders}>
                         <text>
-                            Nombre Producto
+                            Product Name
                         </text>
                     </Row>
                     <Row className={styles.textClientOrders}>
                         <text>
-                            Nombre Emprendedor
+                            Entrepreneur Name
                         </text>
                     </Row>
                 </Col>
                 <Col >
                     <Row className={styles.textClientOrders}>
                         <text>
-                            Pagado
+                            Paid
                         </text>
                     </Row>
                     <Row className={styles.textClientOrders}>
                         <text>
-                            Cantidad
+                            Quantity
                         </text>
                     </Row>
                 </Col>
                 <Col>
                     <Row className={styles.bigTextClientOrders}>
                         <text>
-                            Especificaciones Envio
+                            Shipping Specifications
                         </text>
                     </Row>
                 </Col>
                 <Col>
                     <Row className={styles.textClientOrders}>
                         <text>
-                            Fecha Realizado
+                            Date Placed
                         </text>
                     </Row>
                     <Row className={styles.textClientOrders}>
                         <text>
-                            Fecha Completado
+                            Date Completed
                         </text>
                     </Row>
                 </Col>
                 <Col>
                     <Row className={styles.textClientOrders}>
                         <text>
-                            Estado
+                            Status
                         </text>
                     </Row>            
                 </Col>

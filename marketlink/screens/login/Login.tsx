@@ -11,20 +11,20 @@ const Login: FunctionComponent = () => {
 
   const validateInputs = () => {
     if (!email.trim() || !password.trim()) {
-      toast.error("Por favor, complete ambos campos de correo electrónico y contraseña.");
+      toast.error("Please complete both email and password fields.");
       return false;
     }
     
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) {
-      toast.error("Por favor, ingrese un correo electrónico válido.");
+      toast.error("Please enter a valid email.");
       return false;
     }
     return true;
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("Inicio de sesión intentado...");
+    console.log("Login attempt initiated...");
     event.preventDefault();
 
     if (!validateInputs()) return;
@@ -44,21 +44,21 @@ const Login: FunctionComponent = () => {
               <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px"}} />{'Market Link'}
             </div>
             <div className={`${styles.rows} row`} style={{height: "15%"}}>
-              <h1 className={styles.iniciarSesion}>Iniciar sesión</h1>
+              <h1 className={styles.iniciarSesion}>Login</h1>
             </div>
             <div className={`${styles.rows} row`} style={{height: "30%"}}>
               <form className={styles.formContainer} onSubmit={onSubmit}>
                   <input 
-                    type="email" className={`${styles.inputs}`} placeholder="Correo"
+                    type="email" className={`${styles.inputs}`} placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <input 
-                    type="password" className={`${styles.inputs}`} placeholder="Contraseña" 
+                    type="password" className={`${styles.inputs}`} placeholder="Password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <button type="submit" className={`${styles.botonTransparente}`} style={{ width: "15%" }}>Aceptar</button>
+                  <button type="submit" className={`${styles.botonTransparente}`} style={{ width: "15%" }}>Submit</button>
               </form>
             </div>
           </div>

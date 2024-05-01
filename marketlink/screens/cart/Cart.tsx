@@ -13,7 +13,7 @@ const Cart: FunctionComponent = () => {
         <Container>
             <Row>
                 <Col md={{ span: 7, offset: 1 }}>
-                    <h1 className={styles.titleCart}>Carrito</h1>
+                    <h1 className={styles.titleCart}>Cart</h1>
                 </Col>
             </Row>
             <Row>
@@ -24,9 +24,9 @@ const Cart: FunctionComponent = () => {
                 </Col>
                 <Col md={{ span: 3}}>
                     <h4 className={styles.titleCart}>
-                        Subtotal (X Productos): ####
+                        Subtotal (X Products): ####
                     </h4>
-                    <button className={styles.buttonCart}>Finalizar Compra</button>
+                    <button className={styles.buttonCart}>Complete Purchase</button>
                 </Col>
             </Row>
         </Container>
@@ -45,24 +45,24 @@ const CartItem: FunctionComponent = () => {
                 <Col>
                     <Row className={styles.textCartItem}>
                         <text>
-                            Nombre Producto
+                            Product Name
                         </text>
                     </Row>
                     <Row className={styles.textCartItem}>
                         <text>
-                            Nombre Emprendedor
+                            Entrepreneur Name
                         </text>
                     </Row>
                 </Col>
                 <Col >
                     <Row className={styles.textCartItem}>
                         <text>
-                            Precio
+                            Price
                         </text>
                     </Row>
                     <Row className={styles.textCartItem}>
                         <text>
-                            Cantidad
+                            Quantity
                         </text>
                     </Row>
                 </Col>

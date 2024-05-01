@@ -6,10 +6,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 const RegisterClient: FunctionComponent = () => {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State to store error message
+  const [userName, setUserName] = useState(""); 
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [error, setError] = useState(""); 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,7 +26,7 @@ const RegisterClient: FunctionComponent = () => {
       });
       console.log("Firestore document set for user:", user.uid);
 
-      // Redirect or handle post-registration logic
+      
       window.location.href = "/login";
     } catch (error:any) {
       console.error("Error in user registration:", error);
@@ -35,19 +35,19 @@ const RegisterClient: FunctionComponent = () => {
 
       switch (error.code) {
         case "auth/weak-password":
-          errorMessage = "La contraseña es demasiado débil. Por favor, elija una contraseña más segura.";
+          errorMessage = "The password is too weak. Please choose a stronger password.";
           break;
         case "auth/email-already-in-use":
-          errorMessage = "Ya existe una cuenta con la dirección de correo electrónico proporcionada.";
+          errorMessage = "An account with the provided email address already exists.";
           break;
         case "auth/invalid-email":
-          errorMessage = "La dirección de correo electrónico proporcionada no es válida. Por favor, ingrese una dirección de correo electrónico válida.";
+          errorMessage = "The provided email address is not valid. Please enter a valid email address.";
           break;
         case "auth/operation-not-allowed":
-          errorMessage = "Las cuentas de correo electrónico/contraseña no están habilitadas. Habilita las cuentas de correo electrónico/contraseña en la Consola de Firebase, en la pestaña de Auth.";
+          errorMessage = "Email/password accounts are not enabled. Enable email/password accounts in the Firebase Console, under the Auth tab.";
           break;
         default:
-          errorMessage = "Se produjo un error durante el registro. Por favor, inténtelo de nuevo más tarde.";
+          errorMessage = "An error occurred during registration. Please try again later.";
       }
 
       setError(errorMessage);
@@ -63,26 +63,26 @@ const RegisterClient: FunctionComponent = () => {
             <img src="../../image.png" alt="logo" style={{ maxWidth: "200px", maxHeight: "250px", paddingTop: "100px"}} />
           </div>
           <div className={`${styles.rowsRegisterClient} row`} style={{height: "15%"}}>
-            <h1 className={styles.iniciarSesionRegisterClient}>Registrarse</h1>
+            <h1 className={styles.iniciarSesionRegisterClient}>Register</h1>
           </div>
             <div className={`${styles.rowsRegisterClient} row`} style={{height: "30%"}}>
               <form className={styles.formContainerRegisterClient} method="post" onSubmit={handleSubmit}>
                   <input 
-                    type="text" className={`${styles.inputsRegisterClient}`} placeholder="Correo electrónico"
+                    type="text" className={`${styles.inputsRegisterClient}`} placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <input 
-                    type="text" className={`${styles.inputsRegisterClient}`} placeholder="Nombre de Usuario"
+                    type="text" className={`${styles.inputsRegisterClient}`} placeholder="Username"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                   />
                   <input 
-                    type="text"  className={`${styles.inputsRegisterClient}`} placeholder="Contraseña" 
+                    type="text"  className={`${styles.inputsRegisterClient}`} placeholder="Password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <button type="submit" value="Submit" className={`${styles.botonTransparenteRegisterClient}`} style={{ width: "15%", marginBottom:"15px" }}>Aceptar</button>
+                  <button type="submit" value="Submit" className={`${styles.botonTransparenteRegisterClient}`} style={{ width: "15%", marginBottom:"15px" }}>Accept</button>
                     {error && (
                       <div className="alert alert-danger alert-dismissible">
                         <button type="button" className="close" onClick={() => setError("")}><img src="../../delete.png" width={20}/></button>

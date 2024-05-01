@@ -25,15 +25,15 @@ const Header = () => {
         </Navbar.Brand>
         <Nav className="ml-auto">
           <Button variant="outline-light" className="mx-2" onClick={handleLoginClick}>
-            <strong>Iniciar Sesión</strong>
+            <strong>Login</strong>
           </Button>
           <Dropdown>
             <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
-              Registrarse
+              Register
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item as={Link} to="/register-entrepreneur">Emprendedor</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/register-client">Cliente</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/register-entrepreneur">Entrepreneur</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/register-client">Client</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <Button variant="outline-light" className="mx-2">

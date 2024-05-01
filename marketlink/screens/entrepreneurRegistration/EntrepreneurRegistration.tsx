@@ -79,12 +79,12 @@ const EntrepreneurRegistration: React.FC = () => {
           </div>
           <Form onSubmit={handleSubmit} className={styles.formContainer}>
             <h3 className={styles.iniciarSesion}>
-              Registrarse como emprendedor
+              Register as Entrepreneur
             </h3>
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="Nombre del emprendimiento"
+                placeholder="Business Name"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
               />
@@ -92,7 +92,7 @@ const EntrepreneurRegistration: React.FC = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="email"
-                placeholder="Correo electrónico"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -100,7 +100,7 @@ const EntrepreneurRegistration: React.FC = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="password"
-                placeholder="Contraseña"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -108,7 +108,7 @@ const EntrepreneurRegistration: React.FC = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="tel"
-                placeholder="Numero de telefono"
+                placeholder="Phone Number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
@@ -116,7 +116,7 @@ const EntrepreneurRegistration: React.FC = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 as="textarea"
-                placeholder="Descripcion"
+                placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -133,13 +133,14 @@ const EntrepreneurRegistration: React.FC = () => {
               type="submit"
               className={styles.submitButton}
             >
-              Enviar
+              Submit
             </Button>
           </Form>
         </Col>
       </Row>
     </Container>
   );
+
 };
 
 export default EntrepreneurRegistration;
