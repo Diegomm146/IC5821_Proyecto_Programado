@@ -1,72 +1,45 @@
-.EntreprenerurProfilecontainer{
-  text-align: center;
-  width: 80%;
-  padding-top: 100px;
-  height: 100vh; 
-  margin: 0 auto;  
+.EntrepreneurProfileContainer {
+  padding-top: 50px;
 }
 
-.descEntrepreneurProfile{
-  font-family: 'Inter', sans-serif;    
-  color: #E4ECE5; 
-  background-color: #83AF4B;
-  border-radius: 30px;
-  height: auto;
+.profileCard {
+  background-color: #f4f4f4;
+  border-radius: 20px;
+  padding: 20px;
 }
 
-.nameEntrepreneurProfile{
-  font-family: 'Inter', sans-serif;    
-  color: #244242; 
-}
-
-.titleEntrepreneurProfile{
-  margin-top: 35px;
-  font-family: 'Inter', sans-serif;    
-  color: #244242; 
-}
-
-.EntreprenerurProfileProducts{ 
-  display: flex;
-  justify-content: space-around; 
-  flex-wrap: wrap;               
-  margin-top: 50px;
-  background: #E4ECE5;
-  padding-bottom: 100px;   
-  min-height: calc(40vh);
-  border-radius: 15px;
-}
-
-.textItemEntrepreneurProfile {
-  font-family: 'Inter', sans-serif;
-  color: #244242;
+.nameEntrepreneurProfile {
   font-weight: bold;
-  text-align: left;
-  overflow: hidden;           
-  text-overflow: ellipsis;   
-  white-space: nowrap; 
+  color: #244242;
 }
-.imgItemEntrepreneurProfile {
-  max-width: 175px; 
-  height: auto; 
+
+.descEntrepreneurProfile {
+  background-color: #83AF4B;
+  color: #ffffff;
+  padding: 10px;
   border-radius: 10px;
+  font-size: 16px;
 }
-.itemContainerEntrepreneurProfile {
+
+.titleEntrepreneurProfile {
+  font-size: 24px;
+  margin-bottom: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center; 
-  padding: 16px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.horizontalWrapperEntrepreneurProfile {
-  display: flex;  
-  flex-direction: row; 
-  margin: auto;
-  max-width: 90%;
-  flex-wrap: wrap;  
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.horizontalWrapperEntrepreneurProfile > * {
-  flex-shrink: 0;  
-  min-width: 100px; 
-  white-space: normal; 
+.productGrid .card {
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.productGrid .card:hover {
+  transform: translateY(-5px);
 }

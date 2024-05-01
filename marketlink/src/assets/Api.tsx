@@ -1,4 +1,4 @@
-import { setDoc, collection, getDocs } from 'firebase/firestore';
+import { setDoc, collection, getDocs, addDoc } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
 import { User, Product, Entrepreneur } from './Classes'; 
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
@@ -29,6 +29,7 @@ export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void>
     try {
         await setDoc(doc(db, "Entrepreneur", entrepreneur.id), {
             email: entrepreneur.email,
+            description: entrepreneur.description,
             logoURL: entrepreneur.logoURL,
             name: entrepreneur.name,
             phoneNumber: entrepreneur.phoneNumber,
@@ -47,17 +48,19 @@ export const signIn = async (email: string, password: string) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const uid = userCredential.user.uid;
 
-        console.log(uid);
-
         const collections = ['User', 'Entrepreneur', 'Administrator'];
-
-       for (const collection of collections) {
+        for (const collection of collections) {
             const docRef = doc(db, collection, uid);
             const docSnap = await getDoc(docRef);
+
             if (docSnap.exists()) {
                 const userData = docSnap.data();
-                console.log(`${collection} login detected:`, userData);
-                return redirectUserBasedOnType(userData.type);
+                const userDataWithId = { ...userData, uid }; 
+                localStorage.setItem('userData', JSON.stringify(userDataWithId)); 
+                return {
+                    type: userData.type,
+                    route: getRouteForUser(userData.type)
+                };
             }
         }
 
@@ -69,22 +72,35 @@ export const signIn = async (email: string, password: string) => {
     }
 };
 
-const redirectUserBasedOnType = (type: string) => {
+const getRouteForUser = (type: string) => {
     switch (type) {
         case "entrepreneur":
-            console.log("entrepreneur");
-            //window.location.href = "/entrepreneur-dashboard";
-            break;
+            return "/entrepreneur-profile";
         case "user":
-            console.log("user");
-            //window.location.href = "/user-dashboard";
-            break;
+            return "/user-dashboard";
         case "administrator":
-            console.log("administrator");
-            //window.location.href = "/admin-dashboard";
-            break;
+            return "/admin-dashboard";
         default:
-            console.log("Unknown user type");
-            return { error: "User type is unknown, contact support." };
+            console.error("Unknown user type");
+            return "/login";
+    }
+};
+
+export const addProduct = async (product: Product): Promise<void> => {
+    try {
+        // Convertimos el ID del entrepreneur en una referencia
+        const entrepreneurRef = doc(db, "Entrepreneur", product.entrepreneur);
+
+        // Preparamos los datos del producto para Firestore, reemplazando el ID del entrepreneur por la referencia
+        const productData = {
+            ...product,
+            entrepreneur: entrepreneurRef,
+            imagesURL: product.imagesURL.join(','), // Asumiendo que quieres almacenar las URLs como una cadena única
+        };
+
+        const docRef = await addDoc(collection(db, "Product"), productData);
+        console.log("Product added successfully with auto-generated ID:", docRef.id);
+    } catch (error) {
+        console.error("Error adding product:", error);
     }
 };

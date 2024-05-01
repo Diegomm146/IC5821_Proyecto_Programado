@@ -15,12 +15,21 @@ export class Product {
     category: string;
     description: string;
     entrepreneur: string;
-    imagesURL: string;
+    imagesURL: string[];  // Cambiado de string a string[]
     name: string;
     price: number;
     stock: number;
 
-    constructor(id: string, category: string, description: string, entrepreneur: string, imagesURL: string, name: string, price: number, stock: number) {
+    constructor(
+        id: string, 
+        category: string, 
+        description: string, 
+        entrepreneur: string, 
+        imagesURL: string[],  // Cambiado de string a string[]
+        name: string, 
+        price: number, 
+        stock: number
+    ) {
         this.id = id;
         this.category = category;
         this.description = description;
@@ -31,6 +40,7 @@ export class Product {
         this.stock = stock;
     }
 }
+
 
 export class Entrepreneur {
     id: string;

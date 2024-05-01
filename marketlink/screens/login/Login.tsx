@@ -1,15 +1,22 @@
-import { FunctionComponent, useState } from "react";
+import {  useState , FormEvent } from "react";
 import { signIn } from '../../src/assets/Api.tsx';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./Login.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
+import { useNavigate } from 'react-router-dom';
 
-const Login: FunctionComponent = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+interface LoginResult {
+  error?: string;
+  route?: string;
+}
 
-  const validateInputs = () => {
+const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+
+  const validateInputs = (): boolean => {
     if (!email.trim() || !password.trim()) {
       toast.error("Please complete both email and password fields.");
       return false;
@@ -23,15 +30,18 @@ const Login: FunctionComponent = () => {
     return true;
   };
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("Login attempt initiated...");
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-
     if (!validateInputs()) return;
 
-    const result = await signIn(email, password); 
-    if (result && result.error) {
+    const result: LoginResult = await signIn(email, password);
+    if (result.error) {
       toast.error(result.error);
+    } else {
+      toast.success("Login successful");
+      if (result.route) {
+        navigate(result.route);
+      }
     }
   };
 
