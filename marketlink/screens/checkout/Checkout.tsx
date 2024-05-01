@@ -1,30 +1,28 @@
-
 import { FunctionComponent } from "react";
 import styles from "./Checkout.module.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormLabel from 'react-bootstrap/FormLabel'
 
-
 const Checkout: FunctionComponent = () => {
   return (
     <html>
         <body className={styles.mainContainerCheckout}>
           <FormLabel>
-            <h1 className={styles.titleCheckout}>Finalizar Compra</h1>
+            <h1 className={styles.titleCheckout}>Complete Purchase</h1>
             <Form.Group className="mb-3" controlId="ControlTextarea">
-                <Form.Label className={styles.formLabelCheckout}>Especificaciones de envió</Form.Label>
+                <Form.Label className={styles.formLabelCheckout}>Shipping Specifications</Form.Label>
                 <Form.Control as="textarea" rows={3} className={styles.especificacionesEnvioCheckout}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="ControlTextarea">
-                <Form.Label className={styles.formLabelCheckout}>Total a Pagar: <text>###</text></Form.Label>
+                <Form.Label className={styles.formLabelCheckout}>Total to Pay: <text>###</text></Form.Label>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="MetodosPago">
                 {['radio'].map((type) => (
                     <div key={`inline-${type}`} className="mb-3">
-                        <Form.Label className={styles.formLabelCheckout}> Método de Pago: </Form.Label>
+                        <Form.Label className={styles.formLabelCheckout}> Payment Method: </Form.Label>
                         <div style={{ marginTop: "5px" }}>
                             <Form.Check
                                 inline
@@ -35,7 +33,7 @@ const Checkout: FunctionComponent = () => {
                             />
                             <Form.Check
                                 inline
-                                label="Tarjeta"
+                                label="Credit Card"
                                 name="group1"
                                 id={`metodoPago-Tarjeta`}
                                 type="radio"
@@ -53,12 +51,12 @@ const Checkout: FunctionComponent = () => {
             </Form.Group>
             
             <Form.Group>
-              <Form.Label className={styles.formLabelCheckout}>Nombre en tarjeta</Form.Label>
+              <Form.Label className={styles.formLabelCheckout}>Name on Card</Form.Label>
               <Form.Control type="text"/>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label className={styles.formLabelCheckout}>Número de Tarjeta</Form.Label>
+              <Form.Label className={styles.formLabelCheckout}>Card Number</Form.Label>
               <Form.Control type="number"/>
             </Form.Group>
 
@@ -69,13 +67,13 @@ const Checkout: FunctionComponent = () => {
                         <Form.Control type="number"/>
                     </div>
                     <div className="col">
-                        <Form.Label className={styles.formLabelCheckout}>Fecha de Vencimiento</Form.Label>
+                        <Form.Label className={styles.formLabelCheckout}>Expiration Date</Form.Label>
                         <Form.Control type="date" />
                     </div>
                 </div>
             </Form.Group>
 
-            <Button className={styles.buttonCheckout}>Completar Pedido</Button>{' '}
+            <Button className={styles.buttonCheckout}>Complete Order</Button>{' '}
           </FormLabel>
         </body>
     </html>

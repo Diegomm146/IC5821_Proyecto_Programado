@@ -17,7 +17,6 @@ const EntrepreneurRegistration: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
     console.log("Submitting form with data:", { businessName, email, password, phoneNumber, description, logo });
   
     try {
@@ -50,7 +49,7 @@ const EntrepreneurRegistration: React.FC = () => {
       await addEntrepreneur(entrepreneur);
       console.log("Entrepreneur added to Firestore with ID:", user.uid);
   
-      window.location.href = "/entrepreneur-profile";
+      window.location.href = "/login";
     } catch (e) {
       console.error("Error in user registration and data insertion:", e);
     }
@@ -79,7 +78,7 @@ const EntrepreneurRegistration: React.FC = () => {
               <Form.Control
                 className={styles.inputsEntrepreneurRegistration}
                 type="text"
-                placeholder="Nombre del emprendimiento"
+                placeholder="Business Name"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
               />
@@ -88,7 +87,7 @@ const EntrepreneurRegistration: React.FC = () => {
               <Form.Control
                 className={styles.inputsEntrepreneurRegistration}
                 type="email"
-                placeholder="Correo electrónico"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -97,7 +96,7 @@ const EntrepreneurRegistration: React.FC = () => {
               <Form.Control
                 className={styles.inputsEntrepreneurRegistration}
                 type="password"
-                placeholder="Contraseña"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -106,7 +105,7 @@ const EntrepreneurRegistration: React.FC = () => {
               <Form.Control
                 className={styles.inputsEntrepreneurRegistration}
                 type="tel"
-                placeholder="Numero de telefono"
+                placeholder="Phone Number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
@@ -115,7 +114,7 @@ const EntrepreneurRegistration: React.FC = () => {
               <Form.Control
                 className={styles.taEntrepreneurRegistration}
                 as="textarea"
-                placeholder="Descripcion"
+                placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -132,12 +131,14 @@ const EntrepreneurRegistration: React.FC = () => {
               type="submit"
               className={styles.submitButtonEntrepenuerRegistration}
             >
-              Enviar
+              Submit
             </Button>
           </Form>
         </Col>
       </Row>
     </Container>
   );
+
 };
+
 export default EntrepreneurRegistration;

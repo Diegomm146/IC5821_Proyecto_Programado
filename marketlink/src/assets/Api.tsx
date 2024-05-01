@@ -1,6 +1,8 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { setDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
-import { User, Product, Entrepreneur } from './Classes'; // Adjust the import path to where the classes are defined
+import { User, Product, Entrepreneur } from './Classes'; 
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 export const getUsers = async (): Promise<User[]> => {
     const querySnapshot = await getDocs(collection(db, "User"));
@@ -25,16 +27,64 @@ export const getEntrepreneurs = async (): Promise<Entrepreneur[]> => {
 
 export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void> => {
     try {
-        const docRef = await addDoc(collection(db, "Entrepreneur"), {
-            id: entrepreneur.id,
+        await setDoc(doc(db, "Entrepreneur", entrepreneur.id), {
             email: entrepreneur.email,
             logoURL: entrepreneur.logoURL,
             name: entrepreneur.name,
             phoneNumber: entrepreneur.phoneNumber,
-            province: entrepreneur.province
+            type: "entrepreneur"
         });
-        console.log("Document written with ID: ", docRef.id);
+        console.log("Entrepreneur added to Firestore with ID:", entrepreneur.id);
     } catch (e) {
         console.error("Error adding document: ", e);
+    }
+};
+
+
+export const signIn = async (email: string, password: string) => {
+    const auth = getAuth();
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const uid = userCredential.user.uid;
+
+        console.log(uid);
+
+        const collections = ['User', 'Entrepreneur', 'Administrator'];
+
+       for (const collection of collections) {
+            const docRef = doc(db, collection, uid);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                console.log(`${collection} login detected:`, userData);
+                return redirectUserBasedOnType(userData.type);
+            }
+        }
+
+        console.log("No user data available in any collection");
+        return { error: "No user data available" };
+    } catch (error) {
+        console.error("Authentication failed:", error);
+        return { error: "Authentication failed. Please check your credentials and try again." };
+    }
+};
+
+const redirectUserBasedOnType = (type: string) => {
+    switch (type) {
+        case "entrepreneur":
+            console.log("entrepreneur");
+            //window.location.href = "/entrepreneur-dashboard";
+            break;
+        case "user":
+            console.log("user");
+            //window.location.href = "/user-dashboard";
+            break;
+        case "administrator":
+            console.log("administrator");
+            //window.location.href = "/admin-dashboard";
+            break;
+        default:
+            console.log("Unknown user type");
+            return { error: "User type is unknown, contact support." };
     }
 };

@@ -29,7 +29,7 @@ const Home: FunctionComponent = () => {
   return (
     <div className={styles.mainContainerHome}>
       <div>
-        <h1 className={styles.titles}>Productos destacados</h1>
+        <h1 className={styles.titles}>Featured Products</h1>
         <Stack direction="horizontal" gap={2} className={styles.horizontalScroll}>
           {products.map(product => (
             <Item 
@@ -42,7 +42,7 @@ const Home: FunctionComponent = () => {
         </Stack>
       </div>
       <div>
-        <h1 className={styles.titles}>Conozca nuestros estantes</h1>
+        <h1 className={styles.titles}>Meet Our Shelves</h1>
         <Stack direction="horizontal" gap={2} className={styles.horizontalScroll}>
         {entrepreneurs.map(entrepreneur => (
           <EntrepreneurItem 
@@ -92,8 +92,4 @@ const EntrepreneurItem: React.FunctionComponent<EntrepreneurProps> = ({ name, lo
     </div>
   );
 };
-
-
-
-
 export default Home;
