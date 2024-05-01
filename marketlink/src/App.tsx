@@ -12,8 +12,12 @@ import ClientOrders from '../screens/clientOrders/ClientOrders';
 import Cart from '../screens/cart/Cart';
 import Home from '../screens/home/Home';
 import EntrepreneurProfile from '../screens/entrepreneurProfile/EntrepreneurProfile';
+import EntrepreneurOrders from '../screens/entrepreneurOrders/EntrepreneurOrders';
+import CreateProduct from '../screens/createProduct/CreateProduct';
+import EditProduct from '../screens/editProduct/EditProduct';
 import { ToastContainer } from 'react-toastify';
 
+// componente que contiene header y footer para separar aquellas pantallas que no lo requierien
 function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
   return (
     <div>
@@ -38,6 +42,10 @@ function App() {
         <Route path="/client-orders" element={<ClientOrders />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/entrepreneur-profile" element={<EntrepreneurProfile />} />
+        <Route path="/entrepreneur-orders" element={<LayoutWithHeaderAndFooter><EntrepreneurOrders /></LayoutWithHeaderAndFooter>} />
+        <Route path="/create-product" element={<LayoutWithHeaderAndFooter><CreateProduct /></LayoutWithHeaderAndFooter>} />
+        <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
+        <Route path="/edit-product" element={<LayoutWithHeaderAndFooter><EditProduct /></LayoutWithHeaderAndFooter>} />
       </Routes>
       <ToastContainer position="top-center" />
     </>

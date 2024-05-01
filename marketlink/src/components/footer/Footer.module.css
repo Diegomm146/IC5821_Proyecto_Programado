@@ -1,7 +1,12 @@
 .footer {
-    background-color: #244242; /* Replace with the actual color code from your image */
-    padding: 20px 0;
-  }
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #244242;  /* Replace with the actual color code from your image */
+  padding: 20px 0;
+  z-index: 1000;  /* Ensures the footer is above other content */
+}
   
 .footer_button {
     text-align: center;
@@ -21,5 +26,4 @@
     border: 5px solid #E4ECE5;
     background-color: #244242;
   }
-  /* Add media queries if necessary to handle different screen sizes */
   

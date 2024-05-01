@@ -65,56 +65,54 @@ const EntrepreneurRegistration: React.FC = () => {
 
   return (
     <Container className={styles.registrationContainer}>
-      <Row className={styles.justifyContentCenter}>
-        <Col md={6} className={styles.registrationFormCol}>
-          <div className={styles.textCenterMb4}>
-            <img
-              alt="Market Link Logo"
-              src="/../../../image.png"
-              width="50"
-              height="50"
-              className="mb-2"
-            />
-            <h2 className={styles.registrationTitle}>Market Link</h2>
+      <Row>
+        <Col  style={{margin:"auto"}}>
+          <div className={`${styles.rowsRegisterEntrepreneur} row`} style={{height: "25%"}}>
+            <img src="../../image.png" alt="logo" style={{ maxWidth: "200px", maxHeight: "250px", paddingTop: "100px"}} />
           </div>
           <Form onSubmit={handleSubmit} className={styles.formContainer}>
-            <h3 className={styles.iniciarSesion}>
-              Register as Entrepreneur
+            <h3 className={styles.iniciarSesionEntrepreneurRegistration}>
+              Registrarse como emprendedor
             </h3>
-            <Form.Group className="mb-3">
+            <Form.Group>
               <Form.Control
+                className={styles.inputsEntrepreneurRegistration}
                 type="text"
                 placeholder="Business Name"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group>
               <Form.Control
+                className={styles.inputsEntrepreneurRegistration}
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group>
               <Form.Control
+                className={styles.inputsEntrepreneurRegistration}
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group>
               <Form.Control
+                className={styles.inputsEntrepreneurRegistration}
                 type="tel"
                 placeholder="Phone Number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group>
               <Form.Control
+                className={styles.taEntrepreneurRegistration}
                 as="textarea"
                 placeholder="Description"
                 value={description}
@@ -131,7 +129,7 @@ const EntrepreneurRegistration: React.FC = () => {
             <Button
               variant="custom"
               type="submit"
-              className={styles.submitButton}
+              className={styles.submitButtonEntrepenuerRegistration}
             >
               Submit
             </Button>

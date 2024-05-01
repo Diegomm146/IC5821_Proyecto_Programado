@@ -1,0 +1,73 @@
+.mainContainerEditProduct {
+    background: #E4ECE5;
+    text-align: center;
+    width: 80%;
+    padding-top: 100px;
+    height: 100vh; 
+    margin: 0 auto; 
+  }
+
+.formLabelEditProduct {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    color: #244242;
+    margin-top: 10px;
+}
+
+.descripcionCrearProducto {
+    font-family: 'Inter', sans-serif;    
+    color: #244242; 
+    height: 150px;
+    resize: none;
+}
+
+.titleEditProduct{
+    margin-top: 70px;
+    font-family: 'Inter', sans-serif;    
+    color: #244242; 
+    font-weight: bold; 
+    font-size: 30px;
+}
+
+.btnEditProduct {
+    text-align: center;
+    font-family: 'Inter', sans-serif;    
+    background: transparent;
+    border: 5px solid #244242;
+    border-radius: 31px;
+    color: #244242; 
+    font-weight: bold; 
+    width: 150px;
+}
+  
+.btnEditProduct:hover {
+    color: #83AF4B;
+    border: 5px solid #83AF4B;
+    background: transparent;
+  }
+
+.btnDeleteEditProduct {
+    text-align: center;
+    font-family: 'Inter', sans-serif;    
+    background: transparent;
+    border: 5px solid #CE3E3E;
+    border-radius: 31px;
+    color: #CE3E3E; 
+    font-weight: bold; 
+    width: 150px;
+}
+.btnDeleteEditProduct:hover {
+    color: #CE3E3E; 
+    border: 5px solid #CE3E3E;
+    background: transparent;
+}
+.ddEditProduct {
+    margin: auto;
+    width: 200px;
+    background-color: #E4ECE5;
+}
+
+
+
+

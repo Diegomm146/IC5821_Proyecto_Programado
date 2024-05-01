@@ -92,5 +92,4 @@ const EntrepreneurItem: React.FunctionComponent<EntrepreneurProps> = ({ name, lo
     </div>
   );
 };
-
 export default Home;
