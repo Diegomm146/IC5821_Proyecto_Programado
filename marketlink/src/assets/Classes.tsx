@@ -34,20 +34,14 @@ export class Product {
 
 export class Entrepreneur {
     id: string;
-    canton: string;
-    description: string;
-    district: string;
     email: string;
     logoURL: string;
     name: string;
     phoneNumber: string;
     province: string;
 
-    constructor(id: string, canton: string, description: string, district: string, email: string, logoURL: string, name: string, phoneNumber: string, province: string) {
+    constructor(id: string, email: string, logoURL: string, name: string, phoneNumber: string, province: string) {
         this.id = id;
-        this.canton = canton;
-        this.description = description;
-        this.district = district;
         this.email = email;
         this.logoURL = logoURL;
         this.name = name;

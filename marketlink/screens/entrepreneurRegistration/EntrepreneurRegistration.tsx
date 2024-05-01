@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import styles from "./EntrepreneurRegistration.module.css";
-import { db, auth, storage } from "../../src/firebase/firebaseConfig";
+import { auth, storage } from "../../src/firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import EntrepreneurContext from "../../util/EntrepreneurContext";
+import { Entrepreneur } from '../../src/assets/Classes.tsx'; 
+import { addEntrepreneur } from '../../src/assets/Api.tsx'; 
 
 const EntrepreneurRegistration: React.FC = () => {
   const [businessName, setBusinessName] = useState("");
@@ -13,19 +13,18 @@ const EntrepreneurRegistration: React.FC = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
-  const [province, setProvince] = useState("");
-  const [canton, setCanton] = useState("");
-  const [district, setDistrict] = useState("");
   const [logo, setLogo] = useState<File | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Submitting form with data:", { businessName, email, password, phoneNumber, description, province, canton, district, logo });
+  
+    console.log("Submitting form with data:", { businessName, email, password, phoneNumber, description, logo });
+  
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log("Firebase Auth User Created:", user);
-
+  
       let logoUrl = "";
       if (logo) {
         const logoStorageRef = ref(storage, `logos/${user.uid}/${logo.name}`);
@@ -33,23 +32,27 @@ const EntrepreneurRegistration: React.FC = () => {
         logoUrl = await getDownloadURL(uploadTaskSnapshot.ref);
         console.log("Logo uploaded and URL fetched:", logoUrl);
       }
-
-      await setDoc(doc(db, "Entrepreneurs", user.uid), {
-        name: businessName,
-        phoneNumber: phoneNumber,
-        email: email,
-        description: description,
-        logoURL: logoUrl,
-        province,
-        canton,
-        district
-      });
-      console.log("Firestore document set for user:", user.uid);
-
-      // Redirect or handle post-registration logic
+    
+      if (!user?.uid || !email) {
+        console.error("Required user information is missing.");
+        return;
+      }
+  
+      const entrepreneur = new Entrepreneur(
+        user.uid, 
+        description,
+        email,
+        logoUrl,
+        businessName,
+        phoneNumber,
+      );
+  
+      await addEntrepreneur(entrepreneur);
+      console.log("Entrepreneur added to Firestore with ID:", user.uid);
+  
       window.location.href = "/entrepreneur-profile";
     } catch (e) {
-      console.error("Error in user registration:", e);
+      console.error("Error in user registration and data insertion:", e);
     }
   };
 
@@ -119,34 +122,6 @@ const EntrepreneurRegistration: React.FC = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Form.Group>
-            {/* Dropdowns for Province, Canton, District */}
-            {/* Replace with actual options */}
-            <Row className="mb-3">
-              <Col>
-                <Form.Select
-                  value={province}
-                  onChange={(e) => setProvince(e.target.value)}
-                >
-                  <option>Provincia</option>
-                </Form.Select>
-              </Col>
-              <Col>
-                <Form.Select
-                  value={canton}
-                  onChange={(e) => setCanton(e.target.value)}
-                >
-                  <option>Canton</option>
-                </Form.Select>
-              </Col>
-              <Col>
-                <Form.Select
-                  value={district}
-                  onChange={(e) => setDistrict(e.target.value)}
-                >
-                  <option>Distrito</option>
-                </Form.Select>
-              </Col>
-            </Row>
             <Form.Group controlId="formFile" className="mb-4">
               <Form.Control
                 type="file"
