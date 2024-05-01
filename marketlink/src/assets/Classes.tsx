@@ -49,3 +49,77 @@ export class Entrepreneur {
         this.province = province;
     }
 }
+
+export class Administrator {
+    email: string;
+    hashedPassword: string;
+    name: string;
+
+    constructor(email: string, hashedPassword: string, name: string) {
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+        this.name = name;
+    }
+}
+
+export class Cart {
+    userId: string;
+
+    constructor(userId: string) {
+        this.userId = userId;
+    }
+}
+
+export class CartItem {
+    cartId: string;
+    priceAtAddition: number;
+    productId: string;
+    quantity: number;
+
+    constructor(cartId: string, priceAtAddition: number, productId: string, quantity: number) {
+        this.cartId = cartId;
+        this.priceAtAddition = priceAtAddition;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+}
+
+export class PaymentMethod {
+    token: string;
+    type: string;
+    userId: string;
+
+    constructor(token: string, type: string, userId: string) {
+        this.token = token;
+        this.type = type;
+        this.userId = userId;
+    }
+}
+
+export class Transaction {
+    paymentMethodId: string;
+    totalPaid: number;
+    transactionDate: Date;
+    userId: string;
+
+    constructor(paymentMethodId: string, totalPaid: number, transactionDate: Date, userId: string) {
+        this.paymentMethodId = paymentMethodId;
+        this.totalPaid = totalPaid;
+        this.transactionDate = transactionDate;
+        this.userId = userId;
+    }
+}
+
+export class TransactionItem {
+    priceAtPurchase: number;
+    productId: string;
+    quantity: number;
+    transactionId: string;
+
+    constructor(priceAtPurchase: number, productId: string, quantity: number, transactionId: string) {
+        this.priceAtPurchase = priceAtPurchase;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.transactionId = transactionId;
+    }
+}
