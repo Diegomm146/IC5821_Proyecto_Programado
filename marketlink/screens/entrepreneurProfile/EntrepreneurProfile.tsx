@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Container, Row, Col, Button, Card, Image } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card, Image, Stack } from 'react-bootstrap';
 import styles from './EntrepreneurProfile.module.css';
 import EntrepreneurContext from '../../util/EntrepreneurContext';
 
@@ -21,49 +21,57 @@ const EntrepreneurProfile: React.FC = () => {
     console.log('Entrepreneur data:', entrepreneur);
   }, [entrepreneur]);
 
-  if (!entrepreneur) {
-    return <div>Loading...</div>;
-  }
 
   return (
-    <Container className={styles.container}>
-      <Row className={styles.profileRow}>
-        <Col md={4} className={styles.profileImageCol}>
-          <Image src={entrepreneur.logoURL || '/path/to/default/image.png'} roundedCircle width="100%" />
-        </Col>
-        <Col md={8}>
-          <Card className={styles.profileCard}>
-            <Card.Body>
-              <Card.Title>{entrepreneur.name}</Card.Title>
-              <Card.Text>
-                <strong>Email:</strong> {entrepreneur.email}<br />
-                <strong>Phone Number:</strong> {entrepreneur.phoneNumber}<br />
-                <strong>Description:</strong> {entrepreneur.description}<br />
-                <strong>Location:</strong> {`${entrepreneur.province}, ${entrepreneur.canton}, ${entrepreneur.district}`}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Row className={styles.productRow}>
-        <h3>Nuestros productos</h3>
-        <Button variant="primary" className={styles.addButton}>Add Product</Button>
-      </Row>
-      <Row xs={1} md={2} lg={4} className="g-4">
-        {products.map((product) => (
-          <Col key={product.id}>
-            <Card className={styles.productCard}>
-              <Card.Img variant="top" src={product.imageUrl} />
+    <body className={styles.EntreprenerurProfilecontainer}>
+      <div>
+        <Row>
+          <Col md={{ span: 3, offset: 3 }} >
+            <Card style={{border:"none"}}>
+              <Card.Img variant="top" src="../../defaultpp.png" />
               <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Text>${product.price}</Card.Text>
+                <Card.Title className={styles.nameEntrepreneurProfile}>Nombre Emprendedor</Card.Title>
               </Card.Body>
             </Card>
           </Col>
-        ))}
-      </Row>
-    </Container>
+          <Col md={4} className={styles.descEntrepreneurProfile}>
+            <p style={{margin:"auto"}}>
+              Aquí puedes añadir la descripción del emprendedor. Este texto puede ser tan extenso como sea necesario y se ajustará a este lado de la tarjeta.
+            </p>
+          </Col>
+        </Row>
+      </div>
+      <div>
+        <h2 className={styles.titleEntrepreneurProfile}>Nuestros Productos</h2>
+      </div>
+      <div>
+        <Container className={styles.EntreprenerurProfileProducts}>
+          <Stack direction="horizontal" gap={2} className={styles.horizontalWrapperEntrepreneurProfile}>
+            {products.map((product) => (
+              <Item key={product.id} name={product.name} price={product.price} imageUrl={product.imageUrl} />
+            ))}
+          </Stack>
+        </Container>
+      </div>
+    </body>
   );
 };
-
+interface ItemProps {
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+const Item: React.FunctionComponent<ItemProps> = ({ name, price, imageUrl }) => {
+  return (
+    <div className={styles.itemContainerEntrepreneurProfile}>
+      <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
+        <img src={'../../defaultproduct.png'}  className={styles.imgItemEntrepreneurProfile} />
+      </a>
+      <div className={styles.productDetails}>
+        <p className={styles.textItemEntrepreneurProfile}>{name}</p>
+        <p className={styles.textItemEntrepreneurProfile}>${price.toFixed(2)}</p>
+      </div>
+    </div>
+  );
+};
 export default EntrepreneurProfile;

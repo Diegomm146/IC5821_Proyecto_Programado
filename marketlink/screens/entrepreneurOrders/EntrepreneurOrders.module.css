@@ -1,0 +1,26 @@
+.mainContainerEntrepreneurOrders {
+    background: #E4ECE5;
+    text-align: center;
+    width: 80%;
+    padding-top: 150px;
+    height: 100vh; 
+    margin: 0 auto; 
+    display: grid;
+}
+
+.titleEntrepreneurOrders{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 36px;
+    align-items: center;
+    color: #244242;
+}
+
+
+.btnEntrepreneurOrders {
+    font-family: 'Inter', sans-serif;    
+    border-radius: 31px;
+    font-weight: bold; 
+    width: 80px;
+}

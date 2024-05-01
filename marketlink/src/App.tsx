@@ -12,6 +12,9 @@ import ClientOrders from '../screens/clientOrders/ClientOrders';
 import Cart from '../screens/cart/Cart';
 import Home from '../screens/home/Home';
 import EntrepreneurProfile from '../screens/entrepreneurProfile/EntrepreneurProfile';
+import EntrepreneurOrders from '../screens/entrepreneurOrders/EntrepreneurOrders';
+import CreateProduct from '../screens/createProduct/CreateProduct';
+import EditProduct from '../screens/editProduct/EditProduct';
 
 function App() {
   return (
@@ -27,7 +30,10 @@ function App() {
       <Route path="/home" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
       {/* */}
       <Route path="/entrepreneur-profile" element={<LayoutWithHeaderAndFooter><EntrepreneurProfile /></LayoutWithHeaderAndFooter>} />
+      <Route path="/entrepreneur-orders" element={<LayoutWithHeaderAndFooter><EntrepreneurOrders /></LayoutWithHeaderAndFooter>} />
+      <Route path="/create-product" element={<LayoutWithHeaderAndFooter><CreateProduct /></LayoutWithHeaderAndFooter>} />
       <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
+      <Route path="/edit-product" element={<LayoutWithHeaderAndFooter><EditProduct /></LayoutWithHeaderAndFooter>} />
     </Routes>
   );
 }

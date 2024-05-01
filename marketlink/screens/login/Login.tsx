@@ -43,7 +43,7 @@ const Login: FunctionComponent = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <input 
-                    id="txtContra" type="text" className={`${styles.inputs}`} placeholder="Contraseña" 
+                    id="txtContra" type="password" className={`${styles.inputs}`} placeholder="Contraseña" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
