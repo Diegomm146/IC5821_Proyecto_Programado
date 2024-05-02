@@ -1,4 +1,4 @@
-import { setDoc, collection, getDocs, addDoc, query, where, deleteDoc } from 'firebase/firestore';
+import { setDoc, collection, getDocs, addDoc, query, where, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
 import { User, Product, Entrepreneur, Cart, CartItem, CartItemData, Transaction, TransactionItem } from './Classes'; 
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
@@ -111,7 +111,7 @@ const getCart = async (userId: string): Promise<Cart> => {
     return new Cart(cart.docs[0].id, userId);
 }
 
-const getProduct = async (productId: string): Promise<Product> => {
+export const getProduct = async (productId: string): Promise<Product> => {
     const productRef = doc(db, "Product", productId);
     const productDoc = await getDoc(productRef);
     if (!productDoc.exists()) {
@@ -273,3 +273,24 @@ export const checkItemAvailability = async (productId: string, quantity: number)
     }
     return product.stock >= quantity;
 }
+
+  export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
+    console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
+    const productRef = doc(db, "Product", productId);
+
+    // Crear una copia de updatedProductData limpiando valores undefined
+    const cleanData: any = {};
+    Object.keys(updatedProductData).forEach(key => {
+        if (updatedProductData[key] !== undefined) { // Solo añadir propiedades definidas
+            cleanData[key] = updatedProductData[key];
+        }
+    });
+
+    try {
+        await updateDoc(productRef, cleanData);
+        console.log("Product updated successfully");
+    } catch (error) {
+        console.error("Failed to update product:", error);
+        throw new Error("Failed to update product");
+    }
+};
