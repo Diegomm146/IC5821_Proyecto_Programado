@@ -34,12 +34,12 @@ function App() {
         <Route path="/" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register-client" element={<RegisterClient />} />
-        <Route path="/client-profile" element={<ClientProfile />} />
+        <Route path="/client-profile" element={<LayoutWithHeaderAndFooter><ClientProfile /></LayoutWithHeaderAndFooter>} />
         <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
-        <Route path="/product-view" element={<ProductView />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/client-orders" element={<ClientOrders />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/product-view" element={<LayoutWithHeaderAndFooter><ProductView /></LayoutWithHeaderAndFooter>} />
+        <Route path="/checkout" element={<LayoutWithHeaderAndFooter><Checkout /></LayoutWithHeaderAndFooter>} />
+        <Route path="/client-orders" element={<LayoutWithHeaderAndFooter><ClientOrders /></LayoutWithHeaderAndFooter>} />
+        <Route path="/cart" element={<LayoutWithHeaderAndFooter><Cart /></LayoutWithHeaderAndFooter>} />
         <Route path="/entrepreneur-profile" element={<EntrepreneurProfile />} />
         <Route path="/entrepreneur-orders" element={<LayoutWithHeaderAndFooter><EntrepreneurOrders /></LayoutWithHeaderAndFooter>} />
         <Route path="/create-product" element={<LayoutWithHeaderAndFooter><CreateProduct /></LayoutWithHeaderAndFooter>} />

@@ -36,7 +36,7 @@ const Header = () => {
               <Dropdown.Item as={Link} to="/register-client">Client</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Button variant="outline-light" className="mx-2">
+          <Button variant="outline-light" className="mx-2" href='/cart'>
             <Cart color="white" size={30} />
           </Button>
           <Button variant="outline-light">
