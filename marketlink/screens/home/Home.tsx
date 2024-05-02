@@ -5,6 +5,7 @@ import { Stack } from "react-bootstrap";
 import { auth } from "../../src/firebase/firebaseConfig";
 import { getProducts, getEntrepreneurs } from "../../src/assets/Api";
 import { Product, Entrepreneur } from "../../src/assets/Classes";
+import { useNavigate } from 'react-router-dom';
 
 
 const Home: FunctionComponent = () => {
@@ -26,6 +27,8 @@ const Home: FunctionComponent = () => {
     fetchData();
   }, []);
 
+
+
   return (
     <div className={styles.mainContainerHome}>
       <div>
@@ -33,7 +36,7 @@ const Home: FunctionComponent = () => {
         <Stack direction="horizontal" gap={2} className={styles.horizontalScroll}>
   {products.map(product => (
     <Item 
-      key={product.id}
+      productId={product.id}
       name={product.name}
       price={product.price}
       imagesURL={product.imagesURL}  
@@ -57,16 +60,26 @@ const Home: FunctionComponent = () => {
   );
 };
 
+
+
 interface ItemProps {
+  productId: string;
   name: string;
   price: number;
-  imagesURL: string[];  // Usamos un arreglo de strings
+  imagesURL: string[];
 }
 
-const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL }) => {
+const Item: React.FunctionComponent<ItemProps> = ({ productId, name, price, imagesURL }) => {
+  const navigate = useNavigate();
+
+  // Correctly handle the click event
+  const viewProduct = () => {
+    navigate(`/product-view/${productId}`);
+  };
+
   return (
     <div className={styles.itemContainer}>
-      <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
+      <a href="#!" onClick={viewProduct}> {/* Using #! to prevent default link behavior */}
         <img src={imagesURL[0] || '../../defaultproduct.png'} className={styles.imgItemHome} alt={name} />
       </a>
       <div className={styles.productDetails}>

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { db, auth } from "../../src/firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { toast } from 'react-toastify';
 
 const RegisterClient: FunctionComponent = () => {
   const [userName, setUserName] = useState(""); 
@@ -29,13 +30,12 @@ const RegisterClient: FunctionComponent = () => {
       await addDoc(collection(db, "Cart"), {
         user: doc(db, "User", user.uid)
       });
-      
+      toast.success("User registered successfully!");
       window.location.href = "/login";
     } catch (error:any) {
-      console.error("Error in user registration:", error);
-
       let errorMessage = "";
-      console.log(error.errorMessage);
+
+
       switch (error.code) {
         case "auth/weak-password":
           errorMessage = "The password is too weak. Please choose a stronger password.";
@@ -52,6 +52,7 @@ const RegisterClient: FunctionComponent = () => {
         default:
           errorMessage = "An error occurred during registration. Please try again later.";
       }
+      toast.error(errorMessage);
 
       setError(errorMessage);
     }
