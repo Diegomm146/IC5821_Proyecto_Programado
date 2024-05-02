@@ -17,7 +17,6 @@ import CreateProduct from '../screens/createProduct/CreateProduct';
 import EditProduct from '../screens/editProduct/EditProduct';
 import { ToastContainer } from 'react-toastify';
 
-// componente que contiene header y footer para separar aquellas pantallas que no lo requierien
 function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
   return (
     <div>

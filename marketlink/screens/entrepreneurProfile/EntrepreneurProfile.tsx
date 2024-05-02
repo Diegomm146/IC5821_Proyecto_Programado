@@ -1,31 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import styles from './EntrepreneurProfile.module.css';
-import { Entrepreneur } from '../../src/assets/Classes';
+import { Entrepreneur, Product } from '../../src/assets/Classes';
+import { getProductsByEntrepreneur } from '../../src/assets/Api';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-};
-
-const products: Product[] = [
-];
 
 interface ItemProps {
   name: string;
   price: number;
-  imageUrl: string;
+  imagesURL: string[];  // Cambia esto para aceptar un arreglo de strings
 }
 
-const Item: React.FunctionComponent<ItemProps> = ({ name, price, imageUrl }) => {
+const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL }) => {
+  console.log('Rendering Item:', name);  // Log the name to see if items are being rendered
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
       <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
-        <img src={imageUrl || '../../defaultproduct.png'} className={styles.imgItemEntrepreneurProfile} />
+        <img src={imagesURL[0] || '../../defaultproduct.png'} className={styles.imgItemEntrepreneurProfile} />
       </a>
       <div className={styles.productDetails}>
         <p className={styles.textItemEntrepreneurProfile}>{name}</p>
@@ -37,26 +29,47 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imageUrl }) => 
 
 const EntrepreneurProfile: React.FC = () => {
   const [entrepreneur, setEntrepreneur] = useState<Entrepreneur | null>(null);
-  const navigate = useNavigate();  
+  const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('Checking local storage for user data...');
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
-      const userData = JSON.parse(userDataString) as Entrepreneur;
-      setEntrepreneur(userData);
+        const userData = JSON.parse(userDataString);
+        console.log('Loaded entrepreneur data:', userData);
+        setEntrepreneur(userData);
+        console.log('Fetching products for entrepreneur UID:', userData.uid);
+        if (userData.uid) {
+            getProductsByEntrepreneur(userData.uid)
+                .then(products => {
+                    console.log('Loaded products:', products);
+                    setProducts(products);
+                })
+                .catch(error => {
+                    console.error('Failed to fetch products:', error);
+                });
+        } else {
+            console.error('No UID found on the entrepreneur data.');
+        }
+    } else {
+        console.error('No entrepreneur data found in local storage.');
     }
-  }, []);
+}, []);
+
 
   const handleCreateProductClick = () => {
-    navigate('/create-product'); 
+    navigate('/create-product');
   };
+
   if (!entrepreneur) {
+    console.log('No entrepreneur data available, displaying loading screen.');
     return <Container className="text-center py-5"><h1>Loading...</h1></Container>;
   }
 
   return (
     <Container className={styles.EntrepreneurProfileContainer} fluid>
-      <Row className="justify-content-center">
+      <Row className="justify-content-center mt-4">
         <Col md={6}>
           <Card className={styles.profileCard}>
             <Card.Body>
@@ -75,19 +88,17 @@ const EntrepreneurProfile: React.FC = () => {
             </Card.Body>
           </Card>
         </Col>
-      </Row>
-      <Row className="justify-content-center mt-4">
         <Col md={10}>
-        <h2 className={styles.titleEntrepreneurProfile}>
-        Nuestros Productos 
-        <Button variant="success" onClick={handleCreateProductClick}>
-          <FaPlus />
-        </Button>
-      </h2>
+          <h2 className={styles.titleEntrepreneurProfile}>
+            Nuestros Productos 
+            <Button variant="success" onClick={handleCreateProductClick}>
+              <FaPlus />
+            </Button>
+          </h2>
           <Row>
             {products.map(product => (
               <Col xs={6} md={4} lg={3} key={product.id}>
-                <Item name={product.name} price={product.price} imageUrl={product.imageUrl} />
+                <Item name={product.name} price={product.price} imagesURL={product.imagesURL} />
               </Col>
             ))}
           </Row>

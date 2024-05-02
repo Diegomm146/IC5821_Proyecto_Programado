@@ -1,4 +1,4 @@
-import { setDoc, collection, getDocs, addDoc } from 'firebase/firestore';
+import { setDoc, collection, getDocs, addDoc, query, where } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
 import { User, Product, Entrepreneur } from './Classes'; 
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
@@ -101,5 +101,34 @@ export const addProduct = async (product: Product): Promise<void> => {
         console.log("Product added successfully with auto-generated ID:", docRef.id);
     } catch (error) {
         console.error("Error adding product:", error);
+    }
+};
+
+export const getProductsByEntrepreneur = async (entrepreneurId: string): Promise<Product[]> => {
+    try {
+        const productsRef = collection(db, "Product");
+        const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);  // Crea la referencia
+        const q = query(productsRef, where("entrepreneur", "==", entrepreneurRef));  // Utiliza la referencia en la consulta
+        const querySnapshot = await getDocs(q);
+
+        const products = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            // Asigna el entrepreneurId en lugar de la referencia para facilitar su uso en el cliente
+            return new Product(
+                doc.id,
+                data.category,
+                data.description,
+                entrepreneurId,  // Usa el ID en lugar de la referencia
+                data.imagesURL,
+                data.name,
+                data.price,
+                data.stock
+            );
+        });
+        
+        return products;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw new Error("Unable to fetch products");
     }
 };

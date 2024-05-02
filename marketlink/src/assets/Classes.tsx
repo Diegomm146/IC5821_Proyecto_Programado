@@ -15,7 +15,7 @@ export class Product {
     category: string;
     description: string;
     entrepreneur: string;
-    imagesURL: string[];  // Cambiado de string a string[]
+    imagesURL: string[];  
     name: string;
     price: number;
     stock: number;
@@ -25,7 +25,7 @@ export class Product {
         category: string, 
         description: string, 
         entrepreneur: string, 
-        imagesURL: string[],  // Cambiado de string a string[]
+        imagesURL: string[],  
         name: string, 
         price: number, 
         stock: number
