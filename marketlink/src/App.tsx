@@ -43,8 +43,7 @@ function App() {
         <Route path="/entrepreneur-profile" element={<EntrepreneurProfile />} />
         <Route path="/entrepreneur-orders" element={<LayoutWithHeaderAndFooter><EntrepreneurOrders /></LayoutWithHeaderAndFooter>} />
         <Route path="/create-product" element={<LayoutWithHeaderAndFooter><CreateProduct /></LayoutWithHeaderAndFooter>} />
-        <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
-        <Route path="/edit-product" element={<LayoutWithHeaderAndFooter><EditProduct /></LayoutWithHeaderAndFooter>} />
+        <Route path="/edit-product/:productId" element={<LayoutWithHeaderAndFooter><EditProduct /></LayoutWithHeaderAndFooter>} /> {/* Modificado para incluir parámetro */}
       </Routes>
       <ToastContainer position="top-center" />
     </>
