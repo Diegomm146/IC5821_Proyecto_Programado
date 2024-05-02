@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
-import styles from './EntrepreneurProfile.module.css';
-import { Entrepreneur, Product } from '../../src/assets/Classes';
-import { getProductsByEntrepreneur } from '../../src/assets/Api';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { Entrepreneur, Product } from '../../src/assets/Classes';
+import { getProductsByEntrepreneur } from '../../src/assets/Api';
+import styles from './EntrepreneurProfile.module.css';
 
 interface ItemProps {
   name: string;
   price: number;
-  imagesURL: string[];  // Cambia esto para aceptar un arreglo de strings
+  imagesURL: string[];
+  onEdit: (productId: string) => void;  // Añadir callback para edición
 }
 
-const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL }) => {
+const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEdit }) => {
   console.log('Rendering Item:', name);  // Log the name to see if items are being rendered
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
@@ -22,6 +23,7 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL }) =>
       <div className={styles.productDetails}>
         <p className={styles.textItemEntrepreneurProfile}>{name}</p>
         <p className={styles.textItemEntrepreneurProfile}>${price.toFixed(2)}</p>
+        <Button variant="outline-primary" onClick={() => onEdit("")} className="mt-2">Editar</Button>
       </div>
     </div>
   );
@@ -55,15 +57,17 @@ const EntrepreneurProfile: React.FC = () => {
     } else {
         console.error('No entrepreneur data found in local storage.');
     }
-}, []);
+  }, []);
 
+  const handleEditProduct = (productId: string) => {
+    navigate(`/edit-product/${productId}`);
+  };
 
   const handleCreateProductClick = () => {
     navigate('/create-product');
   };
 
   if (!entrepreneur) {
-    console.log('No entrepreneur data available, displaying loading screen.');
     return <Container className="text-center py-5"><h1>Loading...</h1></Container>;
   }
 
@@ -98,7 +102,7 @@ const EntrepreneurProfile: React.FC = () => {
           <Row>
             {products.map(product => (
               <Col xs={6} md={4} lg={3} key={product.id}>
-                <Item name={product.name} price={product.price} imagesURL={product.imagesURL} />
+                <Item name={product.name} price={product.price} imagesURL={product.imagesURL} onEdit={() => handleEditProduct(product.id)} />
               </Col>
             ))}
           </Row>
