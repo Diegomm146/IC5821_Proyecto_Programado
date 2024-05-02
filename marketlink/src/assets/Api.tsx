@@ -1,6 +1,6 @@
-import { setDoc, collection, getDocs, addDoc } from 'firebase/firestore';
+import { setDoc, collection, getDocs, addDoc, query, where, deleteDoc } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
-import { User, Product, Entrepreneur } from './Classes'; 
+import { User, Product, Entrepreneur, Cart, CartItem, CartItemData } from './Classes'; 
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -59,7 +59,7 @@ export const signIn = async (email: string, password: string) => {
                 localStorage.setItem('userData', JSON.stringify(userDataWithId)); 
                 return {
                     type: userData.type,
-                    route: getRouteForUser(userData.type)
+                    route: getRouteForUser(collection)
                 };
             }
         }
@@ -74,11 +74,11 @@ export const signIn = async (email: string, password: string) => {
 
 const getRouteForUser = (type: string) => {
     switch (type) {
-        case "entrepreneur":
+        case "Entrepreneur":
             return "/entrepreneur-profile";
-        case "user":
-            return "/user-dashboard";
-        case "administrator":
+        case "User":
+            return "/client-profile";
+        case "Administrator":
             return "/admin-dashboard";
         default:
             console.error("Unknown user type");
@@ -104,3 +104,70 @@ export const addProduct = async (product: Product): Promise<void> => {
         console.error("Error adding product:", error);
     }
 };
+
+const getCart = async (userId: string): Promise<Cart> => {
+    const userRef = doc(db, "User", userId);
+    const cartsQuery = query(collection(db, "Cart"), where("user", "==", userRef));
+    const cart = await getDocs(cartsQuery);
+    return new Cart(cart.docs[0].id, userId);
+}
+
+const getProduct = async (productId: string): Promise<Product> => {
+    const productRef = doc(db, "Product", productId);
+    const productDoc = await getDoc(productRef);
+    if (!productDoc.exists()) {
+        return new Product("", "", "", "", [], "", 0, 0);
+    }
+    const productData = productDoc.data();
+    return new Product(productId, productData.category, productData.description, productData.entrepreneur, productData.imagesURL, productData.name, productData.price, productData.stock);
+}
+
+const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> => {
+    const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);
+    const entrepreneurDoc = await getDoc(entrepreneurRef);
+    if (!entrepreneurDoc.exists()) {
+        return new Entrepreneur("", "", "", "", "", "");
+    }
+    const entrepreneurData = entrepreneurDoc.data();
+    return new Entrepreneur(entrepreneurId, entrepreneurData.description, entrepreneurData.email, entrepreneurData.logoURL, entrepreneurData.name, entrepreneurData.phoneNumber);
+}
+
+export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
+    const cart = await getCart(userId);
+    const q = query(collection(db, "CartItem"), where("cart", "==", doc(db, "Cart", cart.id)));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+        console.log("No cart items found");
+        return [];
+    }
+
+    const cartItemsDetails: CartItemData[] = [];
+
+    for (const doc of querySnapshot.docs) {
+        const cartItem = doc.data();
+        const product = await getProduct(cartItem.product.id);
+
+        const entrepreneur = await getEntrepreneur(product.entrepreneur.id);
+
+        cartItemsDetails.push(new CartItemData(
+            doc.id,
+            product.name,
+            product.imagesURL[0],
+            entrepreneur.name,  
+            cartItem.priceAtAddition,
+            cartItem.quantity
+        ));
+    }
+
+    return cartItemsDetails;
+};
+
+export const deleteCartItem = async (cartItemId: string): Promise<void> => {
+    try {
+        await deleteDoc(doc(db, "CartItem", cartItemId));
+        console.log("Document successfully deleted");
+    } catch (error) {
+        console.error("Error removing document: ", error);
+    }
+}

@@ -73,10 +73,12 @@ export class Administrator {
 }
 
 export class Cart {
+    id: string;
     userId: string;
 
-    constructor(userId: string) {
+    constructor(id: string, userId: string) {
         this.userId = userId;
+        this.id = id;
     }
 }
 
@@ -131,5 +133,24 @@ export class TransactionItem {
         this.productId = productId;
         this.quantity = quantity;
         this.transactionId = transactionId;
+    }
+}
+
+
+export class CartItemData {
+    id: string;            
+    productName: string;   
+    productImage: string; 
+    entrepreneurName: string; 
+    price: number;         
+    quantity: number;       
+
+    constructor(id: string, productImage: string, productName: string, entrepreneurName: string, price: number, quantity: number) {
+        this.id = id;
+        this.productName = productName;
+        this.productImage = productImage;
+        this.entrepreneurName = entrepreneurName;
+        this.price = price;
+        this.quantity = quantity;
     }
 }

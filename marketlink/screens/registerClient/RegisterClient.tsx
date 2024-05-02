@@ -3,7 +3,7 @@ import styles from "./RegisterClient.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { db, auth } from "../../src/firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 const RegisterClient: FunctionComponent = () => {
   const [userName, setUserName] = useState(""); 
@@ -26,13 +26,16 @@ const RegisterClient: FunctionComponent = () => {
       });
       console.log("Firestore document set for user:", user.uid);
 
+      await addDoc(collection(db, "Cart"), {
+        user: doc(db, "User", user.uid)
+      });
       
       window.location.href = "/login";
     } catch (error:any) {
       console.error("Error in user registration:", error);
 
       let errorMessage = "";
-
+      console.log(error.errorMessage);
       switch (error.code) {
         case "auth/weak-password":
           errorMessage = "The password is too weak. Please choose a stronger password.";

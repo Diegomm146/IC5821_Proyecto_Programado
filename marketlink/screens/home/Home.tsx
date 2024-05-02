@@ -66,7 +66,7 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imageUrl }) => 
   return (
     <div className={styles.itemContainer}>
       <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
-        <img src={'../../defaultproduct.png'}  className={styles.imgItemHome} />
+        <img src={imageUrl || '../../defaultproduct.png'}  className={styles.imgItemHome} />
       </a>
       <div className={styles.productDetails}>
         <p className={styles.textItemHome}>{name}</p>
