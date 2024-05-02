@@ -5,27 +5,43 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {auth} from "../../src/firebase/firebaseConfig";
 import { getCartItems, deleteCartItem } from "../../src/assets/Api";
 import { CartItem, CartItemData} from "../../src/assets/Classes";
-import { useNavigate } from 'react-router-dom';
-  
+import { redirect, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const Cart: FunctionComponent = () => {
     const [cartItems, setCartItems] = useState<CartItemData[]>([]);
     const navigate = useNavigate();
+    const [uid, setUid] = useState<string>("");
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log(user.uid);
+            setUid(user.uid);
+        } else { 
+          redirect("/login");
+          return;
+        }
+    });
 
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const items = await getCartItems(auth.currentUser?.uid || "");
-                console.log("Cart items:", items);
-                setCartItems(items);
+                if(uid !== ""){
+                    console.log(uid)
+                    const items = await getCartItems(uid);
+                    console.log("Cart items:");
+                    setCartItems(items);
+                }
             } catch (error) {
-                console.error("Error fetching cart items:", error);
+                toast.error("Error fetching cart items:" + error);
             }
         };
         fetchCartItems();
-    }, []);
+    }, [uid]);
 
     const handleDelete = (cartItemId: string) => {
         deleteCartItem(cartItemId).then(() => {
@@ -35,7 +51,7 @@ const Cart: FunctionComponent = () => {
 
     const handleCompletePurchase = () => {
         if (cartItems.length === 0 || cartItems.every(item => item.quantity === 0)) {
-            alert("Your cart is empty!");
+            toast.error("Your cart is empty!");
             return;
         }
         navigate('/checkout');
@@ -72,6 +88,7 @@ const Cart: FunctionComponent = () => {
 
 
 const CartItemComponent: React.FunctionComponent<{ item: CartItemData, onDelete: () => void }> = ({ item, onDelete }) => {
+    console.log(item)
     return (
         <ListGroup.Item>
             <Row style={{ margin: "10px" }}>

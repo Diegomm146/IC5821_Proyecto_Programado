@@ -1,10 +1,12 @@
 import {  useState , FormEvent } from "react";
-import { signIn } from '../../src/assets/Api.tsx';
+import { getUserByEmail, signIn } from '../../src/assets/Api.tsx';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./Login.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router-dom';
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../src/firebase/firebaseConfig.tsx";
 
 interface LoginResult {
   error?: string;
@@ -45,6 +47,21 @@ const Login: React.FC = () => {
     }
   };
 
+  const handlePasswordReset = async () => {
+    const user = await getUserByEmail(email);
+    if (user.email != "") {
+      try {
+        await sendPasswordResetEmail(auth, user.email);
+        toast.info("Password reset email sent!");
+      } catch (error) {
+        toast.error("Failed to send password reset email:" + error);
+        alert("Failed to send password reset email.");
+      }
+    } else {
+      alert("User email not registered!");
+    }
+  };
+
   return (
     <div className={styles.loginContainer}>
       <div className="container-fluid h-100">
@@ -69,6 +86,7 @@ const Login: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <button type="submit" className={`${styles.botonTransparente}`} style={{ width: "15%" }}>Submit</button>
+                  <button className={`${styles.botonTransparente}`} style={{ width: "15%" }} onClick={handlePasswordReset}>Change Password</button>
               </form>
             </div>
           </div>

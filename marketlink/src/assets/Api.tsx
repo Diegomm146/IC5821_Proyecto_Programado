@@ -1,6 +1,6 @@
 import { setDoc, collection, getDocs, addDoc, query, where, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
-import { User, Product, Entrepreneur, Cart, CartItem, CartItemData } from './Classes'; 
+import { User, Product, Entrepreneur, Cart, CartItem, CartItemData, Transaction, TransactionItem } from './Classes'; 
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -133,9 +133,8 @@ const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> =>
 
 export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
     const cart = await getCart(userId);
-    const q = query(collection(db, "CartItem"), where("cart", "==", doc(db, "Cart", cart.id)));
+    const q = query(collection(db, "CartItem"), where("cartId", "==", doc(db, "Cart", cart.id)));
     const querySnapshot = await getDocs(q);
-
     if (querySnapshot.empty) {
         console.log("No cart items found");
         return [];
@@ -145,14 +144,15 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
 
     for (const doc of querySnapshot.docs) {
         const cartItem = doc.data();
-        const product = await getProduct(cartItem.product.id);
-
+        const product = await getProduct(cartItem.productId.id);
+        const productName = product.name;
+        const productImage = product.imagesURL[0];
         const entrepreneur = await getEntrepreneur(product.entrepreneur.id);
-
+        console.log(productName)
         cartItemsDetails.push(new CartItemData(
             doc.id,
-            product.name,
-            product.imagesURL[0],
+            productImage,
+            productName,
             entrepreneur.name,  
             cartItem.priceAtAddition,
             cartItem.quantity
@@ -200,7 +200,60 @@ export const getProductsByEntrepreneur = async (entrepreneurId: string): Promise
     }
 };
 
-export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
+export const getUser = async (userId: string): Promise<User> => {
+    const userRef = doc(db, "User", userId);
+    const userDoc = await getDoc(userRef);
+    if (!userDoc.exists()) {
+        return new User("", "", "");
+    }
+    const userData = userDoc.data();
+    return new User(userId, userData.email, userData.name);
+};
+
+export const getUserByEmail = async (email: string): Promise<User> => {
+    const q = query(collection(db, "User"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+        return new User("", "", "");
+    }
+    const userData = querySnapshot.docs[0].data();
+    return new User(querySnapshot.docs[0].id, userData.email, userData.name);
+}
+
+export const getProductById = async (productId: string): Promise<Product | null> => {
+    const productRef = doc(db, "Product", productId);
+    const productDoc = await getDoc(productRef);
+
+    if (!productDoc.exists()) {
+        console.log("No product found with ID:", productId);
+        return null;  
+    }
+
+    const productData = productDoc.data();
+    return new Product(
+        productDoc.id,
+        productData.category,
+        productData.description,
+        productData.entrepreneur,
+        productData.imagesURL,
+        productData.name,
+        productData.price,
+        productData.stock
+    );
+};
+
+export const addCartItem = async (userId: string, priceAtAddition: number, productId: string, quantity: number): Promise<void> => {
+    const cart = await getCart(userId);
+
+    const cartItemsRef = collection(db, "CartItem");
+    await addDoc(cartItemsRef, {
+        cartId: doc(db, "Cart", cart.id),
+        productId: doc(db, "Product", productId),
+        priceAtAddition: priceAtAddition,
+        quantity: quantity
+    });
+
+  export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
     console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
     const productRef = doc(db, "Product", productId);
 
