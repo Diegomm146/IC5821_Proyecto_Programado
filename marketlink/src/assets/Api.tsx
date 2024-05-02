@@ -88,14 +88,13 @@ const getRouteForUser = (type: string) => {
 
 export const addProduct = async (product: Product): Promise<void> => {
     try {
-        // Convertimos el ID del entrepreneur en una referencia
+    
         const entrepreneurRef = doc(db, "Entrepreneur", product.entrepreneur);
 
-        // Preparamos los datos del producto para Firestore, reemplazando el ID del entrepreneur por la referencia
         const productData = {
             ...product,
             entrepreneur: entrepreneurRef,
-            imagesURL: product.imagesURL.join(','), // Asumiendo que quieres almacenar las URLs como una cadena única
+            imagesURL: product.imagesURL.join(','),
         };
 
         const docRef = await addDoc(collection(db, "Product"), productData);
@@ -171,3 +170,32 @@ export const deleteCartItem = async (cartItemId: string): Promise<void> => {
         console.error("Error removing document: ", error);
     }
 }
+
+export const getProductsByEntrepreneur = async (entrepreneurId: string): Promise<Product[]> => {
+    try {
+        const productsRef = collection(db, "Product");
+        const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);  // Crea la referencia
+        const q = query(productsRef, where("entrepreneur", "==", entrepreneurRef));  // Utiliza la referencia en la consulta
+        const querySnapshot = await getDocs(q);
+
+        const products = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            // Asigna el entrepreneurId en lugar de la referencia para facilitar su uso en el cliente
+            return new Product(
+                doc.id,
+                data.category,
+                data.description,
+                entrepreneurId,  // Usa el ID en lugar de la referencia
+                data.imagesURL,
+                data.name,
+                data.price,
+                data.stock
+            );
+        });
+        
+        return products;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw new Error("Unable to fetch products");
+    }
+};

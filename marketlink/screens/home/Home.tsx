@@ -31,15 +31,15 @@ const Home: FunctionComponent = () => {
       <div>
         <h1 className={styles.titles}>Featured Products</h1>
         <Stack direction="horizontal" gap={2} className={styles.horizontalScroll}>
-          {products.map(product => (
-            <Item 
-              key={product.id}
-              name={product.name}
-              price={product.price}
-              imageUrl={product.imagesURL}
-            />
-          ))}
-        </Stack>
+  {products.map(product => (
+    <Item 
+      key={product.id}
+      name={product.name}
+      price={product.price}
+      imagesURL={product.imagesURL}  
+    />
+  ))}
+</Stack>
       </div>
       <div>
         <h1 className={styles.titles}>Meet Our Shelves</h1>
@@ -60,13 +60,14 @@ const Home: FunctionComponent = () => {
 interface ItemProps {
   name: string;
   price: number;
-  imageUrl: string;
+  imagesURL: string[];  // Usamos un arreglo de strings
 }
-const Item: React.FunctionComponent<ItemProps> = ({ name, price, imageUrl }) => {
+
+const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL }) => {
   return (
     <div className={styles.itemContainer}>
       <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
-        <img src={imageUrl || '../../defaultproduct.png'}  className={styles.imgItemHome} />
+        <img src={imagesURL[0] || '../../defaultproduct.png'} className={styles.imgItemHome} alt={name} />
       </a>
       <div className={styles.productDetails}>
         <p className={styles.textItemHome}>{name}</p>
@@ -75,6 +76,7 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imageUrl }) => 
     </div>
   );
 };
+
 
 interface EntrepreneurProps {
   name: string;
