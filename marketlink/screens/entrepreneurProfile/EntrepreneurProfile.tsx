@@ -13,7 +13,6 @@ type Product = {
 };
 
 const products: Product[] = [
-  // Datos de productos
 ];
 
 interface ItemProps {
@@ -38,7 +37,7 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imageUrl }) => 
 
 const EntrepreneurProfile: React.FC = () => {
   const [entrepreneur, setEntrepreneur] = useState<Entrepreneur | null>(null);
-  const navigate = useNavigate();  // Hook para la navegación
+  const navigate = useNavigate();  
 
   useEffect(() => {
     const userDataString = localStorage.getItem('userData');
@@ -49,7 +48,7 @@ const EntrepreneurProfile: React.FC = () => {
   }, []);
 
   const handleCreateProductClick = () => {
-    navigate('/create-product');  // Redirecciona a la página de creación de producto
+    navigate('/create-product'); 
   };
   if (!entrepreneur) {
     return <Container className="text-center py-5"><h1>Loading...</h1></Container>;

@@ -88,14 +88,13 @@ const getRouteForUser = (type: string) => {
 
 export const addProduct = async (product: Product): Promise<void> => {
     try {
-        // Convertimos el ID del entrepreneur en una referencia
+    
         const entrepreneurRef = doc(db, "Entrepreneur", product.entrepreneur);
 
-        // Preparamos los datos del producto para Firestore, reemplazando el ID del entrepreneur por la referencia
         const productData = {
             ...product,
             entrepreneur: entrepreneurRef,
-            imagesURL: product.imagesURL.join(','), // Asumiendo que quieres almacenar las URLs como una cadena única
+            imagesURL: product.imagesURL.join(','),
         };
 
         const docRef = await addDoc(collection(db, "Product"), productData);
