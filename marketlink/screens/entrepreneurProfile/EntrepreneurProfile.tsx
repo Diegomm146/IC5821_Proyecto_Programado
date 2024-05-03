@@ -18,7 +18,12 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEd
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
       <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
-        <img src={imagesURL[0] || '../../defaultproduct.png'} className={styles.imgItemEntrepreneurProfile} />
+        <img 
+          src={imagesURL[0] || '../../defaultproduct.png'} 
+          className={styles.imgItemEntrepreneurProfile} 
+          alt={name}
+          style={{ maxWidth: "100px", maxHeight: "100px", display: "block", margin: "auto" }}
+        />
       </a>
       <div className={styles.productDetails}>
         <p className={styles.textItemEntrepreneurProfile}>{name}</p>

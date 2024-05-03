@@ -90,13 +90,12 @@ const getRouteForUser = (type: string) => {
 
 export const addProduct = async (product: Product): Promise<void> => {
     try {
-    
         const entrepreneurRef = doc(db, "Entrepreneur", product.entrepreneur);
 
+        // Mantén imagesURL como un array en lugar de convertirlo a string
         const productData = {
             ...product,
-            entrepreneur: entrepreneurRef,
-            imagesURL: product.imagesURL.join(','),
+            entrepreneur: entrepreneurRef
         };
 
         const docRef = await addDoc(collection(db, "Product"), productData);
@@ -105,6 +104,7 @@ export const addProduct = async (product: Product): Promise<void> => {
         console.error("Error adding product:", error);
     }
 };
+
 
 const getCart = async (userId: string): Promise<Cart> => {
     const userRef = doc(db, "User", userId);

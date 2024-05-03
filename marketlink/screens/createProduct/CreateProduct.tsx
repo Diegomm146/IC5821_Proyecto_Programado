@@ -29,15 +29,15 @@ const CreateProduct: React.FC = () => {
         if (event.target.files && event.target.files.length > 0) {
             const filesArray = Array.from(event.target.files).slice(0, 4);
             const storage = getStorage();
-
+    
             const uploadPromises = filesArray.map(file => {
                 const storageRef = ref(storage, `products/${Date.now()}-${file.name}`);
                 return uploadBytes(storageRef, file).then(snapshot => getDownloadURL(snapshot.ref));
             });
-
+    
             try {
                 const urls = await Promise.all(uploadPromises);
-                setImagesURL(prevUrls => [...prevUrls, ...urls]); 
+                setImagesURL(prevUrls => [...prevUrls, ...urls]);
             } catch (error) {
                 console.error("Error uploading files:", error);
             }
