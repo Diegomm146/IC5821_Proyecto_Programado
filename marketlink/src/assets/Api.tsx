@@ -35,9 +35,9 @@ export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void>
             phoneNumber: entrepreneur.phoneNumber,
             type: "entrepreneur"
         });
-        console.log("Entrepreneur added to Firestore with ID:", entrepreneur.id);
+        console.log("entrepreneur added to firestore with id:", entrepreneur.id);
     } catch (e) {
-        console.error("Error adding document: ", e);
+        console.error("error adding document: ", e);
     }
 };
 
@@ -45,9 +45,9 @@ export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void>
 export const signIn = async (email: string, password: string) => {
     const auth = getAuth();
     try {
-        console.log("Attempting sign in with email:", email);
+        console.log("attempting sign in with email:", email);
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("Signed in user UID:", userCredential.user.uid);
+        console.log("signed in user uid:", userCredential.user.uid);
 
         const collections = ['User', 'Entrepreneur', 'Administrator'];
         for (const collection of collections) {
@@ -56,7 +56,7 @@ export const signIn = async (email: string, password: string) => {
 
             if (docSnap.exists()) {
                 const userData = docSnap.data();
-                console.log(`User data from collection ${collection}:`, userData);
+                console.log(`user data from collection ${collection}:`, userData);
                 const userDataWithId = { ...userData, uid: userCredential.user.uid };
                 localStorage.setItem('userData', JSON.stringify(userDataWithId));
                 return {
@@ -66,14 +66,13 @@ export const signIn = async (email: string, password: string) => {
             }
         }
 
-        console.log("No user data available in any collection");
-        return { error: "No user data available" };
+        console.log("no user data available in any collection");
+        return { error: "no user data available" };
     } catch (error) {
-        console.error("Authentication failed:", error);
-        return { error: "Authentication failed. Please check your credentials and try again." };
+        console.error("authentication failed:", error);
+        return { error: "authentication failed. please check your credentials and try again." };
     }
 };
-
 
 const getRouteForUser = (type: string) => {
     switch (type) {
@@ -84,7 +83,7 @@ const getRouteForUser = (type: string) => {
         case "Administrator":
             return "/admin-dashboard";
         default:
-            console.error("Unknown user type");
+            console.error("unknown user type");
             return "/login";
     }
 };

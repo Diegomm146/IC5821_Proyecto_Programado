@@ -1,5 +1,3 @@
-// src/contexts/AuthContext.tsx
-
 import { createContext, useContext, ReactNode, useState, useEffect, Dispatch, SetStateAction } from 'react';
 
 interface User {
@@ -22,8 +20,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const storedUserData = localStorage.getItem('userData');
         if (storedUserData) {
-            console.log("Loading user data from local storage:", storedUserData);
-            setUser(JSON.parse(storedUserData));
+            const userData = JSON.parse(storedUserData);
+            setUser(userData);
+            console.log("User loaded from storage:", userData);
         }
     }, [setUser]);
 

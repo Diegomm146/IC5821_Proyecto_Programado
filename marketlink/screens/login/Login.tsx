@@ -1,13 +1,13 @@
-import {  useState , FormEvent } from "react";
-import { getUserByEmail, signIn } from '../../src/assets/Api.tsx';
+import { useState, FormEvent } from "react";
+import { signIn } from '../../src/assets/Api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./Login.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../src/firebase/firebaseConfig.tsx";
-import { AuthProvider, useAuth } from '../../util/AuthContext.tsx';
+import { auth } from "../../src/firebase/firebaseConfig";
+import { useAuth } from '../../util/AuthContext';
 
 interface LoginResult {
   error?: string;
@@ -21,53 +21,57 @@ const Login: React.FC = () => {
   const { setUser } = useAuth(); 
 
   const validateInputs = (): boolean => {
-      if (!email.trim() || !password.trim()) {
-          toast.error("Please complete both email and password fields.");
-          return false;
-      }
+    if (!email.trim() || !password.trim()) {
+        toast.error("Please complete both email and password fields.");
+        return false;
+    }
 
-      const emailRegex = /\S+@\S+\.\S+/;
-      if (!emailRegex.test(email)) {
-          toast.error("Please enter a valid email.");
-          return false;
-      }
-      return true;
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+        toast.error("Please enter a valid email.");
+        return false;
+    }
+    return true;
   };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
-    console.log("Login attempt with:", email, password);
-      event.preventDefault();
-      if (!validateInputs()) return;
+    console.log("Login attempt with:", email);  // Logging only email for privacy
+    event.preventDefault();
+    if (!validateInputs()) return;
 
+    try {
       const result: LoginResult = await signIn(email, password);
-if (result.error) {
-    toast.error(result.error);
-} else {
-    toast.success("Login successful");
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-        const userData = JSON.parse(storedUserData);
-        setUser(userData);  // Asegúrate de llamar a setUser con los datos recién obtenidos
-        console.log("User set after login:", userData);
+      if (result.error) {
+          toast.error(result.error);
+      } else {
+          toast.success("Login successful");
+          const storedUserData = localStorage.getItem('userData');
+          if (storedUserData) {
+              const userData = JSON.parse(storedUserData);
+              setUser(userData);
+              console.log("User set after login:", userData);
+          }
+          if (result.route) {
+              navigate(result.route);
+          }
+      }
+    } catch (error: any) {
+        const errorMessage = (error as Error).message || "An unknown error occurred.";
+        toast.error(errorMessage);
     }
-    if (result.route) {
-        navigate(result.route);
-    }
-}
   };
 
   const handlePasswordReset = async () => {
-    const user = await getUserByEmail(email);
-    if (user.email != "") {
-      try {
-        await sendPasswordResetEmail(auth, user.email);
-        toast.info("Password reset email sent!");
-      } catch (error) {
-        toast.error("Failed to send password reset email:" + error);
-        alert("Failed to send password reset email.");
-      }
-    } else {
-      alert("User email not registered!");
+    if (!email) {
+        toast.error("Please enter your email address first.");
+        return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.info("Password reset email sent!");
+    } catch (error: any) {
+      const errorMessage = (error as Error).message || "Failed to send password reset email.";
+      toast.error(errorMessage);
     }
   };
 
@@ -95,7 +99,7 @@ if (result.error) {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <button type="submit" className={`${styles.botonTransparente}`} style={{ width: "15%" }}>Submit</button>
-                  <button className={`${styles.botonTransparente}`} style={{ width: "15%" }} onClick={handlePasswordReset}>Change Password</button>
+                  <button type="button" className={`${styles.botonTransparente}`} style={{ width: "15%" }} onClick={handlePasswordReset}>Change Password</button>
               </form>
             </div>
           </div>
