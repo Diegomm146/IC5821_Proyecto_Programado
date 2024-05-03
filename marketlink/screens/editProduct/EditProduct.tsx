@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { getProduct, updateProduct } from '../../src/assets/Api';
-import { Product } from '../../src/assets/Classes'; // Verifica la correcta importación
+import { Product } from '../../src/assets/Classes'; 
 import { toast } from 'react-toastify';
 import styles from './EditProduct.module.css';
 
@@ -56,7 +56,7 @@ const EditProduct: React.FC = () => {
       await updateProduct(productId, product as Product);
       toast.success('Product updated successfully!');
       navigate('/entrepreneur-profile');
-    } catch (error) {
+    } catch (error: any) {
       toast.error(`Failed to update product: ${error.message}`);
     }
   };

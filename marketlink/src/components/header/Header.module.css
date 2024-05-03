@@ -1,11 +1,52 @@
 .header {
-    background-color: #244242; 
-    max-height: 80px;
-  }
+  background-color: #244242; /* Establece un color de fondo oscuro */
+  max-height: 80px; /* Limita la altura máxima del header */
+  padding: 0 15px; /* Agrega un poco de padding horizontal */
+  display: flex; /* Asegura que los elementos del header se alineen horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: space-between; /* Distribuye el espacio entre los elementos del header */
+}
 
 .whiteTextButton {
-  color: white; 
-  background-color: transparent; 
-  border: none; 
-  text-align: right; 
+  color: white; /* Establece el color del texto a blanco */
+  background-color: transparent; /* Hace que el fondo del botón sea transparente */
+  border: none; /* Elimina el borde del botón */
+  padding: 10px 20px; /* Añade padding para hacer el botón más grande y fácil de clickear */
+  cursor: pointer; /* Cambia el cursor a un puntero para indicar que es clickeable */
+  transition: color 0.3s; /* Suaviza la transición de colores */
+}
+
+.whiteTextButton:hover, .whiteTextButton:focus {
+  color: #aaf0d1; /* Cambia el color al pasar el mouse o enfocar para una mejor interactividad */
+  text-decoration: none; /* Elimina la subrayado del texto al enfocar o pasar el mouse */
+}
+
+/* Estilo adicional para otros elementos del header para mantener la consistencia */
+.nav-link {
+  color: white; /* Establece el color de todos los links a blanco */
+  transition: color 0.3s; /* Permite una transición suave del color */
+}
+
+.nav-link:hover {
+  color: #aaf0d1; /* Cambia el color al pasar el mouse */
+}
+
+.dropdown-menu {
+  background-color: #244242; /* Asegura que el fondo del menú desplegable coincida con el header */
+  border: none; /* Elimina el borde del menú desplegable */
+}
+
+.icon {
+  width: auto; /* Ajusta el ancho automáticamente basado en la altura */
+  height: 50px; /* Altura fija para todos los íconos */
+  padding: 5px; /* Espaciado alrededor de la imagen */
+  background-color: #244242; /* Color de fondo */
+}
+
+/* Asegúrate de que el contenedor de las imágenes tenga el tamaño adecuado */
+.icon-container {
+  display: flex; /* Utiliza flexbox para alinear los ítems horizontalmente */
+  justify-content: space-around; /* Distribuye el espacio alrededor de los ítems */
+  align-items: center; /* Centra los ítems verticalmente */
+  background-color: #244242; /* Fondo oscuro para el contenedor */
 }

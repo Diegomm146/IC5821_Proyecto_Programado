@@ -1,47 +1,41 @@
-import { Container, Navbar, Nav, Button, Dropdown } from 'react-bootstrap';
-import { Person, Cart } from 'react-bootstrap-icons';
+
+import React from 'react';
+import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './Header.module.css';
+import { AuthProvider, useAuth } from '../../../util/AuthContext';
+import styles from './Header.module.css'; 
 
 const Header = () => {
+  const { user, setUser } = useAuth();  
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    navigate('/login'); 
+  const handleLogout = () => {
+    console.log("Logging out user:", user);  // Añadir para ver qué usuario está siendo deslogueado
+    localStorage.removeItem('userData'); // Remueve la data del usuario de localStorage
+    setUser(null);  // Resetea el estado del usuario en el contexto
+    navigate('/login');  // Redirige al usuario a la página de login
   };
 
   return (
     <Navbar variant="dark" fixed="top" className={styles.header}>
       <Container>
         <Navbar.Brand as={Link} to="/">
-          <img
-            alt=""
-            src="/../../../image.png"
-            width="50"
-            height="50"
-            className="d-inline-block align-top"
-          />
-          {'Market Link'}
+          Market Link
         </Navbar.Brand>
         <Nav className="ml-auto">
-          <Button variant="outline-light" className="mx-2" onClick={handleLoginClick}>
-            <strong>Login</strong>
-          </Button>
-          <Dropdown>
-            <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
-              Register
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as={Link} to="/register-entrepreneur">Entrepreneur</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/register-client">Client</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Button variant="outline-light" className="mx-2" href='/cart'>
-            <Cart color="white" size={30} />
-          </Button>
-          <Button variant="outline-light">
-            <Person color="white" size={30} />
-          </Button>
+          {user && user.type === 'entrepreneur' ? (
+            <>
+              <Nav.Link as={Link} to="/entrepreneur-profile">Perfil</Nav.Link>
+              <Nav.Link as={Link} to="/create-product">Crear Producto</Nav.Link>
+              <Nav.Link as={Link} to="/entrepreneur-orders">Pedidos</Nav.Link>
+              <Button variant="outline-light" onClick={handleLogout}>Cerrar Sesión</Button>
+            </>
+          ) : (
+            <>
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/register-client">Registrar Cliente</Nav.Link>
+            </>
+          )}
         </Nav>
       </Container>
     </Navbar>

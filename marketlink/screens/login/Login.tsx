@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../src/firebase/firebaseConfig.tsx";
+import { AuthProvider, useAuth } from '../../util/AuthContext.tsx';
 
 interface LoginResult {
   error?: string;
@@ -17,34 +18,42 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const { setUser } = useAuth(); 
 
   const validateInputs = (): boolean => {
-    if (!email.trim() || !password.trim()) {
-      toast.error("Please complete both email and password fields.");
-      return false;
-    }
-    
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email.");
-      return false;
-    }
-    return true;
+      if (!email.trim() || !password.trim()) {
+          toast.error("Please complete both email and password fields.");
+          return false;
+      }
+
+      const emailRegex = /\S+@\S+\.\S+/;
+      if (!emailRegex.test(email)) {
+          toast.error("Please enter a valid email.");
+          return false;
+      }
+      return true;
   };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
-    event.preventDefault();
-    if (!validateInputs()) return;
+    console.log("Login attempt with:", email, password);
+      event.preventDefault();
+      if (!validateInputs()) return;
 
-    const result: LoginResult = await signIn(email, password);
-    if (result.error) {
-      toast.error(result.error);
-    } else {
-      toast.success("Login successful");
-      if (result.route) {
-        navigate(result.route);
-      }
+      const result: LoginResult = await signIn(email, password);
+if (result.error) {
+    toast.error(result.error);
+} else {
+    toast.success("Login successful");
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+        const userData = JSON.parse(storedUserData);
+        setUser(userData);  // Asegúrate de llamar a setUser con los datos recién obtenidos
+        console.log("User set after login:", userData);
     }
+    if (result.route) {
+        navigate(result.route);
+    }
+}
   };
 
   const handlePasswordReset = async () => {

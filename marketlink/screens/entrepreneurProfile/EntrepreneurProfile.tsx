@@ -10,11 +10,11 @@ interface ItemProps {
   name: string;
   price: number;
   imagesURL: string[];
-  onEdit: (productId: string) => void;  // Añadir callback para edición
+  onEdit: (productId: string) => void;  
 }
 
 const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEdit }) => {
-  console.log('Rendering Item:', name);  // Log the name to see if items are being rendered
+  console.log('Rendering Item:', name);  
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
       <a href={"/product-view"} target="_blank" rel="noopener noreferrer">

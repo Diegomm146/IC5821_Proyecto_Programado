@@ -45,18 +45,20 @@ export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void>
 export const signIn = async (email: string, password: string) => {
     const auth = getAuth();
     try {
+        console.log("Attempting sign in with email:", email);
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const uid = userCredential.user.uid;
+        console.log("Signed in user UID:", userCredential.user.uid);
 
         const collections = ['User', 'Entrepreneur', 'Administrator'];
         for (const collection of collections) {
-            const docRef = doc(db, collection, uid);
+            const docRef = doc(db, collection, userCredential.user.uid);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
                 const userData = docSnap.data();
-                const userDataWithId = { ...userData, uid }; 
-                localStorage.setItem('userData', JSON.stringify(userDataWithId)); 
+                console.log(`User data from collection ${collection}:`, userData);
+                const userDataWithId = { ...userData, uid: userCredential.user.uid };
+                localStorage.setItem('userData', JSON.stringify(userDataWithId));
                 return {
                     type: userData.type,
                     route: getRouteForUser(collection)
@@ -71,6 +73,7 @@ export const signIn = async (email: string, password: string) => {
         return { error: "Authentication failed. Please check your credentials and try again." };
     }
 };
+
 
 const getRouteForUser = (type: string) => {
     switch (type) {
@@ -131,8 +134,14 @@ const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> =>
     return new Entrepreneur(entrepreneurId, entrepreneurData.description, entrepreneurData.email, entrepreneurData.logoURL, entrepreneurData.name, entrepreneurData.phoneNumber);
 }
 
+
 export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
-    const cart = await getCart(userId);
+    const cart = await getCart(userId); 
+    if (!cart) {
+        console.log("No cart found for the user");
+        return [];
+    }
+
     const q = query(collection(db, "CartItem"), where("cartId", "==", doc(db, "Cart", cart.id)));
     const querySnapshot = await getDocs(q);
     if (querySnapshot.empty) {
@@ -143,16 +152,21 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
     const cartItemsDetails: CartItemData[] = [];
 
     for (const doc of querySnapshot.docs) {
-        const cartItem = doc.data();
-        const product = await getProduct(cartItem.productId.id);
-        const productName = product.name;
-        const productImage = product.imagesURL[0];
-        const entrepreneur = await getEntrepreneur(product.entrepreneur.id);
-        console.log(productName)
+        const cartItem = doc.data() as CartItem; 
+        const product = await getProduct(cartItem.productId);
+        if (!product) {
+            continue; 
+        }
+
+        const entrepreneur = await getEntrepreneur(product.entrepreneur);
+        if (!entrepreneur) {
+            continue; 
+        }
+
         cartItemsDetails.push(new CartItemData(
             doc.id,
-            productImage,
-            productName,
+            product.imagesURL[0], 
+            product.name,
             entrepreneur.name,  
             cartItem.priceAtAddition,
             cartItem.quantity
@@ -174,18 +188,17 @@ export const deleteCartItem = async (cartItemId: string): Promise<void> => {
 export const getProductsByEntrepreneur = async (entrepreneurId: string): Promise<Product[]> => {
     try {
         const productsRef = collection(db, "Product");
-        const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);  // Crea la referencia
-        const q = query(productsRef, where("entrepreneur", "==", entrepreneurRef));  // Utiliza la referencia en la consulta
+        const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);  
+        const q = query(productsRef, where("entrepreneur", "==", entrepreneurRef));  
         const querySnapshot = await getDocs(q);
 
         const products = querySnapshot.docs.map(doc => {
             const data = doc.data();
-            // Asigna el entrepreneurId en lugar de la referencia para facilitar su uso en el cliente
             return new Product(
                 doc.id,
                 data.category,
                 data.description,
-                entrepreneurId,  // Usa el ID en lugar de la referencia
+                entrepreneurId,  
                 data.imagesURL,
                 data.name,
                 data.price,
@@ -253,23 +266,25 @@ export const addCartItem = async (userId: string, priceAtAddition: number, produ
         quantity: quantity
     });
 
-  export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
-    console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
-    const productRef = doc(db, "Product", productId);
+     }
 
-    // Crear una copia de updatedProductData limpiando valores undefined
-    const cleanData: any = {};
-    Object.keys(updatedProductData).forEach(key => {
-        if (updatedProductData[key] !== undefined) { // Solo añadir propiedades definidas
-            cleanData[key] = updatedProductData[key];
+     export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
+        console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
+        const productRef = doc(db, "Product", productId);
+    
+        const cleanData: { [key: string]: any } = {}; 
+        Object.keys(updatedProductData).forEach(key => {
+            const value = updatedProductData[key as keyof Product];
+            if (value !== undefined) {
+                cleanData[key] = value as NonNullable<typeof value>;
+            }
+        });
+    
+        try {
+            await updateDoc(productRef, cleanData);
+            console.log("Product updated successfully");
+        } catch (error) {
+            console.error("Failed to update product:", error);
+            throw new Error("Failed to update product");
         }
-    });
-
-    try {
-        await updateDoc(productRef, cleanData);
-        console.log("Product updated successfully");
-    } catch (error) {
-        console.error("Failed to update product:", error);
-        throw new Error("Failed to update product");
-    }
-};
+    };
