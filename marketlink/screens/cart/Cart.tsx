@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { getCartItems, deleteCartItem } from "../../src/assets/Api";
+import { getCartItems, deleteCartItem, checkItemAvailability } from "../../src/assets/Api";
 import { CartItem, CartItemData} from "../../src/assets/Classes";
 import { redirect, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -49,13 +49,35 @@ const Cart: FunctionComponent = () => {
         });
       };
 
-    const handleCompletePurchase = () => {
+    const handleCompletePurchase = async () => {
+    
         if (cartItems.length === 0 || cartItems.every(item => item.quantity === 0)) {
             toast.error("Your cart is empty!");
             return;
         }
-        navigate('/checkout');
+    
+        try {
+            console.log(cartItems)
+
+            const availabilityPromises = cartItems.map(item =>
+                checkItemAvailability(item.id, item.quantity)
+            );
+            console.log(cartItems)
+
+            const results = await Promise.all(availabilityPromises);
+            
+            if (results.every(result => result)) {
+                navigate('/checkout');
+            } else {
+                console.log(results)
+                toast.error("One or more items in your cart cannot be fulfilled due to insufficient stock.");
+            }
+        } catch (error) {
+            console.error("Failed to check item availability:", error);
+            toast.error("Error checking item availability. Please try again.");
+        }
     };
+    
   return (  
     <html>
         <body className={styles.mainContainerCart}>

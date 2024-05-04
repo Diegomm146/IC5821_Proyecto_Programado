@@ -151,6 +151,14 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
     const cartItemsDetails: CartItemData[] = [];
 
     for (const doc of querySnapshot.docs) {
+        const cartItem = doc.data();
+        const product = await getProduct(cartItem.productId.id);
+        const productName = product.name;
+        const productImage = product.imagesURL[0];
+        console.log(product.entrepreneur);
+        const entrepreneur = await getEntrepreneur(product.entrepreneur.id);
+        console.log(productName)
+
         const cartItem = doc.data() as CartItem; 
         const product = await getProduct(cartItem.productId);
         if (!product) {
@@ -264,6 +272,26 @@ export const addCartItem = async (userId: string, priceAtAddition: number, produ
         priceAtAddition: priceAtAddition,
         quantity: quantity
     });
+};
+
+export const getEntrepreneurByCartItemId = async (cartItemId: string): Promise<Entrepreneur> => {
+    const cartItemRef = doc(db, "CartItem", cartItemId);
+    const cartItemDoc = await getDoc(cartItemRef);
+    if (!cartItemDoc.exists()) {
+        return new Entrepreneur("", "", "", "", "", "");
+    }
+    const cartItemData = cartItemDoc.data();
+    const product = await getProduct(cartItemData.productId.id);
+    return getEntrepreneur(product.entrepreneur.id);
+}
+
+export const checkItemAvailability = async (productId: string, quantity: number): Promise<boolean> => {
+    const product = await getProductById(productId);
+    if (!product) {
+        return false;
+    }
+    return product.stock >= quantity;
+}
 
      }
 
@@ -286,4 +314,5 @@ export const addCartItem = async (userId: string, priceAtAddition: number, produ
             console.error("Failed to update product:", error);
             throw new Error("Failed to update product");
         }
+
     };
