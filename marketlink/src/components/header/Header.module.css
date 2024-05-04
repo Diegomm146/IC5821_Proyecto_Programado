@@ -1,11 +1,57 @@
+/* Estilo base para el header */
 .header {
-    background-color: #244242; 
-    max-height: 80px;
-  }
+  min-height: 70px;
+  background-color: #244242;
+  max-height: 100px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-.whiteTextButton {
-  color: white; 
-  background-color: transparent; 
-  border: none; 
-  text-align: right; 
+
+/* Estilos para botones y enlaces del Navbar */
+.whiteTextButton, .nav-link {
+  color: white;
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.whiteTextButton:hover, .whiteTextButton:focus, .nav-link:hover, .nav-link:focus {
+  color: #2fc07f;
+  text-decoration: none;
+}
+
+.icon, .nav-link svg {
+  margin-right: 8px; /* Añade un pequeño espacio entre el ícono y el texto */
+}
+
+/* Ajustes para el menú de Nav, considerando responsividad */
+.custom-nav {
+  align-items: center;
+}
+
+/* Asegura que el menú desplegable se vea coherente con el diseño general */
+.dropdown-menu {
+  background-color: #244242;
+  border: none;
+}
+
+/* Estilos adicionales si es necesario */
+.icon {
+  height: 50px;
+  padding: 5px;
+  background-color: #244242;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #244242;
 }

@@ -1,9 +1,8 @@
-// EditProduct.tsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { getProduct, updateProduct } from '../../src/assets/Api';
-import { Product } from '../../src/assets/Classes'; // Verifica la correcta importación
+import { Product } from '../../src/assets/Classes';
 import { toast } from 'react-toastify';
 import styles from './EditProduct.module.css';
 
@@ -20,8 +19,10 @@ const EditProduct: React.FC = () => {
   const [product, setProduct] = useState<ProductFormState | null>(null);
   const navigate = useNavigate();
 
+  // Load product details on component mount
   useEffect(() => {
     if (productId) {
+      console.log('Loading product details for:', productId);
       getProduct(productId).then(productData => {
         if (productData) {
           setProduct({
@@ -38,6 +39,7 @@ const EditProduct: React.FC = () => {
     }
   }, [productId]);
 
+  // Update product state based on form changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setProduct(prev => ({
@@ -46,6 +48,7 @@ const EditProduct: React.FC = () => {
     }) as ProductFormState);
   };
 
+  // Save updated product details
   const handleSave = async () => {
     if (!product || !productId) {
       toast.error("Missing product information, please check all fields.");
@@ -56,15 +59,17 @@ const EditProduct: React.FC = () => {
       await updateProduct(productId, product as Product);
       toast.success('Product updated successfully!');
       navigate('/entrepreneur-profile');
-    } catch (error) {
+    } catch (error: any) {
       toast.error(`Failed to update product: ${error.message}`);
     }
   };
 
+  // Conditional rendering for loading state
   if (!product) {
     return <div>Loading...</div>;
   }
 
+  // Product edit form
   return (
     <Container className={styles.mainContainerEditProduct}>
       <Form>
@@ -72,13 +77,13 @@ const EditProduct: React.FC = () => {
           <Col md={6}>
             <Form.Group>
               <Form.Label>Nombre</Form.Label>
-              <Form.Control type="text" name="name" value={product?.name} onChange={handleChange} />
+              <Form.Control type="text" name="name" value={product?.name || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group>
               <Form.Label>Categoría</Form.Label>
-              <Form.Select name="category" value={product?.category} onChange={handleChange}>
+              <Form.Select name="category" value={product?.category || ''} onChange={handleChange}>
                 <option value="One">One</option>
                 <option value="Two">Two</option>
                 <option value="Three">Three</option>
@@ -90,13 +95,13 @@ const EditProduct: React.FC = () => {
           <Col md={6}>
             <Form.Group>
               <Form.Label>Precio</Form.Label>
-              <Form.Control type="number" name="price" value={product?.price.toString()} onChange={handleChange} />
+              <Form.Control type="number" name="price" value={product?.price.toString() || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group>
               <Form.Label>Stock</Form.Label>
-              <Form.Control type="number" name="stock" value={product?.stock.toString()} onChange={handleChange} />
+              <Form.Control type="number" name="stock" value={product?.stock.toString() || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
         </Row>
@@ -104,7 +109,7 @@ const EditProduct: React.FC = () => {
           <Col md={12}>
             <Form.Group>
               <Form.Label>Descripción</Form.Label>
-              <Form.Control as="textarea" rows={3} name="description" value={product?.description} onChange={handleChange} />
+              <Form.Control as="textarea" rows={3} name="description" value={product?.description || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
         </Row>
