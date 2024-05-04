@@ -17,7 +17,7 @@
 }
 
 .whiteTextButton:hover, .whiteTextButton:focus {
-  color: #aaf0d1; /* Cambia el color al pasar el mouse o enfocar para una mejor interactividad */
+  color: #2fc07f; /* Cambia el color al pasar el mouse o enfocar para una mejor interactividad */
   text-decoration: none; /* Elimina la subrayado del texto al enfocar o pasar el mouse */
 }
 

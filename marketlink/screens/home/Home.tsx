@@ -82,6 +82,8 @@ const Item: React.FunctionComponent<ItemProps> = ({ productId, name, price, imag
   );
 };
 
+
+
 interface EntrepreneurProps {
   name: string;
   logoUrl: string;
@@ -91,7 +93,7 @@ const EntrepreneurItem: React.FunctionComponent<EntrepreneurProps> = ({ name, lo
   return (
     <div className={styles.itemContainer}>
       <a href={"/entrepreneur-profile"} target="_blank" rel="noopener noreferrer">
-        <img src={logoUrl || '../../defaultentrepreneur.png'} className={styles.imgItemHome} alt={name} />
+        <img src={logoUrl || '../../defaultentrepreneur.png'} className={styles.imgItemEntrepreneur} alt={name} />
       </a>
       <div className={styles.productDetails}>
         <p className={styles.textItemHome}>{name}</p>

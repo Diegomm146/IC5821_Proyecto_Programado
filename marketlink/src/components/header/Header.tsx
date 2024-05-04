@@ -33,6 +33,7 @@ const Header = () => {
             <>
               <Nav.Link as={Link} to="/login" aria-label="Log In">Login</Nav.Link>
               <Nav.Link as={Link} to="/register-client" aria-label="Register Client">Registrar Cliente</Nav.Link>
+              <Nav.Link as={Link} to="/register-entrepreneur" aria-label="Register Entrepreneur">Registrar Emprendedor</Nav.Link>
             </>
           )}
         </Nav>

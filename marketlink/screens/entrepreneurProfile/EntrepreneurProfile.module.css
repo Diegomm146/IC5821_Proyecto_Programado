@@ -43,3 +43,13 @@
 .productGrid .card:hover {
   transform: translateY(-5px);
 }
+
+.imgItemEntrepreneurProfile {
+  min-height: 50px;
+  min-width: 50px;
+  max-width: 200px; 
+  max-height: 200px; 
+  display: block;   
+  margin: auto;      
+  border-radius: 10%; 
+}

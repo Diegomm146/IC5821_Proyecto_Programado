@@ -24,10 +24,21 @@
   text-align: left;
 }
 
+.imgItemEntrepreneur {
+  width: 100px;  /* Tamaño fijo para ancho */
+  height: 100px; /* Tamaño fijo para alto */
+  object-fit: cover;
+  border-radius: 10%; /* Ajusta según la estética deseada */
+}
+
+/* Modificación para las imágenes de los productos */
 .imgItemHome {
-  max-width: 175px; 
-  height: auto; 
-  border-radius: 10px;
+  width: auto;    /* Ancho automático para mantener la proporción */
+  max-width: 200px; /* Máximo ancho permitido */
+  height: auto;   /* Altura automática para mantener la proporción */
+  max-height: 200px; /* Máxima altura permitida */
+  object-fit: contain;
+  border-radius: 20%; /* Redondez existente */
 }
 
 .textItemHome {
