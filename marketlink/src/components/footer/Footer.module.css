@@ -3,27 +3,28 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #244242;  /* Replace with the actual color code from your image */
+  background-color: #244242;  
   padding: 20px 0;
-  z-index: 1000;  /* Ensures the footer is above other content */
+  z-index: 1000; 
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); 
 }
   
-.footer_button {
-    text-align: center;
-    font-family: 'Inter', sans-serif;    
-    background-color: transparent; 
-    border: 5px solid #83AF4B;
-    border-radius: 31px;
-    color: #83AF4B; 
-    margin: 0 auto;
-    font-weight: bold; 
-    width: 40%;
+.footerButton {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  background-color: transparent; 
+  border: 3px solid #83AF4B; 
+  border-radius: 20px; 
+  color: #83AF4B; 
+  margin: 0 auto;
+  font-weight: bold; 
+  width: auto;
+  padding: 8px 16px; 
+  transition: all 0.3s ease; 
 }
-  
 
-.footer_button:hover {
-    color: #E4ECE5;
-    border: 5px solid #E4ECE5;
-    background-color: #244242;
-  }
-  
+.footerButton:hover {
+  color: #E4ECE5;
+  background-color: #244242; 
+  border-color: #E4ECE5; 
+}

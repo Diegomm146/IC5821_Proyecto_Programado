@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../screens/login/Login';
 import RegisterClient from '../screens/registerClient/RegisterClient';
 import ClientProfile from '../screens/clientProfile/ClientProfile';
@@ -15,7 +15,7 @@ import EntrepreneurProfile from '../screens/entrepreneurProfile/EntrepreneurProf
 import EntrepreneurOrders from '../screens/entrepreneurOrders/EntrepreneurOrders';
 import CreateProduct from '../screens/createProduct/CreateProduct';
 import EditProduct from '../screens/editProduct/EditProduct';
-import { ToastContainer } from 'react-toastify';
+import { AuthProvider, useAuth } from '../util/AuthContext';
 
 function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
   return (
@@ -27,26 +27,37 @@ function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
   );
 }
 
+const PrivateRoute = ({ children }: { children: ReactNode }) => {
+  const { user } = useAuth();
+
+  console.log('current user in privateroute:', user);
+  if (!user || user.type !== 'entrepreneur') {
+      console.log('redirecting because user is not an entrepreneur:', user);
+      return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
+};
+
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register-client" element={<RegisterClient />} />
-        <Route path="/client-profile" element={<LayoutWithHeaderAndFooter><ClientProfile /></LayoutWithHeaderAndFooter>} />
         <Route path="/register-entrepreneur" element={<EntrepreneurRegistration />} />
+        <Route path="/client-profile" element={<LayoutWithHeaderAndFooter><ClientProfile /></LayoutWithHeaderAndFooter>} />
         <Route path="/product-view/:productId" element={<LayoutWithHeaderAndFooter><ProductView /></LayoutWithHeaderAndFooter>} />
         <Route path="/checkout" element={<LayoutWithHeaderAndFooter><Checkout /></LayoutWithHeaderAndFooter>} />
         <Route path="/client-orders" element={<LayoutWithHeaderAndFooter><ClientOrders /></LayoutWithHeaderAndFooter>} />
         <Route path="/cart" element={<LayoutWithHeaderAndFooter><Cart /></LayoutWithHeaderAndFooter>} />
-        <Route path="/entrepreneur-profile" element={<EntrepreneurProfile />} />
-        <Route path="/entrepreneur-orders" element={<LayoutWithHeaderAndFooter><EntrepreneurOrders /></LayoutWithHeaderAndFooter>} />
-        <Route path="/create-product" element={<LayoutWithHeaderAndFooter><CreateProduct /></LayoutWithHeaderAndFooter>} />
-        <Route path="/edit-product/:productId" element={<LayoutWithHeaderAndFooter><EditProduct /></LayoutWithHeaderAndFooter>} /> {/* Modificado para incluir parámetro */}
+        <Route path="/entrepreneur-profile" element={<PrivateRoute><LayoutWithHeaderAndFooter><EntrepreneurProfile /></LayoutWithHeaderAndFooter></PrivateRoute>} />
+        <Route path="/entrepreneur-orders" element={<PrivateRoute><LayoutWithHeaderAndFooter><EntrepreneurOrders /></LayoutWithHeaderAndFooter></PrivateRoute>} />
+        <Route path="/create-product" element={<PrivateRoute><LayoutWithHeaderAndFooter><CreateProduct /></LayoutWithHeaderAndFooter></PrivateRoute>} />
+        <Route path="/edit-product/:productId" element={<PrivateRoute><LayoutWithHeaderAndFooter><EditProduct /></LayoutWithHeaderAndFooter></PrivateRoute>} />
       </Routes>
-      <ToastContainer position="top-center" />
-    </>
+    </AuthProvider>
   );
 }
 

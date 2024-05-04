@@ -10,15 +10,20 @@ interface ItemProps {
   name: string;
   price: number;
   imagesURL: string[];
-  onEdit: (productId: string) => void;  // Añadir callback para edición
+  onEdit: (productId: string) => void;  
 }
 
 const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEdit }) => {
-  console.log('Rendering Item:', name);  // Log the name to see if items are being rendered
+  console.log('Rendering Item:', name);  
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
       <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
-        <img src={imagesURL[0] || '../../defaultproduct.png'} className={styles.imgItemEntrepreneurProfile} />
+        <img 
+          src={imagesURL[0] || '../../defaultproduct.png'} 
+          className={styles.imgItemEntrepreneurProfile} 
+          alt={name}
+          style={{ maxWidth: "100px", maxHeight: "100px", display: "block", margin: "auto" }}
+        />
       </a>
       <div className={styles.productDetails}>
         <p className={styles.textItemEntrepreneurProfile}>{name}</p>
