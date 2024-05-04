@@ -316,3 +316,25 @@ export const checkItemAvailability = async (productId: string, quantity: number)
         }
 
     };
+
+
+export const addTransaction = async (userId: string, cartItems: CartItemData[], total: number, shippingAddress: string, paymentMethod: string): Promise<void> => {
+    const userRef = doc(db, "User", userId);
+    const transactionRef = collection(db, "Transaction");
+
+    const transactionItems: TransactionItem[] = cartItems.map(cartItem => {
+        return {
+            productId: doc(db, "Product", cartItem.productId),
+            priceAtAddition: cartItem.priceAtAddition,
+            quantity: cartItem.quantity
+        };
+    });
+
+    await addDoc(transactionRef, {
+        user: userRef,
+        total: total,
+        shippingAddress: shippingAddress,
+        paymentMethod: paymentMethod,
+        items: transactionItems
+    });
+}
