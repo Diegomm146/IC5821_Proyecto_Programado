@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from 'react';
-import { Form, Row, Col, Button, FormLabel } from 'react-bootstrap';
-import { addProduct } from '../../src/assets/Api'; 
-import { Product } from '../../src/assets/Classes'; 
+import { Form, Row, Col, Button } from 'react-bootstrap';
+import { addProduct } from '../../src/assets/Api';
+import { Product } from '../../src/assets/Classes';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import styles from "./CreateProduct.module.css";
 
@@ -12,9 +12,15 @@ const CreateProduct: React.FC = () => {
     const [price, setPrice] = useState('');
     const [stock, setStock] = useState('');
     const [imagesURL, setImagesURL] = useState<string[]>([]);
+    const [hasError, setHasError] = useState(false);
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
+        if (!name || !category || !description || !price || !stock || imagesURL.length === 0) {
+            setHasError(true);
+            return;
+        }
+
         const entrepreneurData = localStorage.getItem('userData');
         if (entrepreneurData) {
             const { uid } = JSON.parse(entrepreneurData);
@@ -22,6 +28,7 @@ const CreateProduct: React.FC = () => {
             const numericStock = parseInt(stock);
             const newProduct = new Product('', category, description, uid, imagesURL, name, numericPrice, numericStock);
             await addProduct(newProduct);
+            setHasError(false);
         }
     };
 
@@ -47,18 +54,29 @@ const CreateProduct: React.FC = () => {
     return (
         <div className={styles.mainContainerCreateProduct}>
             <Form onSubmit={handleSubmit}>
-                <FormLabel><h1 className={styles.titleCreateProduct}>Crear Producto</h1></FormLabel>
-                <Row style={{ marginBottom: "5px" }}>
-                    <Col md={{ span: 3, offset: 2 }} style={{ border: "1px solid red" }}>
+                <h1 className={styles.titleCreateProduct}>Crear Producto</h1>
+                <Row className="mb-3">
+                    <Col md={6}>
                         <Form.Group>
                             <Form.Label className={styles.formLabelCreateProduct}>Nombre</Form.Label>
-                            <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                            <Form.Control
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className={name === "" && hasError ? "error" : ""}
+                                isInvalid={hasError && !name}
+                            />
                         </Form.Group>
                     </Col>
-                    <Col md={{ span: 3, offset: 2 }} style={{ border: "1px solid red" }}>
+                    <Col md={6}>
                         <Form.Group>
                             <Form.Label className={styles.formLabelCreateProduct}>Categoría</Form.Label>
-                            <Form.Select value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Default select example">
+                            <Form.Select
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                                className={category === "" && hasError ? "error" : ""}
+                                isInvalid={hasError && !category}
+                            >
                                 <option>Seleccione una opción</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
@@ -67,31 +85,57 @@ const CreateProduct: React.FC = () => {
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row style={{ marginBottom: "5px" }}>
-                    <Col md={{ span: 3, offset: 2 }} style={{ border: "1px solid red" }}>
+                <Row className="mb-3">
+                    <Col md={6}>
                         <Form.Group>
                             <Form.Label className={styles.formLabelCreateProduct}>Precio</Form.Label>
-                            <Form.Control type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+                            <Form.Control
+                                type="number"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                className={price === "" && hasError ? "error" : ""}
+                                isInvalid={hasError && !price}
+                            />
                         </Form.Group>
                     </Col>
-                    <Col md={{ span: 3, offset: 2 }} style={{ border: "1px solid red" }}>
+                    <Col md={6}>
                         <Form.Group>
                             <Form.Label className={styles.formLabelCreateProduct}>Cantidad disponible</Form.Label>
-                            <Form.Control type="number" value={stock} onChange={(e) => setStock(e.target.value)} />
+                            <Form.Control
+                                type="number"
+                                value={stock}
+                                onChange={(e) => setStock(e.target.value)}
+                                className={stock === "" && hasError ? "error" : ""}
+                                isInvalid={hasError && !stock}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row style={{ marginBottom: "5px" }}>
-                    <Col md={{ span: 3, offset: 2 }} style={{ border: "1px solid red" }}>
-                        <Form.Group className="mb-3" controlId="ControlTextarea">
+                <Row className="mb-3">
+                    <Col md={6}>
+                        <Form.Group controlId="ControlTextarea">
                             <Form.Label className={styles.formLabelCreateProduct}>Descripción</Form.Label>
-                            <Form.Control as="textarea" rows={3} value={description} onChange={(e) => setDescription(e.target.value)} />
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                className={description === "" && hasError ? "error" : ""}
+                                isInvalid={hasError && !description}
+                            />
                         </Form.Group>
                     </Col>
-                    <Col md={{ span: 3, offset: 2 }} style={{ border: "1px solid red" }}>
-                        <Form.Group className="mb-3" controlId="ControlTextarea">
+                    <Col md={6}>
+                        <Form.Group controlId="ControlTextarea">
                             <Form.Label className={styles.formLabelCreateProduct}>Imágenes</Form.Label>
-                            <Form.Control type="file" multiple onChange={handleFileChange} accept="image/*" />
+                            <Form.Control
+                                type="file"
+                                multiple
+                                onChange={handleFileChange}
+                                accept="image/*"
+                                className={imagesURL.length === 0 && hasError ? "error" : ""}
+                                isInvalid={hasError && imagesURL.length === 0}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>

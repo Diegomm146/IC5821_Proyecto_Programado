@@ -80,26 +80,44 @@ const Login: React.FC = () => {
       <div className="container-fluid h-100">
         <div className="row h-100">
           <div className="col">
-            <div className={`${styles.rows} row`} style={{height: "25%"}}>
-              <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px"}} />{'Market Link'}
+            <div className={`${styles.rows} row`} style={{ height: "25%" }}>
+              <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px" }} />
+              {'Market Link'}
             </div>
-            <div className={`${styles.rows} row`} style={{height: "15%"}}>
+            <div className={`${styles.rows} row`} style={{ height: "15%" }}>
               <h1 className={styles.iniciarSesion}>Login</h1>
             </div>
-            <div className={`${styles.rows} row`} style={{height: "30%"}}>
+            <div className={`${styles.rows} row`} style={{ height: "30%" }}>
               <form className={styles.formContainer} onSubmit={onSubmit}>
-                  <input 
-                    type="email" className={`${styles.inputs}`} placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <input 
-                    type="password" className={`${styles.inputs}`} placeholder="Password" 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <button type="submit" className={`${styles.botonTransparente}`} style={{ width: "15%" }}>Submit</button>
-                  <button type="button" className={`${styles.botonTransparente}`} style={{ width: "15%" }} onClick={handlePasswordReset}>Change Password</button>
+                <input 
+                  type="email" 
+                  className={styles.inputs} 
+                  placeholder="Email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <input 
+                  type="password" 
+                  className={styles.inputs} 
+                  placeholder="Password" 
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button 
+                  type="submit" 
+                  className={styles.botonTransparente} 
+                >
+                  Submit
+                </button>
+                <button 
+                  type="button" 
+                  className={styles.botonTransparente} 
+                  onClick={handlePasswordReset}
+                >
+                  Change Password
+                </button>
               </form>
             </div>
           </div>

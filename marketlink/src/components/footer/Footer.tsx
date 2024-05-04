@@ -1,6 +1,5 @@
-import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import styles from './Footer.module.css';  
+import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
@@ -8,13 +7,13 @@ const Footer = () => {
       <Container>
         <Row>
           <Col className="text-center">
-            <Button className={styles.footer_button}>About</Button>
+            <Button className={styles.footerButton}>About</Button>
           </Col>
           <Col className="text-center">
-            <Button className={styles.footer_button}>Community</Button>
+            <Button className={styles.footerButton}>Community</Button>
           </Col>
           <Col className="text-center">
-            <Button className={styles.footer_button}>Support</Button>
+            <Button className={styles.footerButton}>Support</Button>
           </Col>
         </Row>
       </Container>
