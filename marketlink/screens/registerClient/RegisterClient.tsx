@@ -24,6 +24,7 @@ const RegisterClient: FunctionComponent = () => {
       await setDoc(doc(db, "User", user.uid), {
         name: userName,
         email: email,
+        type: "client"
       });
       console.log("Firestore document set for user:", user.uid);
 

@@ -115,8 +115,10 @@ const getCart = async (userId: string): Promise<Cart> => {
 
 export const getProduct = async (productId: string): Promise<Product> => {
     const productRef = doc(db, "Product", productId);
+
     const productDoc = await getDoc(productRef);
     if (!productDoc.exists()) {
+        console.log("Estamos hechos ccacaca ! " + productId);
         return new Product("", "", "", "", [], "", 0, 0);
     }
     const productData = productDoc.data();
@@ -124,7 +126,7 @@ export const getProduct = async (productId: string): Promise<Product> => {
 }
 
 const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> => {
-    const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);
+    const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId.id);
     const entrepreneurDoc = await getDoc(entrepreneurRef);
     if (!entrepreneurDoc.exists()) {
         return new Entrepreneur("", "", "", "", "", "");
@@ -143,6 +145,8 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
 
     const q = query(collection(db, "CartItem"), where("cartId", "==", doc(db, "Cart", cart.id)));
     const querySnapshot = await getDocs(q);
+    console.log("Cart:", querySnapshot.empty)
+
     if (querySnapshot.empty) {
         console.log("No cart items found");
         return [];
@@ -151,35 +155,24 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
     const cartItemsDetails: CartItemData[] = [];
 
     for (const doc of querySnapshot.docs) {
-        const cartItem = doc.data();
-        const product = await getProduct(cartItem.productId.id);
-        const productName = product.name;
-        const productImage = product.imagesURL[0];
-        console.log(product.entrepreneur);
-        const entrepreneur = await getEntrepreneur(product.entrepreneur.id);
-        console.log(productName)
+        console.log(doc)
 
         const cartItem = doc.data() as CartItem; 
-        const product = await getProduct(cartItem.productId);
-        if (!product) {
-            continue; 
-        }
-
+        console.log(cartItem.productId.id)
+        const product = await getProduct(cartItem.productId.id);
+        const productName = product.name;
+        const productUrl = product.imagesURL[0];
         const entrepreneur = await getEntrepreneur(product.entrepreneur);
-        if (!entrepreneur) {
-            continue; 
-        }
-
+    
         cartItemsDetails.push(new CartItemData(
             doc.id,
-            product.imagesURL[0], 
-            product.name,
+            productName,
+            productUrl, 
             entrepreneur.name,  
             cartItem.priceAtAddition,
             cartItem.quantity
         ));
     }
-
     return cartItemsDetails;
 };
 
@@ -293,9 +286,8 @@ export const checkItemAvailability = async (productId: string, quantity: number)
     return product.stock >= quantity;
 }
 
-     }
 
-     export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
+export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
         console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
         const productRef = doc(db, "Product", productId);
     
@@ -315,26 +307,4 @@ export const checkItemAvailability = async (productId: string, quantity: number)
             throw new Error("Failed to update product");
         }
 
-    };
-
-
-export const addTransaction = async (userId: string, cartItems: CartItemData[], total: number, shippingAddress: string, paymentMethod: string): Promise<void> => {
-    const userRef = doc(db, "User", userId);
-    const transactionRef = collection(db, "Transaction");
-
-    const transactionItems: TransactionItem[] = cartItems.map(cartItem => {
-        return {
-            productId: doc(db, "Product", cartItem.productId),
-            priceAtAddition: cartItem.priceAtAddition,
-            quantity: cartItem.quantity
-        };
-    });
-
-    await addDoc(transactionRef, {
-        user: userRef,
-        total: total,
-        shippingAddress: shippingAddress,
-        paymentMethod: paymentMethod,
-        items: transactionItems
-    });
-}
+};

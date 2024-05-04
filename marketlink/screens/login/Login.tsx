@@ -63,15 +63,16 @@ const Login: React.FC = () => {
 
   const handlePasswordReset = async () => {
     if (!email) {
+        console.log("Please enter your email address first.")
         toast.error("Please enter your email address first.");
-        return;
-    }
-    try {
-      await sendPasswordResetEmail(auth, email);
-      toast.info("Password reset email sent!");
-    } catch (error: any) {
-      const errorMessage = (error as Error).message || "Failed to send password reset email.";
-      toast.error(errorMessage);
+    } else{
+      try {
+        await sendPasswordResetEmail(auth, email);
+        toast.info("Password reset email sent!");
+      } catch (error: any) {
+        const errorMessage = (error as Error).message || "Failed to send password reset email.";
+        toast.error(errorMessage);
+      }
     }
   };
 

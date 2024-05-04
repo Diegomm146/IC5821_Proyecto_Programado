@@ -31,9 +31,8 @@ const Cart: FunctionComponent = () => {
         const fetchCartItems = async () => {
             try {
                 if(uid !== ""){
-                    console.log(uid)
                     const items = await getCartItems(uid);
-                    console.log("Cart items:");
+                    console.log(items);
                     setCartItems(items);
                 }
             } catch (error) {
@@ -41,7 +40,7 @@ const Cart: FunctionComponent = () => {
             }
         };
         fetchCartItems();
-    }, [uid]);
+    }, [uid,cartItems]);
 
     const handleDelete = (cartItemId: string) => {
         deleteCartItem(cartItemId).then(() => {

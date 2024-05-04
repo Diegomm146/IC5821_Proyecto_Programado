@@ -2,14 +2,17 @@ import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../util/AuthContext';
 import styles from './Header.module.css'; 
-import { FaHome, FaUserCircle, FaPlusCircle, FaBoxOpen, FaSignInAlt, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaUserCircle, FaPlusCircle, FaBoxOpen, FaSignInAlt, FaUserPlus, FaSignOutAlt  } from 'react-icons/fa';
+import { CiShoppingCart } from "react-icons/ci";
+
 
 const Header = () => {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
-
+  console.log("User in header:", user)
+  console.log("Logging out user:", user?.type); 
+  console.log("user:", user); 
   const handleLogout = () => {
-    console.log("Logging out user:", user?.email); 
     localStorage.removeItem('userData'); 
     setUser(null);  
     navigate('/login'); 
@@ -29,6 +32,13 @@ const Header = () => {
           <Nav.Link as={Link} to="/create-product" className="nav-link" aria-label="Create Product"><FaPlusCircle /> Crear Producto</Nav.Link>
           <Nav.Link as={Link} to="/entrepreneur-orders" className="nav-link" aria-label="View Entrepreneur Orders"><FaBoxOpen /> Pedidos</Nav.Link>
           <Button variant="outline-light" className="whiteTextButton" onClick={handleLogout} aria-label="Log Out"><FaSignOutAlt /> Cerrar Sesión</Button>
+        </>
+      ) : user && user.type === 'client' ? (
+        <>
+          <Nav.Link as={Link} to="/client-profile" className="nav-link" aria-label="View Client Profile"><FaUserCircle /> Client Profile</Nav.Link>
+          <Nav.Link as={Link} to="/client-orders" className="nav-link" aria-label="View Client Orders"><FaBoxOpen /> Clients Orders</Nav.Link>
+          <Nav.Link as={Link} to="/cart" className="nav-link" aria-label="View Client Cart"><CiShoppingCart /> Cart</Nav.Link>
+          <Button variant="outline-light" className="whiteTextButton" onClick={handleLogout} aria-label="Log Out"><FaSignOutAlt /> Close Session</Button>
         </>
       ) : (
         <>

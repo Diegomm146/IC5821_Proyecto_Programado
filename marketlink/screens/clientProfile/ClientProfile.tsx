@@ -43,7 +43,7 @@ const ClientProfile: FunctionComponent = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [user, uid]);
 
   const handlePasswordReset = async () => {
     if (user && user.email) {
