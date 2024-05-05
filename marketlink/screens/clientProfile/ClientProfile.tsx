@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { getUser } from "../../src/assets/Api";
 import { User } from "../../src/assets/Classes";
 import { getAuth, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
+import { useNavigate } from 'react-router-dom'; // Make sure to import useNavigate
 import { toast } from 'react-toastify';
 import { redirect } from "react-router-dom";
 import { set } from "firebase/database";
@@ -15,35 +16,18 @@ import { set } from "firebase/database";
 
 const ClientProfile: FunctionComponent = () => {
   const [user, setUser] = useState<User>();
-  const [uid, setUid] = useState<string>("");
-
+  const navigate = useNavigate(); // Hook for navigation
   const auth = getAuth();
 
-  onAuthStateChanged(auth, (user) => {
-      if (user) {
-          setUid(user.uid);
-      } else { 
-        redirect("/login");
-        return;
-      }
-  });
-  
   useEffect(() => {
-    const fetchUser = async () => {
-      if (!auth.currentUser) {
-        redirect("/login");
-        return;
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUser(await getUser(user.uid));
+      } else { 
+        navigate("/login");
       }
-      try {
-        setUser(await getUser(uid));
-      } catch (error) {
-        toast.error("Failed to fetch user:" + error);
-        setUser(undefined); 
-      }
-    };
-
-    fetchUser();
-  }, [user, uid]);
+    });
+  }, [auth, navigate]);
 
   const handlePasswordReset = async () => {
     if (user && user.email) {
@@ -52,7 +36,6 @@ const ClientProfile: FunctionComponent = () => {
         toast.info("Password reset email sent!");
       } catch (error) {
         toast.error("Failed to send password reset email:" + error);
-        alert("Failed to send password reset email.");
       }
     } else {
       alert("User email not available!");
@@ -76,6 +59,7 @@ const ClientProfile: FunctionComponent = () => {
               </a>
             </Card.Body>
           </Card>
+          <Button className={styles.buttonClientProfile} onClick={() => navigate('/cart')}>Go to Cart</Button> {/* Button to navigate to Cart */}
           <Button className={styles.buttonClientProfile} onClick={handlePasswordReset}>Change Password</Button>{' '}
           <Button className={styles.buttonClientProfile} href="/client-orders">Orders</Button>{' '}
         </Stack>

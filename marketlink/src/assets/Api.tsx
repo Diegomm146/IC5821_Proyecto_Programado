@@ -5,27 +5,37 @@ import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
 export const getUsers = async (): Promise<User[]> => {
+    console.log("Fetching all users from Firestore");
     const querySnapshot = await getDocs(collection(db, "User"));
-    return querySnapshot.docs.map(doc => new User(doc.id, doc.data().email, doc.data().name));
+    const users = querySnapshot.docs.map(doc => new User(doc.id, doc.data().email, doc.data().name));
+    console.log("Fetched users:", users);
+    return users;
 }
 
 export const getProducts = async (): Promise<Product[]> => {
+    console.log("Fetching all products from Firestore");
     const querySnapshot = await getDocs(collection(db, "Product"));
-    return querySnapshot.docs.map(doc => {
+    const products = querySnapshot.docs.map(doc => {
         const data = doc.data();
         return new Product(doc.id, data.category, data.description, data.entrepreneur, data.imagesURL, data.name, data.price, data.stock);
     });
+    console.log("Fetched products:", products);
+    return products;
 }
 
 export const getEntrepreneurs = async (): Promise<Entrepreneur[]> => {
+    console.log("Fetching all entrepreneurs from Firestore");
     const querySnapshot = await getDocs(collection(db, "Entrepreneur"));
-    return querySnapshot.docs.map(doc => {
+    const entrepreneurs = querySnapshot.docs.map(doc => {
         const data = doc.data();
         return new Entrepreneur(doc.id, data.description, data.email, data.logoURL, data.name, data.phoneNumber);
     });
+    console.log("Fetched entrepreneurs:", entrepreneurs);
+    return entrepreneurs;
 };
 
 export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void> => {
+    console.log("Adding entrepreneur to Firestore:", entrepreneur);
     try {
         await setDoc(doc(db, "Entrepreneur", entrepreneur.id), {
             email: entrepreneur.email,
@@ -35,28 +45,28 @@ export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void>
             phoneNumber: entrepreneur.phoneNumber,
             type: "entrepreneur"
         });
-        console.log("entrepreneur added to firestore with id:", entrepreneur.id);
+        console.log("Entrepreneur added to firestore with ID:", entrepreneur.id);
     } catch (e) {
-        console.error("error adding document: ", e);
+        console.error("Error adding entrepreneur:", e);
     }
 };
 
-
 export const signIn = async (email: string, password: string) => {
     const auth = getAuth();
+    console.log("Attempting sign-in with email:", email);
     try {
-        console.log("attempting sign in with email:", email);
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("signed in user uid:", userCredential.user.uid);
+        console.log("Signed in user UID:", userCredential.user.uid);
 
         const collections = ['User', 'Entrepreneur', 'Administrator'];
         for (const collection of collections) {
+            console.log("Checking user data in collection:", collection);
             const docRef = doc(db, collection, userCredential.user.uid);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
+                console.log(`Found user data in collection ${collection}`);
                 const userData = docSnap.data();
-                console.log(`user data from collection ${collection}:`, userData);
                 const userDataWithId = { ...userData, uid: userCredential.user.uid };
                 localStorage.setItem('userData', JSON.stringify(userDataWithId));
                 return {
@@ -66,15 +76,16 @@ export const signIn = async (email: string, password: string) => {
             }
         }
 
-        console.log("no user data available in any collection");
+        console.log("No user data available in any collection");
         return { error: "no user data available" };
     } catch (error) {
-        console.error("authentication failed:", error);
+        console.error("Authentication failed:", error);
         return { error: "authentication failed. please check your credentials and try again." };
     }
 };
 
 const getRouteForUser = (type: string) => {
+    console.log("Determining route for user type:", type);
     switch (type) {
         case "Entrepreneur":
             return "/entrepreneur-profile";
@@ -83,10 +94,11 @@ const getRouteForUser = (type: string) => {
         case "Administrator":
             return "/admin-dashboard";
         default:
-            console.error("unknown user type");
+            console.error("Unknown user type:", type);
             return "/login";
     }
 };
+
 
 export const addProduct = async (product: Product): Promise<void> => {
     try {
@@ -106,12 +118,24 @@ export const addProduct = async (product: Product): Promise<void> => {
 };
 
 
-const getCart = async (userId: string): Promise<Cart> => {
-    const userRef = doc(db, "User", userId);
-    const cartsQuery = query(collection(db, "Cart"), where("user", "==", userRef));
-    const cart = await getDocs(cartsQuery);
-    return new Cart(cart.docs[0].id, userId);
+const getCart = async (userId: string): Promise<Cart | null> => {
+    try {
+        const userRef = doc(db, "User", userId);
+        const cartsQuery = query(collection(db, "Cart"), where("user", "==", userRef));
+        const cartSnapshot = await getDocs(cartsQuery);
+        
+        if (cartSnapshot.empty) {
+            console.log("No cart found for the user: " + userId);
+            return null;
+        }
+
+        return new Cart(cartSnapshot.docs[0].id, userId);
+    } catch (error) {
+        console.error("Failed to fetch cart for user " + userId + ":", error);
+        throw error; 
+    }
 }
+
 
 export const getProduct = async (productId: string): Promise<Product> => {
     const productRef = doc(db, "Product", productId);
@@ -186,37 +210,38 @@ export const deleteCartItem = async (cartItemId: string): Promise<void> => {
 }
 
 export const getProductsByEntrepreneur = async (entrepreneurId: string): Promise<Product[]> => {
+    console.log("Fetching products by entrepreneur ID:", entrepreneurId);
     try {
         const productsRef = collection(db, "Product");
-        const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);  
-        const q = query(productsRef, where("entrepreneur", "==", entrepreneurRef));  
+        const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);
+        const q = query(productsRef, where("entrepreneur", "==", entrepreneurRef));
         const querySnapshot = await getDocs(q);
-
-        const products = querySnapshot.docs.map(doc => {
+        console.log("Products fetched for entrepreneur ID:", entrepreneurId);
+        return querySnapshot.docs.map(doc => {
             const data = doc.data();
             return new Product(
                 doc.id,
                 data.category,
                 data.description,
-                entrepreneurId,  
+                entrepreneurId,
                 data.imagesURL,
                 data.name,
                 data.price,
                 data.stock
             );
         });
-        
-        return products;
     } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching products by entrepreneur:", error);
         throw new Error("Unable to fetch products");
     }
 };
 
 export const getUser = async (userId: string): Promise<User> => {
+    console.log("Fetching user by ID:", userId);
     const userRef = doc(db, "User", userId);
     const userDoc = await getDoc(userRef);
     if (!userDoc.exists()) {
+        console.log("No user found with ID:", userId);
         return new User("", "", "");
     }
     const userData = userDoc.data();
@@ -224,27 +249,28 @@ export const getUser = async (userId: string): Promise<User> => {
 };
 
 export const getUserByEmail = async (email: string): Promise<User> => {
+    console.log("Fetching user by email:", email);
     const q = query(collection(db, "User"), where("email", "==", email));
     const querySnapshot = await getDocs(q);
     if (querySnapshot.empty) {
+        console.log("No user found with email:", email);
         return new User("", "", "");
     }
     const userData = querySnapshot.docs[0].data();
     return new User(querySnapshot.docs[0].id, userData.email, userData.name);
-}
+};
 
 export const getProductById = async (productId: string): Promise<Product | null> => {
+    console.log("Fetching product by ID:", productId);
     const productRef = doc(db, "Product", productId);
     const productDoc = await getDoc(productRef);
-
     if (!productDoc.exists()) {
         console.log("No product found with ID:", productId);
-        return null;  
+        return null;
     }
-
     const productData = productDoc.data();
     return new Product(
-        productDoc.id,
+        productId,
         productData.category,
         productData.description,
         productData.entrepreneur,
@@ -256,8 +282,9 @@ export const getProductById = async (productId: string): Promise<Product | null>
 };
 
 export const addCartItem = async (userId: string, priceAtAddition: number, productId: string, quantity: number): Promise<void> => {
+    console.log("Adding cart item for user ID:", userId);
     const cart = await getCart(userId);
-
+    console.log("Cart found with ID:", cart.id);
     const cartItemsRef = collection(db, "CartItem");
     await addDoc(cartItemsRef, {
         cartId: doc(db, "Cart", cart.id),
@@ -265,46 +292,54 @@ export const addCartItem = async (userId: string, priceAtAddition: number, produ
         priceAtAddition: priceAtAddition,
         quantity: quantity
     });
+    console.log("Cart item added successfully for product ID:", productId);
 };
 
 export const getEntrepreneurByCartItemId = async (cartItemId: string): Promise<Entrepreneur> => {
+    console.log("Fetching entrepreneur for cart item ID:", cartItemId);
     const cartItemRef = doc(db, "CartItem", cartItemId);
     const cartItemDoc = await getDoc(cartItemRef);
     if (!cartItemDoc.exists()) {
+        console.log("No cart item found with ID:", cartItemId);
         return new Entrepreneur("", "", "", "", "", "");
     }
     const cartItemData = cartItemDoc.data();
-    const product = await getProduct(cartItemData.productId.id);
-    return getEntrepreneur(product.entrepreneur.id);
-}
+    const product = await getProductById(cartItemData.productId.id);
+    if (product) {
+        return getEntrepreneur(product.entrepreneur);
+    } else {
+        console.log("No product associated with cart item ID:", cartItemId);
+        return new Entrepreneur("", "", "", "", "", "");
+    }
+};
 
 export const checkItemAvailability = async (productId: string, quantity: number): Promise<boolean> => {
+    console.log("Checking availability for product ID:", productId, "Quantity:", quantity);
     const product = await getProductById(productId);
-    if (!product) {
+    if (product && product.stock >= quantity) {
+        console.log("Product is available:", productId);
+        return true;
+    } else {
+        console.log("Product is not available:", productId);
         return false;
     }
-    return product.stock >= quantity;
-}
-
+};
 
 export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
-        console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
-        const productRef = doc(db, "Product", productId);
-    
-        const cleanData: { [key: string]: any } = {}; 
-        Object.keys(updatedProductData).forEach(key => {
-            const value = updatedProductData[key as keyof Product];
-            if (value !== undefined) {
-                cleanData[key] = value as NonNullable<typeof value>;
-            }
-        });
-    
-        try {
-            await updateDoc(productRef, cleanData);
-            console.log("Product updated successfully");
-        } catch (error) {
-            console.error("Failed to update product:", error);
-            throw new Error("Failed to update product");
+    console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
+    const productRef = doc(db, "Product", productId);
+    const cleanData = {};
+    Object.keys(updatedProductData).forEach(key => {
+        const value = updatedProductData[key];
+        if (value !== undefined) {
+            cleanData[key] = value;
         }
-
+    });
+    try {
+        await updateDoc(productRef, cleanData);
+        console.log("Product updated successfully with ID:", productId);
+    } catch (error) {
+        console.error("Failed to update product with ID:", productId, "Error:", error);
+        throw new Error("Failed to update product");
+    }
 };

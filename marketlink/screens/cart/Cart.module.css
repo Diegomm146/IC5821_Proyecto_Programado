@@ -1,35 +1,56 @@
 .mainContainerCart {
     background: #E4ECE5;
-    text-align: center;
-    width: 80%;
-    padding-top: 150px;
-    height: 100vh; 
-    margin: 0 auto; 
-    display: grid;
+    padding-top: 20px;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.titleCart {
+    color: #244242;
+    margin-bottom: 20px;
+}
+
+.cartItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.imgProductoCart {
+    width: 100%;
+    max-width: 60px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.textCartItem {
+    font-family: 'Inter', sans-serif;
+    color: #244242;
+    font-weight: bold;
+}
+
 .buttonCart {
-    text-align: center;
-    font-family: 'Inter', sans-serif;    
-    background-color: transparent; 
-    border: 5px solid #244242;
+    background-color: #244242;
+    color: white;
     border-radius: 31px;
-    color: #244242; 
-    margin: 0 auto;
-    font-weight: bold; 
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
 }
-  
 
 .buttonCart:hover {
-    color: #83AF4B;
-    border: 5px solid #83AF4B;
-    background: transparent;
+    background-color: #83AF4B;
+    border-color: #83AF4B;
 }
 
-.textCartItem{
-    font-family: 'Inter', sans-serif;
-    font-weight: bold;
-    font-size: 16px;
-    color: #244242;
-    height:50%;
-    text-align:left;
+.deleteButton img {
+    width: 25px;
 }

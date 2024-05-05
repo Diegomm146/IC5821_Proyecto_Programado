@@ -5,9 +5,10 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import { getCartItems, deleteCartItem, checkItemAvailability } from "../../src/assets/Api";
-import { CartItem, CartItemData} from "../../src/assets/Classes";
-import { redirect, useNavigate } from 'react-router-dom';
+import { CartItem, CartItemData } from "../../src/assets/Classes";
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -17,128 +18,97 @@ const Cart: FunctionComponent = () => {
     const [uid, setUid] = useState<string>("");
     const auth = getAuth();
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log(user.uid);
-            setUid(user.uid);
-        } else { 
-          redirect("/login");
-          return;
-        }
-    });
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUid(user.uid);
+            } else {
+                navigate("/login");
+            }
+        });
+    }, [auth, navigate]);
 
     useEffect(() => {
         const fetchCartItems = async () => {
-            try {
-                if(uid !== ""){
+            if(uid !== ""){
+                try {
                     const items = await getCartItems(uid);
-                    console.log(items);
                     setCartItems(items);
+                } catch (error) {
+                    toast.error("Error fetching cart items: " + error.message);
                 }
-            } catch (error) {
-                toast.error("Error fetching cart items:" + error);
             }
         };
         fetchCartItems();
-    }, [uid,cartItems]);
+    }, [uid]);
 
-    const handleDelete = (cartItemId: string) => {
-        deleteCartItem(cartItemId).then(() => {
-          setCartItems(currentItems => currentItems.filter(item => item.id !== cartItemId));
-        });
-      };
+    const handleDelete = async (cartItemId: string) => {
+        try {
+            await deleteCartItem(cartItemId);
+            setCartItems(currentItems => currentItems.filter(item => item.id !== cartItemId));
+        } catch (error) {
+            toast.error("Failed to delete item: " + error.message);
+        }
+    };
 
     const handleCompletePurchase = async () => {
-    
-        if (cartItems.length === 0 || cartItems.every(item => item.quantity === 0)) {
+        if (cartItems.length === 0) {
             toast.error("Your cart is empty!");
             return;
         }
-    
+
         try {
-            console.log(cartItems)
-
-            const availabilityPromises = cartItems.map(item =>
-                checkItemAvailability(item.id, item.quantity)
+            const results = await Promise.all(
+                cartItems.map(item => checkItemAvailability(item.id, item.quantity))
             );
-            console.log(cartItems)
 
-            const results = await Promise.all(availabilityPromises);
-            
             if (results.every(result => result)) {
                 navigate('/checkout');
             } else {
-                console.log(results)
-                toast.error("One or more items in your cart cannot be fulfilled due to insufficient stock.");
+                toast.error("Some items are no longer available.");
             }
         } catch (error) {
-            console.error("Failed to check item availability:", error);
-            toast.error("Error checking item availability. Please try again.");
+            toast.error("Failed to complete purchase: " + error.message);
         }
     };
-    
-  return (  
-    <html>
-        <body className={styles.mainContainerCart}>
-            <Container>
-                <Row>
-                    <Col md={{ span: 7, offset: 1 }}>
-                        <h1 className={styles.titleCart}>Cart</h1>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={{ span: 7, offset: 1 }} style={{ paddingBottom: "50px", maxHeight: '700px', overflowY: 'auto' }}>
-                        <ListGroup>
-                            {cartItems.map((item) => (
-                                <CartItemComponent key={item.id} item={item} onDelete={() => handleDelete(item.id)} />
-                            ))}
-                        </ListGroup>
-                    </Col>
-                    <Col md={{ span: 3 }}>
-                        <h4 className={styles.titleCart}>
-                            Subtotal ({cartItems.length} Products): {cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
-                        </h4>
-                        <button className={styles.buttonCart} onClick={handleCompletePurchase}>Complete Purchase</button>
-                    </Col>
-                </Row>
-            </Container>
-        </body>
-    </html>
-  );
+
+    return (
+        <Container className={styles.mainContainerCart}>
+            <h1 className={styles.titleCart}>Cart</h1>
+            <ListGroup>
+                {cartItems.map((item) => (
+                    <CartItemComponent key={item.id} item={item} onDelete={() => handleDelete(item.id)} />
+                ))}
+            </ListGroup>
+            {cartItems.length > 0 && (
+                <div>
+                    <h4>
+                        Subtotal ({cartItems.length} Products): ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
+                    </h4>
+                    <Button className={styles.buttonCart} onClick={handleCompletePurchase}>Complete Purchase</Button>
+                </div>
+            )}
+        </Container>
+    );
 };
 
-
 const CartItemComponent: React.FunctionComponent<{ item: CartItemData, onDelete: () => void }> = ({ item, onDelete }) => {
-    console.log(item)
     return (
-        <ListGroup.Item>
-            <Row style={{ margin: "10px" }}>
+        <ListGroup.Item className={styles.cartItem}>
+            <Row>
+                <Col xs={3}><img src={item.productImage || "../../../defaultproduct.png"} className={styles.imgProductoCart} alt={item.productName}/></Col>
                 <Col>
-                    <img src={item.productImage || "../../../defaultproduct.png"} className={styles.imgProductoCart} alt={item.productName}/>
+                    <div className={styles.textCartItem}>{item.productName}</div>
+                    <div className={styles.textCartItem}>{item.entrepreneurName}</div>
+                    <div className={styles.textCartItem}>${item.price.toFixed(2)}</div>
+                    <div className={styles.textCartItem}>Qty: {item.quantity}</div>
                 </Col>
-                <Col>
-                    <Row className={styles.textCartItem}>
-                        <text>{item.productName}</text>
-                    </Row>
-                    <Row className={styles.textCartItem}>
-                        <text>{item.entrepreneurName}</text>
-                    </Row>
-                </Col>
-                <Col>
-                    <Row className={styles.textCartItem}>
-                        <text>${item.price.toFixed(2)}</text>
-                    </Row>
-                    <Row className={styles.textCartItem}>
-                        <text>{item.quantity}</text>
-                    </Row>
-                </Col>
-                <Col style={{ alignContent: "center" }}>
-                    <a href="#" style={{ margin: "auto" }} onClick={onDelete}>
-                        <img src="../../../delete.png" alt="Delete" style={{ width: "25%" }} />
-                    </a>
+                <Col xs={1}>
+                    <Button variant="link" onClick={onDelete} className={styles.deleteButton}><img src="../../../delete.png" alt="Delete" /></Button>
                 </Col>
             </Row>
         </ListGroup.Item>
     );
-}
+};
+
 export default Cart;
