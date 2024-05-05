@@ -1,61 +1,132 @@
 .mainContainerProductView {
     background: #E4ECE5;
     text-align: center;
-    width: 80%;
+    width: 1200px; /* Ancho fijo */
     padding-top: 100px;
-    height: 100vh; 
-    margin: 0 auto; 
-  }
+    height: 1200px; /* Altura fija */
+    margin: 20px auto; /* Ajuste para centrar */
+}
 
 .mainImgProductView {
-    width: 100%;
+    width: 50%; /* Ahora basado en porcentaje del contenedor */
+    max-width: 500px; /* Ancho máximo convencional */
+    min-width: 250px; /* Ancho mínimo para asegurar visibilidad */
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
     margin: auto;
     padding: 20px;
-  }
-
-.imgProductView{
-    width: 60%;
-    margin: auto;
-    padding: 5%;
-    transition: transform 0.3s;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.imgProductView:hover{
-    transform: scale(1.1);
+
+@media (max-width: 1200px) {
+    .mainImgProductView {
+        width: 60%; /* Mayor porcentaje para pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 768px) {
+    .mainContainerProductView {
+        width: 100%; /* Hace que el contenedor se ajuste a la pantalla */
+        height: auto; /* Altura auto para evitar desbordamiento vertical */
+        padding-top: 50px;
+    }
+
+    .mainImgProductView {
+        width: 80%; /* Un porcentaje aún mayor para pantallas muy pequeñas */
+        padding: 10px; /* Padding reducido */
+    }
+}
+
+.imgProductView {
+    width: 20vw;
+    height: auto;
+    margin: auto;
+    padding: 2%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    max-width: 100px;
+    min-width: 50px;
+}
+
+@media (max-width: 768px) {
+    .imgProductView {
+        width: 25vw;
+    }
+}
+
+/* Estilos adicionales para descripción, input de cantidad, botón y footer */
+
+.descriptionProductView {
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    color: #244242;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 0 20px; /* Añade padding para no tocar los bordes del contenedor */
+}
+
+.cantidadProductView {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    border: 2px solid #83AF4B; /* Borde verde para destacar */
+    border-radius: 31px;
+    color: #244242;
+    width: 160px;
+    height: 40px;
+    margin: 10px auto; /* Centrado y con espacio */
+    font-weight: bold;
+    padding-left: 12px; /* Alineación del texto dentro del input */
+}
+
+.buttonAddToCart {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    background-color: transparent;
+    border: 3px solid #83AF4B; /* Color verde para el borde */
+    border-radius: 20px;
+    color: #83AF4B;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px; /* Espacio desde el input de cantidad */
+}
+
+.buttonAddToCart:hover {
+    color: #E4ECE5;
+    background-color: #244242; /* Cambio a color oscuro en hover */
+    border-color: #E4ECE5; /* Borde claro en hover para contraste */
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #244242;
+    color: white; /* Texto en blanco para mejor visibilidad */
+    padding: 20px 0;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.footerButton {
+    font-family: 'Inter', sans-serif;
+    background-color: transparent;
+    border: 3px solid #83AF4B;
+    border-radius: 20px;
+    color: #83AF4B;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
-.buttonProductView{
-    text-align: center;
-    font-family: 'Inter', sans-serif;    
-    background-color: transparent; 
-    border: 5px solid #83AF4B;
-    border-radius: 31px;
-    color: #83AF4B; 
-    width: 160px;
-    margin: 0 auto;
-    font-weight: bold; 
+
+.footerButton:hover {
+    color: #E4ECE5;
+    background-color: #244242;
+    border-color: #E4ECE5;
 }
 
-.descriptionProductView{
-    text-align: left;
-    font-family: 'Inter', sans-serif;    
-    color: #244242; 
-    font-weight: bold; 
-}
-
-.buttonProductView:hover {
-    color: #244242;
-    border: 5px solid #244242;
-    background: transparent;
-  }
-
-.cantidadProductView{
-    text-align: center;
-    font-family: 'Inter', sans-serif;    
-    background-color: white; 
-    border: none;
-    border-radius: 31px;
-    color: #244242; 
-    width: 160px;
-    margin: 0 auto;
-    font-weight: bold; 
-}

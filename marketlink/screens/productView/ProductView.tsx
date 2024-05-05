@@ -54,59 +54,25 @@ const ProductView: FunctionComponent = () => {
         }
     };
 
-    return (
-        <html>
-            <body className={styles.mainContainerProductView}>
-                <Container style={{margin:"auto", paddingTop:"100px"}}>
-                    <Row>
-                        <Col md={2}>
-                                <Row >
-                                    <Image src={'../../defaultproduct.png'} rounded className={styles.imgProductView}/>
-                                </Row> 
-                        </Col>
-                        <Col md={5}>
-                            <Image src={'../../defaultproduct.png'} rounded  className={styles.mainImgProductView}/>
-                        </Col>
-                        <Col md={4}>
-                            <Row style={{padding:"25px 10px 20px"}}>
-                                <text className={styles.descriptionProductView}>
-                                    {product?.name}
-                                </text>
-                            </Row>
-                            <Row style={{padding:"0px 10px 20px"}}>
-                                <text className={styles.descriptionProductView}>
-                                    emprendedor
-                                </text>
-                            </Row> 
-                            <Row style={{padding:"0px 10px 20px"}}>
-                                <text className={styles.descriptionProductView}>
-                                    Precio: {product?.price} $
-                                </text>
-                            </Row> 
-                            <Row style={{padding:"0px 10px 20px"}}>
-                                <text className={styles.descriptionProductView}>
-                                    Available: {product?.stock}
-                                </text>
-                            </Row> 
-                            <Row style={{padding:"0px 10px 20px"}}> 
-                                <text className={styles.descriptionProductView}>
-                                    {product?.description}
-                                </text>
-                            </Row> 
-                        </Col>
-                    </Row>
-                    <Row style={{paddingTop:"20px"}}>
-                        <Col md={{ span: 2, offset: 4 }}>
-                            <input type="number" value={quantity} onChange={handleQuantityChange} min="1" placeholder="Cantidad" className={styles.cantidadProductView}/>
-                        </Col>
-                        <Col md={2}>
-                            <Button className={styles.buttonProductView} onClick={handleAddToCart}>Agregar al carrito</Button>
-                        </Col>
-                    </Row>
-                </Container>
-            </body>
-        </html>
-  );
-};
+        return (
+            <Container className={styles.mainContainerProductView}>
+                <Row>
+                    <Col md={6}>
+                        <Image src={product?.imagesURL[0] || '../../defaultproduct.png'} rounded className={styles.mainImgProductView} alt="Main Product"/>
+                    </Col>
+                    <Col md={6}>
+                        <div className={styles.productDetails}>
+                            <h3>{product?.name}</h3>
+                            <p>{product?.description}</p>
+                            <p><strong>Price:</strong> ${product?.price}</p>
+                            <p><strong>Stock:</strong> {product?.stock}</p>
+                            <input type="number" value={quantity} onChange={handleQuantityChange} min="1" max={product?.stock} className={styles.quantityInput}/>
+                            <Button onClick={handleAddToCart} className={styles.buttonAddToCart}>Add to Cart</Button>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+        );
+    };
 
 export default ProductView;
