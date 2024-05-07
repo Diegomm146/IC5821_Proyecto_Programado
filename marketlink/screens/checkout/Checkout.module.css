@@ -5,7 +5,7 @@
     padding-top: 100px;
     height: 100vh; 
     margin: 0 auto; 
-  }
+}
 
 .formLabelCheckout {
     font-family: 'Inter', sans-serif;
@@ -23,7 +23,6 @@
 }
 
 .titleCheckout{
-    margin-top: 70px;
     font-family: 'Inter', sans-serif;    
     color: #244242; 
     font-weight: bold; 

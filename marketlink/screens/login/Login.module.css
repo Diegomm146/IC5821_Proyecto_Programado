@@ -73,3 +73,14 @@
   border: 5px solid #83AF4B;
   transform: translateY(-5px);
 }
+
+.linkRegisterLogin{
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  margin-top: 20px;
+  width: 40%;
+  cursor: pointer;
+  color: #244242;
+  font-weight: bold;
+  margin: 0 8px; 
+}

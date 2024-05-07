@@ -138,15 +138,17 @@ export class TransactionItem {
 
 
 export class CartItemData {
-    id: string;            
+    id: string;
+    productId: string;            
     productName: string;   
     productImage: string; 
     entrepreneurName: string; 
     price: number;         
     quantity: number;       
 
-    constructor(id: string, productImage: string, productName: string, entrepreneurName: string, price: number, quantity: number) {
+    constructor(id: string, productId: string ,productImage: string, productName: string, entrepreneurName: string, price: number, quantity: number) {
         this.id = id;
+        this.productId = productId;
         this.productName = productName;
         this.productImage = productImage;
         this.entrepreneurName = entrepreneurName;

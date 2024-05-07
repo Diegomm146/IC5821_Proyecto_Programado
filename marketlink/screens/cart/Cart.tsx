@@ -19,6 +19,7 @@ const Cart: FunctionComponent = () => {
     const auth = getAuth();
 
     useEffect(() => {
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUid(user.uid);
@@ -26,21 +27,22 @@ const Cart: FunctionComponent = () => {
                 navigate("/login");
             }
         });
-    }, [auth, navigate]);
 
-    useEffect(() => {
         const fetchCartItems = async () => {
             if(uid !== ""){
                 try {
                     const items = await getCartItems(uid);
-                    setCartItems(items);
+                    if (items.length !== 0) {
+                        console.log(items);
+                        setCartItems(items);
+                    }
                 } catch (error) {
                     toast.error("Error fetching cart items: " + error.message);
                 }
             }
         };
         fetchCartItems();
-    }, [uid]);
+    }, [uid, auth]);
 
     const handleDelete = async (cartItemId: string) => {
         try {
@@ -54,12 +56,10 @@ const Cart: FunctionComponent = () => {
     const handleCompletePurchase = async () => {
         if (cartItems.length === 0) {
             toast.error("Your cart is empty!");
-            return;
         }
-
         try {
             const results = await Promise.all(
-                cartItems.map(item => checkItemAvailability(item.id, item.quantity))
+                cartItems.map(item => checkItemAvailability(item.productId, item.quantity))
             );
 
             if (results.every(result => result)) {
@@ -73,22 +73,28 @@ const Cart: FunctionComponent = () => {
     };
 
     return (
-        <Container className={styles.mainContainerCart}>
-            <h1 className={styles.titleCart}>Cart</h1>
-            <ListGroup>
-                {cartItems.map((item) => (
-                    <CartItemComponent key={item.id} item={item} onDelete={() => handleDelete(item.id)} />
-                ))}
-            </ListGroup>
-            {cartItems.length > 0 && (
-                <div>
-                    <h4>
-                        Subtotal ({cartItems.length} Products): ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
-                    </h4>
-                    <Button className={styles.buttonCart} onClick={handleCompletePurchase}>Complete Purchase</Button>
-                </div>
-            )}
-        </Container>
+        <html>
+            <body className={styles.mainContainerCart}>
+                <h1 className={styles.titleCart}>Cart</h1>
+                <Row>
+                    <Col md={{ span: 8, offset: 1 }}>
+                    <ListGroup>
+                        {cartItems.map((item) => (
+                            <CartItemComponent key={item.id} item={item} onDelete={() => handleDelete(item.id)} />
+                        ))}
+                    </ListGroup>
+                    </Col>
+                    <Col md={{ span: 3, offset: 0 }}>
+                        <div>
+                            <h4>
+                                Subtotal ({cartItems.reduce((total, item) => total + item.quantity, 0)} Products): ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
+                            </h4>
+                            <Button className={styles.buttonCart} onClick={handleCompletePurchase}>Complete Purchase</Button>
+                        </div>
+                    </Col>
+                </Row>
+            </body>
+        </html>
     );
 };
 
@@ -96,14 +102,18 @@ const CartItemComponent: React.FunctionComponent<{ item: CartItemData, onDelete:
     return (
         <ListGroup.Item className={styles.cartItem}>
             <Row>
-                <Col xs={3}><img src={item.productImage || "../../../defaultproduct.png"} className={styles.imgProductoCart} alt={item.productName}/></Col>
+                <Col>
+                    <img src={item.productImage || "../../../defaultproduct.png"} className={styles.imgProductoCart} alt={item.productName}/>
+                </Col>
                 <Col>
                     <div className={styles.textCartItem}>{item.productName}</div>
                     <div className={styles.textCartItem}>{item.entrepreneurName}</div>
+                </Col>
+                <Col>
                     <div className={styles.textCartItem}>${item.price.toFixed(2)}</div>
                     <div className={styles.textCartItem}>Qty: {item.quantity}</div>
                 </Col>
-                <Col xs={1}>
+                <Col>
                     <Button variant="link" onClick={onDelete} className={styles.deleteButton}><img src="../../../delete.png" alt="Delete" /></Button>
                 </Col>
             </Row>

@@ -16,7 +16,7 @@ import { set } from "firebase/database";
 
 const ClientProfile: FunctionComponent = () => {
   const [user, setUser] = useState<User>();
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate(); 
   const auth = getAuth();
 
   useEffect(() => {

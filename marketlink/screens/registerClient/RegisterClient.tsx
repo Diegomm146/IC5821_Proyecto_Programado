@@ -5,12 +5,14 @@ import { db, auth } from "../../src/firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const RegisterClient: FunctionComponent = () => {
   const [userName, setUserName] = useState(""); 
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState(""); 
   const [error, setError] = useState(""); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,6 +60,9 @@ const RegisterClient: FunctionComponent = () => {
       setError(errorMessage);
     }
   };
+  const Login = async () => {
+    navigate('/login');
+  };
 
   return (
   <div className={styles.loginContainerRegisterClient}>
@@ -94,6 +99,7 @@ const RegisterClient: FunctionComponent = () => {
                         <strong>Error!</strong> {error}
                       </div>
                   )}
+                  <button className={`${styles.botonTransparenteRegisterClient}`} style={{ width: "15%", marginBottom:"15px" }} onClick={Login}>Login</button>
               </form>
             </div>
         </div>

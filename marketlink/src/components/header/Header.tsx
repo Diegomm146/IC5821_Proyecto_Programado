@@ -4,6 +4,8 @@ import { useAuth } from '../../../util/AuthContext';
 import styles from './Header.module.css'; 
 import { FaHome, FaUserCircle, FaPlusCircle, FaBoxOpen, FaSignInAlt, FaUserPlus, FaSignOutAlt  } from 'react-icons/fa';
 import { CiShoppingCart } from "react-icons/ci";
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase/firebaseConfig';
 
 
 const Header = () => {
@@ -15,8 +17,8 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('userData'); 
     setUser(null);  
+    signOut(auth);
     navigate('/login'); 
-    console.log("User logged out and redirected to login page."); 
   };
 
   return (
@@ -28,23 +30,23 @@ const Header = () => {
     <Nav className="ml-auto custom-nav">
       {user && user.type === 'entrepreneur' ? (
         <>
-          <Nav.Link as={Link} to="/entrepreneur-profile" className="nav-link" aria-label="View Entrepreneur Profile"><FaUserCircle /> Perfil</Nav.Link>
-          <Nav.Link as={Link} to="/create-product" className="nav-link" aria-label="Create Product"><FaPlusCircle /> Crear Producto</Nav.Link>
-          <Nav.Link as={Link} to="/entrepreneur-orders" className="nav-link" aria-label="View Entrepreneur Orders"><FaBoxOpen /> Pedidos</Nav.Link>
-          <Button variant="outline-light" className="whiteTextButton" onClick={handleLogout} aria-label="Log Out"><FaSignOutAlt /> Cerrar Sesión</Button>
+          <Nav.Link as={Link} to="/entrepreneur-profile" className="nav-link" aria-label="View Entrepreneur Profile"><FaUserCircle /> Profile</Nav.Link>
+          <Nav.Link as={Link} to="/create-product" className="nav-link" aria-label="Create Product"><FaPlusCircle /> Create Product</Nav.Link>
+          <Nav.Link as={Link} to="/entrepreneur-orders" className="nav-link" aria-label="View Entrepreneur Orders"><FaBoxOpen /> Orders</Nav.Link>
+          <Button variant="outline-light" className="whiteTextButton" onClick={handleLogout} aria-label="Log Out"><FaSignOutAlt />Log out</Button>
         </>
       ) : user && user.type === 'client' ? (
         <>
-          <Nav.Link as={Link} to="/client-profile" className="nav-link" aria-label="View Client Profile"><FaUserCircle /> Client Profile</Nav.Link>
-          <Nav.Link as={Link} to="/client-orders" className="nav-link" aria-label="View Client Orders"><FaBoxOpen /> Clients Orders</Nav.Link>
+          <Nav.Link as={Link} to="/client-profile" className="nav-link" aria-label="View Client Profile"><FaUserCircle />Profile</Nav.Link>
+          <Nav.Link as={Link} to="/client-orders" className="nav-link" aria-label="View Client Orders"><FaBoxOpen />Orders</Nav.Link>
           <Nav.Link as={Link} to="/cart" className="nav-link" aria-label="View Client Cart"><CiShoppingCart /> Cart</Nav.Link>
-          <Button variant="outline-light" className="whiteTextButton" onClick={handleLogout} aria-label="Log Out"><FaSignOutAlt /> Close Session</Button>
+          <Button variant="outline-light" className="whiteTextButton" onClick={handleLogout} aria-label="Log Out"><FaSignOutAlt />Log out</Button>
         </>
       ) : (
         <>
           <Nav.Link as={Link} to="/login" className="nav-link" aria-label="Log In"><FaSignInAlt /> Login</Nav.Link>
-          <Nav.Link as={Link} to="/register-client" className="nav-link" aria-label="Register Client"><FaUserPlus /> Registrar Cliente</Nav.Link>
-          <Nav.Link as={Link} to="/register-entrepreneur" className="nav-link" aria-label="Register Entrepreneur"><FaUserPlus /> Registrar Emprendedor</Nav.Link>
+          <Nav.Link as={Link} to="/register-client" className="nav-link" aria-label="Register Client"><FaUserPlus /> Register as Client</Nav.Link>
+          <Nav.Link as={Link} to="/register-entrepreneur" className="nav-link" aria-label="Register Entrepreneur"><FaUserPlus /> Register as Entrepeneur</Nav.Link>
         </>
       )}
     </Nav>

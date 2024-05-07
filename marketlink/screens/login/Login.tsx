@@ -75,6 +75,12 @@ const Login: React.FC = () => {
       }
     }
   };
+  const handleRegisterClient = async () => {
+    navigate('/register-client');
+  }
+  const handleRegisterSeller = async () => {
+    navigate('/register-entrepreneur');
+  }
 
   return (
     <div className={styles.loginContainer}>
@@ -119,6 +125,22 @@ const Login: React.FC = () => {
                 >
                   Change Password
                 </button>
+                <p>
+                  Register as   
+                  <a 
+                    className={styles.linkRegisterLogin} 
+                    onClick={handleRegisterClient}
+                  >
+                     Client  
+                  </a>
+                  /
+                  <a 
+                    className={styles.linkRegisterLogin} 
+                    onClick={handleRegisterSeller}
+                  >
+                    Entrepreneur
+                  </a>
+                </p>
               </form>
             </div>
           </div>

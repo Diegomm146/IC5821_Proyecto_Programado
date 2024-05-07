@@ -175,23 +175,23 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
         console.log("No cart items found");
         return [];
     }
-
     const cartItemsDetails: CartItemData[] = [];
 
     for (const doc of querySnapshot.docs) {
         console.log(doc)
 
         const cartItem = doc.data() as CartItem; 
-        console.log(cartItem.productId.id)
         const product = await getProduct(cartItem.productId.id);
         const productName = product.name;
         const productUrl = product.imagesURL[0];
+        const productID = product.id
         const entrepreneur = await getEntrepreneur(product.entrepreneur);
-    
+
         cartItemsDetails.push(new CartItemData(
             doc.id,
-            productName,
+            productID,
             productUrl, 
+            productName,
             entrepreneur.name,  
             cartItem.priceAtAddition,
             cartItem.quantity
@@ -313,8 +313,20 @@ export const getEntrepreneurByCartItemId = async (cartItemId: string): Promise<E
     }
 };
 
+export const getProductByCartItemId = async (cartItemId: string): Promise<Product> => {
+    const cartItemRef = doc(db, "CartItem");
+    const cartItemDoc = await getDoc(cartItemRef);
+    if (!cartItemDoc.exists()) {
+        console.log("No cart item found with ID:", cartItemId);
+        return new Product("", "", "", "", [], "", 0, 0);
+    }
+    const cartItemData = cartItemDoc.data();
+    return getProductById(cartItemData.productId.id);
+}
+
 export const checkItemAvailability = async (productId: string, quantity: number): Promise<boolean> => {
     console.log("Checking availability for product ID:", productId, "Quantity:", quantity);
+
     const product = await getProductById(productId);
     if (product && product.stock >= quantity) {
         console.log("Product is available:", productId);
@@ -341,5 +353,33 @@ export const updateProduct = async (productId: string, updatedProductData: Produ
     } catch (error) {
         console.error("Failed to update product with ID:", productId, "Error:", error);
         throw new Error("Failed to update product");
+    }
+};
+
+
+export const deleteCartItems = async (userId: string): Promise<void> => {
+    const cartId = await getCart(userId);
+    if (!cartId) {
+        console.log("No cart found for user ID:", userId);
+        return;
+    }
+
+    const q = query(collection(db, "CartItem"), where("cartId", "==", doc(db, "Cart", cartId.id)));
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot)
+    if (querySnapshot.empty) {
+        console.log("No matching documents.");
+        return;
+    }
+
+    const promises = querySnapshot.docs.map((docSnapshot) => {
+        return deleteDoc(doc(db, "CartItem", docSnapshot.id));
+    });
+
+    try {
+        await Promise.all(promises);
+        console.log("All items deleted successfully.");
+    } catch (error) {
+        console.error("Error deleting items: ", error);
     }
 };
