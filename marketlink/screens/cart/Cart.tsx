@@ -56,6 +56,7 @@ const Cart: FunctionComponent = () => {
     const handleCompletePurchase = async () => {
         if (cartItems.length === 0) {
             toast.error("Your cart is empty!");
+            return;
         }
         try {
             const results = await Promise.all(

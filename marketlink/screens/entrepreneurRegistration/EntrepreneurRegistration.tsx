@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Entrepreneur } from '../../src/assets/Classes.tsx'; 
 import { addEntrepreneur } from '../../src/assets/Api.tsx'; 
+import { useNavigate } from "react-router-dom";
 
 const EntrepreneurRegistration: React.FC = () => {
   const [businessName, setBusinessName] = useState("");
@@ -14,6 +15,7 @@ const EntrepreneurRegistration: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
   const [logo, setLogo] = useState<File | null>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,13 +64,17 @@ const EntrepreneurRegistration: React.FC = () => {
       console.log("Logo file set for upload:", file);
     }
   }
-
+  const handleHome = async () => {
+    navigate('/');
+  }
   return (
     <Container className={styles.registrationContainer}>
       <Row>
         <Col  style={{margin:"auto"}}>
           <div className={`${styles.rowsRegisterEntrepreneur} row`} style={{height: "25%"}}>
-            <img src="../../image.png" alt="logo" style={{ maxWidth: "200px", maxHeight: "250px", paddingTop: "100px"}} />
+            <a onClick={handleHome} style={{cursor:"pointer"}}>
+              <img src="../../image.png" alt="logo" style={{ maxWidth: "200px", maxHeight: "250px", paddingTop: "100px"}} />
+            </a>
           </div>
           <Form onSubmit={handleSubmit} className={styles.formContainer}>
             <h3 className={styles.iniciarSesionEntrepreneurRegistration}>

@@ -1,6 +1,6 @@
 import { setDoc, collection, getDocs, addDoc, query, where, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
-import { User, Product, Entrepreneur, Cart, CartItem, CartItemData, Transaction, TransactionItem } from './Classes'; 
+import { User, Product, Entrepreneur, Cart, CartItem, CartItemData, Transaction, TransactionItem, Order } from './Classes'; 
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -383,3 +383,42 @@ export const deleteCartItems = async (userId: string): Promise<void> => {
         console.error("Error deleting items: ", error);
     }
 };
+
+export const getOrders = async (userId: string): Promise<Order[]> => {
+    const transactionsQuery = query(collection(db, "Transaction"), where("user", "==", doc(db, "User", userId)));
+    const transactionsSnapshot = await getDocs(transactionsQuery);
+
+    const orders = await Promise.all(transactionsSnapshot.docs.map(async (transactionDoc) => {
+        const transactionData = transactionDoc.data();
+        const transactionItemsQuery = query(collection(db, "TransactionItem"), where("transaction", "==", doc(db, "Transaction", transactionDoc.id)));
+        const transactionItemsSnapshot = await getDocs(transactionItemsQuery);
+        const shippingDetails = transactionData.shippingDetails;
+        const date = transactionData.transactionDate;
+        const method = transactionData.paymentMethod;
+
+        const items = await Promise.all(transactionItemsSnapshot.docs.map(async (itemDoc) => {
+            const itemData = itemDoc.data();
+            const product = await getProduct(itemData.product.id);
+            const entrepreneur = await getEntrepreneur(product.entrepreneur);
+            return {
+                productName: product.name,
+                entrepreneurName: entrepreneur.name,
+                priceAtPurchase: itemData.priceAtPurchase,
+                quantity: itemData.quantity,
+                productImage: product.imagesURL[0] 
+            };
+        }));
+
+        return new Order(
+            items.map(item => item.productImage).join(", "), 
+            items.map(item => item.entrepreneurName).join(", "), 
+            items.map(item => item.priceAtPurchase).join(", "), 
+            items.map(item => item.productName).join(", "), 
+            items.map(item => item.quantity).join(", "),
+            shippingDetails,
+            date, 
+            method,
+        );
+    }));
+    return orders;
+}

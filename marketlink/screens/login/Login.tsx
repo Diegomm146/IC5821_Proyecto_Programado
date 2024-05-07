@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./Login.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../src/firebase/firebaseConfig";
 import { useAuth } from '../../util/AuthContext';
@@ -81,6 +81,9 @@ const Login: React.FC = () => {
   const handleRegisterSeller = async () => {
     navigate('/register-entrepreneur');
   }
+  const handleHome = async () => {
+    navigate('/');
+  }
 
   return (
     <div className={styles.loginContainer}>
@@ -88,8 +91,10 @@ const Login: React.FC = () => {
         <div className="row h-100">
           <div className="col">
             <div className={`${styles.rows} row`} style={{ height: "25%" }}>
-              <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px" }} />
-              {'Market Link'}
+              <a onClick={handleHome} style={{cursor:"pointer"}}>
+                <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px" }} />
+              </a>
+            {'Market Link'}
             </div>
             <div className={`${styles.rows} row`} style={{ height: "15%" }}>
               <h1 className={styles.iniciarSesion}>Login</h1>

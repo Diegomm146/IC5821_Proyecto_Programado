@@ -156,3 +156,26 @@ export class CartItemData {
         this.quantity = quantity;
     }
 }
+
+
+export class Order {
+    productImage: string;
+    entrepreneurName: string;
+    productName: string;
+    quantity: string;
+    amoutPaid: string;
+    shippingDetails: string;
+    dateCompleted: Date;
+    paymentMethod: string;
+
+    constructor(productImage: string, entrepreneurName: string, amoutPaid: string ,productName: string, quantity: string, shippingDetails: string, dateCompleted: Date, paymentMethod: string) {
+        this.productImage = productImage;
+        this.entrepreneurName = entrepreneurName;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.amoutPaid = amoutPaid;
+        this.shippingDetails = shippingDetails;
+        this.dateCompleted = dateCompleted;
+        this.paymentMethod = paymentMethod;
+    }
+}

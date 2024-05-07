@@ -63,6 +63,9 @@ const RegisterClient: FunctionComponent = () => {
   const Login = async () => {
     navigate('/login');
   };
+  const handleHome = async () => {
+    navigate('/');
+  }
 
   return (
   <div className={styles.loginContainerRegisterClient}>
@@ -70,7 +73,9 @@ const RegisterClient: FunctionComponent = () => {
       <div className="row h-100">
         <div className="col">
           <div className={`${styles.rowsRegisterClient} row`} style={{height: "25%"}}>
-            <img src="../../image.png" alt="logo" style={{ maxWidth: "200px", maxHeight: "250px", paddingTop: "100px"}} />
+            <a onClick={handleHome} style={{cursor:"pointer"}}>
+              <img src="../../image.png" alt="logo" style={{ maxWidth: "200px", maxHeight: "250px", paddingTop: "100px"}} />
+            </a>
           </div>
           <div className={`${styles.rowsRegisterClient} row`} style={{height: "15%"}}>
             <h1 className={styles.iniciarSesionRegisterClient}>Register</h1>
