@@ -422,3 +422,15 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
     }));
     return orders;
 }
+export const updateClientUserName = async (userId: string, updatedUserName: string): Promise<void> => {
+    console.log("Attempting to update user with ID:", userId, "Data:", updatedUserName);
+    const userRef = doc(db, "User", userId);
+    try {
+        await updateDoc(userRef, {
+            name: updatedUserName
+          });
+    } catch (error) {
+        console.error("Failed to update user with ID:", userId, "Error:", error);
+        throw new Error("Failed to update user");
+    }
+}

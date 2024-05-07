@@ -30,7 +30,6 @@ const Checkout: FunctionComponent = () => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
             if (user) {
-                console.log(user.uid);
                 setUid(user.uid);
             } else {
                 navigate("/login");
@@ -38,7 +37,7 @@ const Checkout: FunctionComponent = () => {
         });
 
         return () => unsubscribe();  
-    }, [auth, navigate]);  // Only re-run if auth or navigate changes
+    }, [auth, navigate]);  
 
     useEffect(() => {
         const fetchCartItems = async () => {
