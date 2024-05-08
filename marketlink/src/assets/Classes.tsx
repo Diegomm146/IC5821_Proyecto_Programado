@@ -180,3 +180,23 @@ export class Order {
         this.paymentMethod = paymentMethod;
     }
 }
+
+export class EntrepreneurOrder {
+    transactionItemId: string;
+    clientEmail: string;
+    date: Date;
+    amount: number;
+    product: string;
+    shippingSpecs: string;
+    status: string;
+
+    constructor(transactionItemId: string, clientEmail: string, date: Date, amount: number, product: string, shippingSpecs: string, status: string) {
+        this.transactionItemId = transactionItemId;
+        this.clientEmail = clientEmail;
+        this.date = date;
+        this.amount = amount;
+        this.product = product;
+        this.shippingSpecs = shippingSpecs;
+        this.status = status;
+    }
+}

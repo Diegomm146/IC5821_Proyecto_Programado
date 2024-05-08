@@ -26,7 +26,6 @@ const Checkout: FunctionComponent = () => {
     const [paymentMethod, setPaymentMethod] = useState('');
 
 
-    // Effect for handling authentication state changes
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
             if (user) {
@@ -44,7 +43,7 @@ const Checkout: FunctionComponent = () => {
             if (uid !== "") {
                 try {
                     const items = await getCartItems(uid);
-                    setTotal(items.reduce((acc, item) => acc + item.price, 0));
+                    setTotal(items.reduce((acc, item) => acc + item.price * item.quantity, 0));
                     setCartItems(items);
                 } catch (error: any) { 
                     toast.error("Error fetching cart items: " + error.message);
@@ -68,16 +67,16 @@ const Checkout: FunctionComponent = () => {
                 transactionDate: new Date().toISOString(),
                 user: doc(db, "User", uid)
             });
-            console.log(transactionDoc);
 
             const batch = writeBatch(db);
             cartItems.forEach(item => {
                 const docRef = doc(transactionItemsRef);
                 batch.set(docRef, {
                     priceAtPurchase: item.price,
-                    product: doc(db, "Product", item.productId),
+                    product: item.productId,
                     quantity: item.quantity,
-                    transaction: transactionDoc
+                    transaction: transactionDoc,
+                    status: "Pending"
                 });
             });
 

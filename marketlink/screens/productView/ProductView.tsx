@@ -35,7 +35,6 @@ const ProductView: FunctionComponent = () => {
     };
 
     const handleAddToCart = () => {
-        console.log("Adding product to cart:", product, auth.currentUser);
         if (!product || !auth.currentUser) {
             toast.error("No product or user not logged in.");
             return;

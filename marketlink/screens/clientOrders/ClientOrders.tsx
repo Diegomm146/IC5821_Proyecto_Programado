@@ -33,6 +33,7 @@ const ClientOrders: FunctionComponent = () => {
             if (uid !== "") {
                 try {
                     const items = await getOrders(uid);
+                    console.log(items);
                     setOrders(items);
                 } catch (error: any) {
                     toast.error("Error fetching orders: " + error.message);
@@ -85,7 +86,7 @@ const OrderComponent: FunctionComponent<{ order: any }> = ({ order }) => {
                 </Col>
                 <Col >
                     <Row className={styles.textClientOrders}>
-                        <text>Paid: {order.amoutPaid}</text>
+                        <text>Paid: ${order.amoutPaid}</text>
                     </Row>
                     <Row className={styles.textClientOrders}>
                         <text>Quantity: {order.quantity}</text>

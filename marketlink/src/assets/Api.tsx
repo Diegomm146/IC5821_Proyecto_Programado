@@ -1,8 +1,9 @@
-import { setDoc, collection, getDocs, addDoc, query, where, deleteDoc, updateDoc } from 'firebase/firestore';
+import { setDoc, collection, getDocs, addDoc, query, where, deleteDoc, updateDoc, DocumentReference } from 'firebase/firestore';
 import { db } from "../firebase/firebaseConfig";
-import { User, Product, Entrepreneur, Cart, CartItem, CartItemData, Transaction, TransactionItem, Order } from './Classes'; 
+import { User, Product, Entrepreneur, Cart, CartItem, CartItemData, Transaction, TransactionItem, Order, EntrepreneurOrder } from './Classes'; 
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { toast } from 'react-toastify';
 
 export const getUsers = async (): Promise<User[]> => {
     console.log("Fetching all users from Firestore");
@@ -138,19 +139,17 @@ const getCart = async (userId: string): Promise<Cart | null> => {
 
 
 export const getProduct = async (productId: string): Promise<Product> => {
-    const productRef = doc(db, "Product", productId);
-
+    const productRef = doc(db, "Product", productId.id);
     const productDoc = await getDoc(productRef);
     if (!productDoc.exists()) {
-        console.log("Estamos hechos ccacaca ! " + productId);
         return new Product("", "", "", "", [], "", 0, 0);
     }
     const productData = productDoc.data();
     return new Product(productId, productData.category, productData.description, productData.entrepreneur, productData.imagesURL, productData.name, productData.price, productData.stock);
 }
 
-const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> => {
-    const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);
+export const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> => {
+    const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId.id);
     const entrepreneurDoc = await getDoc(entrepreneurRef);
     if (!entrepreneurDoc.exists()) {
         return new Entrepreneur("", "", "", "", "", "");
@@ -166,10 +165,8 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
         console.log("No cart found for the user");
         return [];
     }
-
     const q = query(collection(db, "CartItem"), where("cartId", "==", doc(db, "Cart", cart.id)));
     const querySnapshot = await getDocs(q);
-    console.log("Cart:", querySnapshot.empty)
 
     if (querySnapshot.empty) {
         console.log("No cart items found");
@@ -178,15 +175,15 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
     const cartItemsDetails: CartItemData[] = [];
 
     for (const doc of querySnapshot.docs) {
-        console.log(doc)
 
         const cartItem = doc.data() as CartItem; 
         const product = await getProduct(cartItem.productId); 
         const productName = product.name;
         const productUrl = product.imagesURL[0];
         const productID = product.id
+        console.log(cartItem);
         const entrepreneur = await getEntrepreneur(product.entrepreneur);
-
+        console.log(entrepreneur);
         cartItemsDetails.push(new CartItemData(
             doc.id,
             productID,
@@ -197,6 +194,7 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
             cartItem.quantity
         ));
     }
+    console.log(cartItemsDetails);
     return cartItemsDetails;
 };
 
@@ -334,7 +332,7 @@ export const getProductByCartItemId = async (cartItemId: string): Promise<Produc
 export const checkItemAvailability = async (productId: string, quantity: number): Promise<boolean> => {
     console.log("Checking availability for product ID:", productId, "Quantity:", quantity);
 
-    const product = await getProductById(productId);
+    const product = await getProductById(productId.id);
     if (product && product.stock >= quantity) {
         console.log("Product is available:", productId);
         return true;
@@ -403,10 +401,12 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
         const shippingDetails = transactionData.shippingDetails;
         const date = transactionData.transactionDate;
         const method = transactionData.paymentMethod;
-
+        console.log(shippingDetails, date, method)
         const items = await Promise.all(transactionItemsSnapshot.docs.map(async (itemDoc) => {
             const itemData = itemDoc.data();
-            const product = await getProduct(itemData.product.id);
+            console.log(itemData.product.id)
+            const product = await getProduct(itemData.product);
+            console.log(product)
             const entrepreneur = await getEntrepreneur(product.entrepreneur);
             return {
                 productName: product.name,
@@ -416,7 +416,6 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
                 productImage: product.imagesURL[0] 
             };
         }));
-
         return new Order(
             items.map(item => item.productImage).join(", "), 
             items.map(item => item.entrepreneurName).join(", "), 
@@ -425,7 +424,7 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
             items.map(item => item.quantity).join(", "),
             shippingDetails,
             date, 
-            method,
+            method
         );
     }));
     return orders;
@@ -443,41 +442,48 @@ export const updateClientUserName = async (userId: string, updatedUserName: stri
     }
 }
 
-export const getOrdersForEntrepeneur = async (userId: string): Promise<Order[]> => {
-    const transactionsQuery = query(collection(db, "Transaction"), where("user", "==", doc(db, "User", userId)));
-    const transactionsSnapshot = await getDocs(transactionsQuery);
 
-    const orders = await Promise.all(transactionsSnapshot.docs.map(async (transactionDoc) => {
-        const transactionData = transactionDoc.data();
-        const transactionItemsQuery = query(collection(db, "TransactionItem"), where("transaction", "==", doc(db, "Transaction", transactionDoc.id)));
-        const transactionItemsSnapshot = await getDocs(transactionItemsQuery);
-        const shippingDetails = transactionData.shippingDetails;
-        const date = transactionData.transactionDate;
-        const method = transactionData.paymentMethod;
+export const getEntrepreneurOrders = async (entrepreneurId: string): Promise<EntrepreneurOrder[]> => {
+    const productRef = query(collection(db, "Product"), where("entrepreneur", "==", doc(db, "Entrepreneur", entrepreneurId)));
+    const productSnapshot = await getDocs(productRef);
+    const orders = [];
 
-        const items = await Promise.all(transactionItemsSnapshot.docs.map(async (itemDoc) => {
-            const itemData = itemDoc.data();
-            const product = await getProduct(itemData.product.id);
-            const entrepreneur = await getEntrepreneur(product.entrepreneur);
-            return {
-                productName: product.name,
-                entrepreneurName: entrepreneur.name,
-                priceAtPurchase: itemData.priceAtPurchase,
-                quantity: itemData.quantity,
-                productImage: product.imagesURL[0] 
-            };
-        }));
+    for (const product of productSnapshot.docs) {
+        const transactionItemRef = query(collection(db, "TransactionItem"), where("product", "==", doc(db, "Product", product.id)));
+        const transactionItemSnapshot = await getDocs(transactionItemRef);
 
-        return new Order(
-            items.map(item => item.productImage).join(", "), 
-            items.map(item => item.entrepreneurName).join(", "), 
-            items.map(item => item.priceAtPurchase).join(", "), 
-            items.map(item => item.productName).join(", "), 
-            items.map(item => item.quantity).join(", "),
-            shippingDetails,
-            date, 
-            method,
-        );
-    }));
+        for (const itemDoc of transactionItemSnapshot.docs) {
+            const itemDocData = itemDoc.data();
+            const transactionRef = doc(db, "Transaction", itemDocData.transaction.id);
+            const transactionDoc = await getDoc(transactionRef);
+            if (!transactionDoc.exists()) continue;
+            const transactionData = transactionDoc.data();
+
+            const userRef = doc(db, "User", transactionData.user.id);
+            const userDoc = await getDoc(userRef);
+            const clientEmail = userDoc.exists() ? userDoc.data().email : "No email found";
+
+            orders.push(new EntrepreneurOrder(
+                itemDoc.id,
+                clientEmail,
+                transactionData.transactionDate, 
+                itemDocData.quantity,
+                product.data().name,
+                transactionData.shippingDetails,
+                itemDocData.status 
+            ));
+        }
+    }
+
     return orders;
+}
+
+export const updateEntrepreneurOrderStatus = async (orderId: string, newStatus: string): Promise<void> => {
+    try {
+        await updateDoc(doc(db, "TransactionItem", orderId), {
+            status: newStatus
+        });
+    } catch (error) {
+        throw new Error("Failed to update order status");
+    }
 }
