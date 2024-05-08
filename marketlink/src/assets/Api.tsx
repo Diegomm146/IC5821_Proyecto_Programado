@@ -401,7 +401,7 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
         const shippingDetails = transactionData.shippingDetails;
         const date = transactionData.transactionDate;
         const method = transactionData.paymentMethod;
-        console.log(shippingDetails, date, method)
+
         const items = await Promise.all(transactionItemsSnapshot.docs.map(async (itemDoc) => {
             const itemData = itemDoc.data();
             console.log(itemData.product.id)
@@ -413,7 +413,8 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
                 entrepreneurName: entrepreneur.name,
                 priceAtPurchase: itemData.priceAtPurchase,
                 quantity: itemData.quantity,
-                productImage: product.imagesURL[0] 
+                productImage: product.imagesURL[0],
+                status: itemData.status
             };
         }));
         return new Order(
@@ -422,9 +423,10 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
             items.map(item => item.priceAtPurchase).join(", "), 
             items.map(item => item.productName).join(", "), 
             items.map(item => item.quantity).join(", "),
+            items.map(item => item.status).join(", "),
             shippingDetails,
             date, 
-            method
+            method,
         );
     }));
     return orders;
