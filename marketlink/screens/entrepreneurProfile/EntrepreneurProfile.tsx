@@ -3,8 +3,9 @@ import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Entrepreneur, Product } from '../../src/assets/Classes';
-import { getProductsByEntrepreneur } from '../../src/assets/Api';
+import { getProductsByEntrepreneur, deleteProduct } from '../../src/assets/Api';
 import styles from './EntrepreneurProfile.module.css';
+import { toast } from 'react-toastify';
 interface ItemProps {
   name: string;
   price: number;
@@ -33,29 +34,26 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEd
 };
 const EntrepreneurProfile: React.FC = () => {
   const [entrepreneur, setEntrepreneur] = useState<Entrepreneur | null>(null);
-  const [products, setProducts] = useState<Product[]>([]);
   const navigate = useNavigate();
+
+  const [products, setProducts] = useState([]);
+
+    const handleDeleteProduct = async (productId) => {
+        const success = await deleteProduct(productId);
+        if (success) {
+            setProducts(currentProducts => currentProducts.filter(p => p.id !== productId));
+            toast.success('Product deleted successfully');
+        } else {
+            toast.error('Failed to delete product');
+        }
+    };
 
   useEffect(() => {
     console.log('Checking local storage for user data...');
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
         const userData = JSON.parse(userDataString);
-        console.log('Loaded entrepreneur data:', userData);
-        setEntrepreneur(userData);
-        console.log('Fetching products for entrepreneur UID:', userData.uid);
-        if (userData.uid) {
-            getProductsByEntrepreneur(userData.uid)
-                .then(products => {
-                    console.log('Loaded products:', products);
-                    setProducts(products);
-                })
-                .catch(error => {
-                    console.error('Failed to fetch products:', error);
-                });
-        } else {
-            console.error('No UID found on the entrepreneur data.');
-        }
+        const [products, setProducts] = useState<Product[]>([]);
     } else {
         console.error('No entrepreneur data found in local storage.');
     }
@@ -76,7 +74,7 @@ const EntrepreneurProfile: React.FC = () => {
   return (
     <Container className={styles.EntrepreneurProfileContainer} fluid>
       <Row className="justify-content-center mt-4">
-        <Col md={8}> {/* Cambiado de md={6} a md={8} para dar más espacio */}
+        <Col md={8}>
           <Card className={styles.profileCard}>
             <Card.Body>
               <Row>
@@ -101,15 +99,19 @@ const EntrepreneurProfile: React.FC = () => {
               <FaPlus />
             </Button>
           </h2>
-          <Row>
-            {products.map(product => (
-              <Col xs={6} md={4} lg={3} key={product.id}>
-                <Item name={product.name} price={product.price} imagesURL={product.imagesURL} onEdit={() => handleEditProduct(product.id)} onDelete={function (productId: string): void {
-                  throw new Error('Function not implemented.');
-                } } />
-              </Col>
-            ))}
-          </Row>
+            <Row>
+            {(products as Product[]).map(product => (
+            <Col xs={6} md={4} lg={3} key={product.id}>
+              <Item 
+                name={product.name} 
+                price={product.price} 
+                imagesURL={product.imagesURL} 
+                onEdit={() => handleEditProduct(product.id)} 
+                onDelete={() => handleDeleteProduct(product.id)}
+              />
+            </Col>
+          ))}
+            </Row>
         </Col>
       </Row>
     </Container>

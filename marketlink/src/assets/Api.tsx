@@ -487,3 +487,14 @@ export const updateEntrepreneurOrderStatus = async (orderId: string, newStatus: 
         throw new Error("Failed to update order status");
     }
 }
+
+export const deleteProduct = async (productId: string): Promise<boolean> => {
+    try {
+        await deleteDoc(doc(db, 'Product', productId));
+        console.log('Product deleted successfully');
+        return true; 
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        return false; 
+    }
+};
