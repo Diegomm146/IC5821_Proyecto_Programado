@@ -4,6 +4,7 @@ import { addProduct } from '../../src/assets/Api';
 import { Product } from '../../src/assets/Classes';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import styles from "./CreateProduct.module.css";
+import { toast } from 'react-toastify';
 
 const CreateProduct: React.FC = () => {
     const [name, setName] = useState('');
@@ -37,6 +38,7 @@ const CreateProduct: React.FC = () => {
             const numericStock = parseInt(stock);
             const newProduct = new Product('', category, description, uid, imagesURL, name, numericPrice, numericStock);
             await addProduct(newProduct);
+            toast.success('Product added successfully');
             setHasError(false);
         }
     };

@@ -6,6 +6,7 @@ import { Entrepreneur, Product } from '../../src/assets/Classes';
 import { getProductsByEntrepreneur, deleteProduct } from '../../src/assets/Api';
 import styles from './EntrepreneurProfile.module.css';
 import { toast } from 'react-toastify';
+
 interface ItemProps {
   name: string;
   price: number;
@@ -13,6 +14,7 @@ interface ItemProps {
   onEdit: (productId: string) => void;
   onDelete: (productId: string) => void;
 }
+
 const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEdit, onDelete }) => {
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
@@ -26,41 +28,55 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEd
       <div className={styles.productDetails}>
         <p className={styles.textItemEntrepreneurProfile}>{name}</p>
         <p className={styles.textItemEntrepreneurProfile}>${price.toFixed(2)}</p>
-        <Button variant="outline-primary" onClick={() => onEdit("")} className={styles.editButton}>Edit</Button>
-        <Button variant="outline-danger" onClick={() => onDelete("")} className={styles.deleteButton}>Delete</Button>
+        <Button variant="outline-primary" onClick={() => onEdit(name)} className={styles.editButton}>Edit</Button>
+        <Button variant="outline-danger" onClick={() => onDelete(name)} className={styles.deleteButton}>Delete</Button>
       </div>
     </div>
   );
 };
+
 const EntrepreneurProfile: React.FC = () => {
   const [entrepreneur, setEntrepreneur] = useState<Entrepreneur | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
   const navigate = useNavigate();
-
-  const [products, setProducts] = useState([]);
-
-    const handleDeleteProduct = async (productId) => {
-        const success = await deleteProduct(productId);
-        if (success) {
-            setProducts(currentProducts => currentProducts.filter(p => p.id !== productId));
-            toast.success('Product deleted successfully');
-        } else {
-            toast.error('Failed to delete product');
-        }
-    };
 
   useEffect(() => {
     console.log('Checking local storage for user data...');
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
-        const userData = JSON.parse(userDataString);
-        const [products, setProducts] = useState<Product[]>([]);
+      const userData = JSON.parse(userDataString);
+      console.log('Loaded entrepreneur data:', userData);
+      setEntrepreneur(userData);
+      console.log('Fetching products for entrepreneur UID:', userData.uid);
+      if (userData.uid) {
+          getProductsByEntrepreneur(userData.uid)
+              .then(products => {
+                  console.log('Loaded products:', products);
+                  setProducts(products);
+              })
+              .catch(error => {
+                  console.error('Failed to fetch products:', error);
+              });
+      } else {
+          console.error('No UID found on the entrepreneur data.');
+      }
     } else {
-        console.error('No entrepreneur data found in local storage.');
+      console.error('No entrepreneur data found in local storage.');
     }
   }, []);
 
   const handleEditProduct = (productId: string) => {
     navigate(`/edit-product/${productId}`);
+  };
+
+  const handleDeleteProduct = async (productId: string) => {
+    const success = await deleteProduct(productId);
+    if (success) {
+        setProducts(currentProducts => currentProducts.filter(p => p.id !== productId));
+        toast.success('Product deleted successfully');
+    } else {
+        toast.error('Failed to delete product');
+    }
   };
 
   const handleCreateProductClick = () => {
@@ -99,24 +115,23 @@ const EntrepreneurProfile: React.FC = () => {
               <FaPlus />
             </Button>
           </h2>
-            <Row>
-            {(products as Product[]).map(product => (
-            <Col xs={6} md={4} lg={3} key={product.id}>
-              <Item 
-                name={product.name} 
-                price={product.price} 
-                imagesURL={product.imagesURL} 
-                onEdit={() => handleEditProduct(product.id)} 
-                onDelete={() => handleDeleteProduct(product.id)}
-              />
-            </Col>
-          ))}
-            </Row>
+          <Row>
+          {products.map(product => (
+  <Col xs={6} md={4} lg={3} key={product.id}>
+    <Item 
+      name={product.name} 
+      price={product.price} 
+      imagesURL={product.imagesURL} 
+      onEdit={() => handleEditProduct(product.id)} 
+      onDelete={() => handleDeleteProduct(product.id)}
+    />
+  </Col>
+))}
+          </Row>
         </Col>
       </Row>
     </Container>
   );
-  
 };
 
 export default EntrepreneurProfile;
