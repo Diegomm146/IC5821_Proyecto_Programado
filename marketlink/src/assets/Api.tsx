@@ -148,6 +148,16 @@ export const getProduct = async (productId: string): Promise<Product> => {
     return new Product(productId, productData.category, productData.description, productData.entrepreneur, productData.imagesURL, productData.name, productData.price, productData.stock);
 }
 
+export const getProductString = async (productId: string): Promise<Product> => {
+    const productRef = doc(db, "Product", productId);
+    const productDoc = await getDoc(productRef);
+    if (!productDoc.exists()) {
+        return new Product("", "", "", "", [], "", 0, 0);
+    }
+    const productData = productDoc.data();
+    return new Product(productId, productData.category, productData.description, productData.entrepreneur, productData.imagesURL, productData.name, productData.price, productData.stock);
+}
+
 export const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> => {
     const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId.id);
     const entrepreneurDoc = await getDoc(entrepreneurRef);

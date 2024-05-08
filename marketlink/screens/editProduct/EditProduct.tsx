@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
-import { getProduct, updateProduct } from '../../src/assets/Api';
+import { getProductString, updateProduct } from '../../src/assets/Api';
 import { Product } from '../../src/assets/Classes';
 import { toast } from 'react-toastify';
 import styles from './EditProduct.module.css';
@@ -22,7 +22,7 @@ const EditProduct: React.FC = () => {
   useEffect(() => {
     if (productId) {
       console.log('Loading product details for:', productId);
-      getProduct(productId).then(productData => {
+      getProductString(productId).then(productData => {
         if (productData) {
           setProduct({
             name: productData.name,
