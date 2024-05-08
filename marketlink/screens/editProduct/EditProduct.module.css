@@ -2,10 +2,13 @@
     background: #E4ECE5;
     text-align: center;
     width: 80%;
-    padding-top: 100px;
+    padding-top: 100px; 
+    padding-left: 100px;
+    padding-right: 100px; 
     height: 100vh; 
     margin: 0 auto; 
-  }
+    transition: background-color 0.3s, padding-top 0.2s;
+}
 
 .formLabelEditProduct {
     font-family: 'Inter', sans-serif;
@@ -13,61 +16,92 @@
     font-size: 16px;
     color: #244242;
     margin-top: 10px;
+    transition: color 0.2s;
 }
 
-.descripcionCrearProducto {
+.formLabelEditProduct:hover {
+    color: #83AF4B;
+}
+
+.descripcionEditarProducto {
     font-family: 'Inter', sans-serif;    
     color: #244242; 
     height: 150px;
     resize: none;
+    padding: 10px;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
 }
 
-.titleEditProduct{
+.descripcionEditarProducto:focus {
+    border-color: #83AF4B;
+    outline: none;
+}
+
+.titleEditProduct {
     margin-top: 70px;
     font-family: 'Inter', sans-serif;    
     color: #244242; 
     font-weight: bold; 
     font-size: 30px;
+    animation: fadeInDown 1s both;
 }
 
-.btnEditProduct {
+.btnEditProduct, .btnDeleteEditProduct {
     text-align: center;
-    font-family: 'Inter', sans-serif;    
+    font-family: 'Inter', sans-serif;
     background: transparent;
-    border: 5px solid #244242;
+    border: 5px solid #244242; /* Default color for edit, red for delete */
     border-radius: 31px;
-    color: #244242; 
+    color: #244242; /* Default color for edit, red for delete */
     font-weight: bold; 
     width: 150px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px; 
 }
-  
+
 .btnEditProduct:hover {
     color: #83AF4B;
-    border: 5px solid #83AF4B;
-    background: transparent;
-  }
+    border-color: #83AF4B;
+    background: #E4ECE5;
+    transform: translateY(-5px);
+}
 
 .btnDeleteEditProduct {
-    text-align: center;
-    font-family: 'Inter', sans-serif;    
-    background: transparent;
-    border: 5px solid #CE3E3E;
-    border-radius: 31px;
-    color: #CE3E3E; 
-    font-weight: bold; 
-    width: 150px;
+    border-color: #CE3E3E;
+    color: #CE3E3E;
 }
+
 .btnDeleteEditProduct:hover {
-    color: #CE3E3E; 
-    border: 5px solid #CE3E3E;
-    background: transparent;
+    background-color: #CE3E3E;
+    color: #ffffff;
+    transform: translateY(-5px);
 }
+
 .ddEditProduct {
     margin: auto;
     width: 200px;
     background-color: #E4ECE5;
+    border: 2px solid #244242;
+    transition: border-color 0.2s;
 }
 
+.ddEditProduct:hover {
+    border-color: #83AF4B;
+}
 
+input, textarea {
+    border: 1px solid #ccc;
+    transition: border-color 0.2s;
+    margin-bottom: 10px;
+}
 
+input.error, textarea.error {
+    border: 1px solid red;
+}
 
+input:focus, textarea:focus {
+    border-color: #83AF4B;
+    box-shadow: 0 0 5px #83AF4B;
+}

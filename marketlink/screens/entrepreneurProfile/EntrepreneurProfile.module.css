@@ -76,3 +76,53 @@
 .imgItemEntrepreneurProfile:hover {
   transform: scale(1.1); /* Scale image slightly to indicate hover state */
 }
+
+.editButton, .deleteButton {
+  font-family: 'Inter', sans-serif;
+  background-color: transparent; 
+  border: 3px solid; 
+  border-radius: 20px;
+  color: #83AF4B;
+  margin: 5px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.editButton {
+  border-color: #83AF4B;
+}
+
+.editButton:hover {
+  color: #E4ECE5;
+  background-color: #244242; 
+  border-color: #E4ECE5;
+}
+
+.deleteButton {
+  border-color: #d9534f;
+  color: #d9534f;
+}
+
+.deleteButton:hover {
+  background-color: #d9534f; 
+  color: white;
+}
+
+.footerButton {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  background-color: transparent; 
+  border: 3px solid #83AF4B; 
+  border-radius: 20px; 
+  color: #83AF4B; 
+  margin: left;
+  font-weight: bold; 
+  padding: 8px 16px; 
+  transition: all 0.3s ease; 
+}
+
+.footerButton:hover {
+  color: #E4ECE5;
+  background-color: #244242; 
+  border-color: #E4ECE5; 
+}

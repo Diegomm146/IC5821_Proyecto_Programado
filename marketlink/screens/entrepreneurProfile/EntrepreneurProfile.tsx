@@ -13,8 +13,7 @@ interface ItemProps {
   onEdit: (productId: string) => void;  
 }
 
-const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEdit }) => {
-  console.log('Rendering Item:', name);  
+const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEdit, onDelete }) => {
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
       <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
@@ -22,18 +21,17 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEd
           src={imagesURL[0] || '../../defaultproduct.png'} 
           className={styles.imgItemEntrepreneurProfile} 
           alt={name}
-          style={{ maxWidth: "100px", maxHeight: "100px", display: "block", margin: "auto" }}
         />
       </a>
       <div className={styles.productDetails}>
         <p className={styles.textItemEntrepreneurProfile}>{name}</p>
         <p className={styles.textItemEntrepreneurProfile}>${price.toFixed(2)}</p>
-        <Button variant="outline-primary" onClick={() => onEdit("")} className="mt-2">Editar</Button>
+        <Button variant="outline-primary" onClick={() => onEdit("")} className={styles.editButton}>Editar</Button>
+        <Button variant="outline-danger" onClick={() => onDelete("")} className={styles.deleteButton}>Eliminar</Button>
       </div>
     </div>
   );
 };
-
 const EntrepreneurProfile: React.FC = () => {
   const [entrepreneur, setEntrepreneur] = useState<Entrepreneur | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
@@ -93,16 +91,16 @@ const EntrepreneurProfile: React.FC = () => {
               <Card.Title className={styles.nameEntrepreneurProfile}>{entrepreneur.name}</Card.Title>
               <Card.Text className={styles.descEntrepreneurProfile}>{entrepreneur.description}</Card.Text>
               <Card.Text><strong>Email:</strong> {entrepreneur.email}</Card.Text>
-              <Card.Text><strong>Teléfono:</strong> {entrepreneur.phoneNumber}</Card.Text>
+              <Card.Text><strong>Telephone:</strong> {entrepreneur.phoneNumber}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
         <Col md={10}>
           <h2 className={styles.titleEntrepreneurProfile}>
-            Nuestros Productos 
-            <Button variant="success" onClick={handleCreateProductClick}>
-              <FaPlus />
-            </Button>
+            Our Products
+            <Button className={styles.footerButton} onClick={handleCreateProductClick}>
+        <FaPlus />
+      </Button>
           </h2>
           <Row>
             {products.map(product => (

@@ -434,3 +434,42 @@ export const updateClientUserName = async (userId: string, updatedUserName: stri
         throw new Error("Failed to update user");
     }
 }
+
+export const getOrdersForEntrepreneur = async (userId: string): Promise<Order[]> => {
+    const transactionsQuery = query(collection(db, "Transaction"), where("user", "==", doc(db, "User", userId)));
+    const transactionsSnapshot = await getDocs(transactionsQuery);
+
+    const orders = await Promise.all(transactionsSnapshot.docs.map(async (transactionDoc) => {
+        const transactionData = transactionDoc.data();
+        const transactionItemsQuery = query(collection(db, "TransactionItem"), where("transaction", "==", doc(db, "Transaction", transactionDoc.id)));
+        const transactionItemsSnapshot = await getDocs(transactionItemsQuery);
+        const shippingDetails = transactionData.shippingDetails;
+        const date = transactionData.transactionDate;
+        const method = transactionData.paymentMethod;
+
+        const items = await Promise.all(transactionItemsSnapshot.docs.map(async (itemDoc) => {
+            const itemData = itemDoc.data();
+            const product = await getProduct(itemData.product.id);
+            const entrepreneur = await getEntrepreneur(product.entrepreneur);
+            return {
+                productName: product.name,
+                entrepreneurName: entrepreneur.name,
+                priceAtPurchase: itemData.priceAtPurchase,
+                quantity: itemData.quantity,
+                productImage: product.imagesURL[0] 
+            };
+        }));
+
+        return new Order(
+            items.map(item => item.productImage).join(", "), 
+            items.map(item => item.entrepreneurName).join(", "), 
+            items.map(item => item.priceAtPurchase).join(", "), 
+            items.map(item => item.productName).join(", "), 
+            items.map(item => item.quantity).join(", "),
+            shippingDetails,
+            date, 
+            method,
+        );
+    }));
+    return orders;
+}

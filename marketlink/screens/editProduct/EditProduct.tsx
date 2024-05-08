@@ -19,7 +19,6 @@ const EditProduct: React.FC = () => {
   const [product, setProduct] = useState<ProductFormState | null>(null);
   const navigate = useNavigate();
 
-  // Load product details on component mount
   useEffect(() => {
     if (productId) {
       console.log('Loading product details for:', productId);
@@ -39,7 +38,6 @@ const EditProduct: React.FC = () => {
     }
   }, [productId]);
 
-  // Update product state based on form changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setProduct(prev => ({
@@ -48,7 +46,6 @@ const EditProduct: React.FC = () => {
     }) as ProductFormState);
   };
 
-  // Save updated product details
   const handleSave = async () => {
     if (!product || !productId) {
       toast.error("Missing product information, please check all fields.");
@@ -64,56 +61,62 @@ const EditProduct: React.FC = () => {
     }
   };
 
-  // Conditional rendering for loading state
   if (!product) {
     return <div>Loading...</div>;
   }
 
-  // Product edit form
   return (
     <Container className={styles.mainContainerEditProduct}>
       <Form>
-        <Row>
+        <h1 className={styles.titleEditProduct}>Edit Product</h1>
+        <Row className="mb-3">
           <Col md={6}>
             <Form.Group>
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label className={styles.formLabelEditProduct}>Name</Form.Label>
               <Form.Control type="text" name="name" value={product?.name || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group>
-              <Form.Label>Categoría</Form.Label>
-              <Form.Select name="category" value={product?.category || ''} onChange={handleChange}>
-                <option value="One">One</option>
-                <option value="Two">Two</option>
-                <option value="Three">Three</option>
-              </Form.Select>
+              <Form.Label className={styles.formLabelEditProduct}>Category</Form.Label>
+              <Form.Select name="category" value={product?.category || ''} onChange={handleChange} className={styles.formLabelEditProduct}>
+  <option value="">Select an option</option>
+  <option value="electronics">Electronics</option>
+  <option value="clothing">Clothing</option>
+  <option value="home-appliances">Home Appliances</option>
+  <option value="books">Books</option>
+  <option value="sports">Sports</option>
+  <option value="beauty-health">Beauty & Health</option>
+  <option value="toys">Toys</option>
+  <option value="food-drink">Food & Drink</option>
+  <option value="automotive">Automotive</option>
+</Form.Select>
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-3">
           <Col md={6}>
             <Form.Group>
-              <Form.Label>Precio</Form.Label>
+              <Form.Label className={styles.formLabelEditProduct}>Price</Form.Label>
               <Form.Control type="number" name="price" value={product?.price.toString() || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group>
-              <Form.Label>Stock</Form.Label>
+              <Form.Label className={styles.formLabelEditProduct}>Stock</Form.Label>
               <Form.Control type="number" name="stock" value={product?.stock.toString() || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-3">
           <Col md={12}>
             <Form.Group>
-              <Form.Label>Descripción</Form.Label>
+              <Form.Label className={styles.formLabelEditProduct}>Description</Form.Label>
               <Form.Control as="textarea" rows={3} name="description" value={product?.description || ''} onChange={handleChange} />
             </Form.Group>
           </Col>
         </Row>
-        <Button variant="primary" onClick={handleSave}>Guardar Cambios</Button>
+        <Button type="button" onClick={handleSave} className={styles.btnEditProduct}>Save Changes</Button>
       </Form>
     </Container>
   );

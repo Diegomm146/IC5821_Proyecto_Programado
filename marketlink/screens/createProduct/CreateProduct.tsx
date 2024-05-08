@@ -15,9 +15,7 @@ const CreateProduct: React.FC = () => {
     const [hasError, setHasError] = useState(false);
 
     const formatPrice = (input) => {
-        // Remove all non-digit characters
         const numeric = input.replace(/\D/g, '');
-        // Format with commas
         return numeric.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
 
