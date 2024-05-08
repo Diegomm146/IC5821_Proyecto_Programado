@@ -94,7 +94,7 @@ const Login: React.FC = () => {
               <a onClick={handleHome} style={{cursor:"pointer"}}>
                 <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px" }} />
               </a>
-            {'Market Link'}
+              <h1 className={styles.iniciarSesion} >Market Link</h1>
             </div>
             <div className={`${styles.rows} row`} style={{ height: "15%" }}>
               <h1 className={styles.iniciarSesion}>Login</h1>
