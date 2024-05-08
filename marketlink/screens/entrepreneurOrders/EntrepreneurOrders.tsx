@@ -36,7 +36,7 @@ const EntrepreneurOrders = () => {
           
           setOrders(fetchedOrders);
       } catch (error) {
-          console.error("Failed to fetch orders:", error);
+          
       }
   };
   fetchOrders();
@@ -107,38 +107,44 @@ const EntrepreneurOrders = () => {
   );
 };
 
-const OrderDetails = ({ show, onHide, order }) => {
+interface OrderDetailsProps {
+  show: boolean;
+  onHide: () => void;
+  order: EntrepreneurOrder; 
+}
+
+const OrderDetails: React.FC<OrderDetailsProps> = ({ show, onHide, order }) => {
   const handleCompletePurchase = async () => {
     try {
-        
         await updateEntrepreneurOrderStatus(order.transactionItemId, "Completed");
         toast.success('Order status updated to "Completed"');
-        onHide(); 
+        onHide();
     } catch (error) {
         toast.error("Failed to complete the order. Please try again.");
-        console.error('Error completing order:', error);
+        
     }
   };
+
   const handleCancelPurchase = async () => {
     try {
-        
-        await updateEntrepreneurOrderStatus(order.transactionItemId, "Canceled"); 
+        await updateEntrepreneurOrderStatus(order.transactionItemId, "Canceled");
         toast.success('Order status updated to "Canceled"');
-        onHide(); 
+        onHide();
     } catch (error) {
         toast.error("Failed to cancel the order. Please try again.");
-        console.error('Error canceling order:', error);
+        
     }
   };
+
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Order Details: </Modal.Title>
+        <Modal.Title>Order Details</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Stack gap={3}>
           <div><strong>Client:</strong> {order.clientEmail}</div>
-          <div><strong>Date:</strong> {order.date}</div>
+          <div><strong>Date:</strong> {order.date.toLocaleDateString()}</div>
           <div><strong>Amount:</strong> {order.amount}</div>
           <div><strong>Product:</strong> {order.product}</div>
           <div><strong>Shipping Specs:</strong> {order.shippingSpecs}</div>
