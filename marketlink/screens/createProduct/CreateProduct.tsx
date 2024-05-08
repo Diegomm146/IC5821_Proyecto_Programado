@@ -14,6 +14,17 @@ const CreateProduct: React.FC = () => {
     const [imagesURL, setImagesURL] = useState<string[]>([]);
     const [hasError, setHasError] = useState(false);
 
+    const formatPrice = (input) => {
+        // Remove all non-digit characters
+        const numeric = input.replace(/\D/g, '');
+        // Format with commas
+        return numeric.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
+
+    const handlePriceChange = (e) => {
+        setPrice(formatPrice(e.target.value));
+    };
+
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         if (!name || !category || !description || !price || !stock || imagesURL.length === 0) {
@@ -24,7 +35,7 @@ const CreateProduct: React.FC = () => {
         const entrepreneurData = localStorage.getItem('userData');
         if (entrepreneurData) {
             const { uid } = JSON.parse(entrepreneurData);
-            const numericPrice = parseFloat(price);
+            const numericPrice = parseFloat(price.replace(/,/g, ''));
             const numericStock = parseInt(stock);
             const newProduct = new Product('', category, description, uid, imagesURL, name, numericPrice, numericStock);
             await addProduct(newProduct);
@@ -54,11 +65,11 @@ const CreateProduct: React.FC = () => {
     return (
         <div className={styles.mainContainerCreateProduct}>
             <Form onSubmit={handleSubmit}>
-                <h1 className={styles.titleCreateProduct}>Crear Producto</h1>
+                <h1 className={styles.titleCreateProduct}>Create Product</h1>
                 <Row className="mb-3">
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabelCreateProduct}>Nombre</Form.Label>
+                            <Form.Label className={styles.formLabelCreateProduct}>Name</Form.Label>
                             <Form.Control
                                 type="text"
                                 value={name}
@@ -70,17 +81,23 @@ const CreateProduct: React.FC = () => {
                     </Col>
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabelCreateProduct}>Categoría</Form.Label>
+                            <Form.Label className={styles.formLabelCreateProduct}>Category</Form.Label>
                             <Form.Select
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                                 className={category === "" && hasError ? "error" : ""}
                                 isInvalid={hasError && !category}
                             >
-                                <option>Seleccione una opción</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option>Select an option</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="home-appliances">Home Appliances</option>
+                                <option value="books">Books</option>
+                                <option value="sports">Sports</option>
+                                <option value="beauty-health">Beauty & Health</option>
+                                <option value="toys">Toys</option>
+                                <option value="food-drink">Food & Drink</option>
+                                <option value="automotive">Automotive</option>
                             </Form.Select>
                         </Form.Group>
                     </Col>
@@ -88,19 +105,20 @@ const CreateProduct: React.FC = () => {
                 <Row className="mb-3">
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabelCreateProduct}>Precio</Form.Label>
+                            <Form.Label className={styles.formLabelCreateProduct}>Price</Form.Label>
                             <Form.Control
-                                type="number"
+                                type="text"
                                 value={price}
-                                onChange={(e) => setPrice(e.target.value)}
+                                onChange={handlePriceChange}
                                 className={price === "" && hasError ? "error" : ""}
                                 isInvalid={hasError && !price}
+                                placeholder="$1,000"
                             />
                         </Form.Group>
                     </Col>
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabelCreateProduct}>Cantidad disponible</Form.Label>
+                            <Form.Label className={styles.formLabelCreateProduct}>Available Quantity</Form.Label>
                             <Form.Control
                                 type="number"
                                 value={stock}
@@ -114,7 +132,7 @@ const CreateProduct: React.FC = () => {
                 <Row className="mb-3">
                     <Col md={6}>
                         <Form.Group controlId="ControlTextarea">
-                            <Form.Label className={styles.formLabelCreateProduct}>Descripción</Form.Label>
+                            <Form.Label className={styles.formLabelCreateProduct}>Description</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
