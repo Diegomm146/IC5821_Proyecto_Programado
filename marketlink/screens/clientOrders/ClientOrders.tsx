@@ -107,6 +107,11 @@ const OrderComponent: FunctionComponent<{ order: any }> = ({ order }) => {
                         <text>Payment Method: {order.paymentMethod}</text>
                     </Row>
                 </Col>
+                <Col>
+                    <Row className={styles.bigTextClientOrders}>
+                        <text>Status: {order.status}</text>
+                    </Row>
+                </Col>
             </Row>
         </ListGroup.Item>
     )
