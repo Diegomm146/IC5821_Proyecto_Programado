@@ -4,8 +4,8 @@ import styles from "./EntrepreneurRegistration.module.css";
 import { auth, storage } from "../../src/firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Entrepreneur } from '../../src/assets/Classes.tsx'; 
-import { addEntrepreneur } from '../../src/assets/Api.jsx'; 
+import { Entrepreneur } from '../../src/assets/Classes.tsx';
+import { addEntrepreneur } from '../../src/assets/Api.jsx';
 import { useNavigate } from "react-router-dom";
 
 const EntrepreneurRegistration: React.FC = () => {
@@ -19,19 +19,19 @@ const EntrepreneurRegistration: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Submitting form with data:", { businessName, email, password, phoneNumber, description, logo });
+    
   
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log("Firebase Auth User Created:", user);
+      
   
       let logoUrl = "";
       if (logo) {
         const logoStorageRef = ref(storage, `logos/${user.uid}/${logo.name}`);
         const uploadTaskSnapshot = await uploadBytes(logoStorageRef, logo);
         logoUrl = await getDownloadURL(uploadTaskSnapshot.ref);
-        console.log("Logo uploaded and URL fetched:", logoUrl);
+        
       }
     
       if (!user?.uid || !email) {
@@ -49,7 +49,7 @@ const EntrepreneurRegistration: React.FC = () => {
       );
   
       await addEntrepreneur(entrepreneur);
-      console.log("Entrepreneur added to Firestore with ID:", user.uid);
+      
   
       window.location.href = "/login";
     } catch (e) {
@@ -61,7 +61,7 @@ const EntrepreneurRegistration: React.FC = () => {
     const file = event.target.files?.[0];
     if (file) {
       setLogo(file);
-      console.log("Logo file set for upload:", file);
+      
     }
   }
   const handleHome = async () => {

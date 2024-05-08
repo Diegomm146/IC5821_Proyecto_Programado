@@ -2,12 +2,11 @@ import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { getCartItems, deleteCartItem, checkItemAvailability } from "../../src/assets/Api";
-import { CartItem, CartItemData } from "../../src/assets/Classes";
+import { CartItemData } from "../../src/assets/Classes";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -33,7 +32,7 @@ const Cart: FunctionComponent = () => {
                 try {
                     const items = await getCartItems(uid);
                     if (items.length !== 0) {
-                        console.log(items);
+                        
                         setCartItems(items);
                     }
                 } catch (error: any) {

@@ -11,9 +11,9 @@ import { auth } from '../../firebase/firebaseConfig';
 const Header = () => {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
-  console.log("User in header:", user)
-  console.log("Logging out user:", user?.type); 
-  console.log("user:", user); 
+  
+  
+  
   const handleLogout = () => {
     localStorage.removeItem('userData'); 
     setUser(null);  

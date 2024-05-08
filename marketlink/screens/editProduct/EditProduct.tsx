@@ -21,7 +21,7 @@ const EditProduct: React.FC = () => {
 
   useEffect(() => {
     if (productId) {
-      console.log('Loading product details for:', productId);
+      
       getProductString(productId).then(productData => {
         if (productData) {
           setProduct({

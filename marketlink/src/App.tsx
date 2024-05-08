@@ -32,9 +32,9 @@ function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
 
-  console.log('current user in privateroute:', user);
+  
   if (!user || user.type !== 'entrepreneur') {
-      console.log('redirecting because user is not an entrepreneur:', user);
+      
       return <Navigate to="/login" replace />;
   }
 

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Table, Button, Modal, Stack } from "react-bootstrap";
 import styles from "./EntrepreneurOrders.module.css";
-import { Order as OrderType, EntrepreneurOrder, Entrepreneur } from "../../src/assets/Classes";
-import { getEntrepreneur, getEntrepreneurOrders, getEntrepreneurs, getOrders, getUser, updateEntrepreneurOrderStatus } from "../../src/assets/Api";
+import { EntrepreneurOrder } from "../../src/assets/Classes";
+import { getEntrepreneurOrders, updateEntrepreneurOrderStatus } from "../../src/assets/Api";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -22,7 +22,7 @@ const EntrepreneurOrders = () => {
         if (user) {
             setUid(user.uid);
         } else {
-            // navigate("/login");
+            
         }
     });
 
@@ -33,7 +33,7 @@ const EntrepreneurOrders = () => {
     const fetchOrders = async () => {
       try {
           const fetchedOrders = await getEntrepreneurOrders(uid);
-          console.log(fetchedOrders)
+          
           setOrders(fetchedOrders);
       } catch (error) {
           console.error("Failed to fetch orders:", error);
@@ -110,7 +110,7 @@ const EntrepreneurOrders = () => {
 const OrderDetails = ({ show, onHide, order }) => {
   const handleCompletePurchase = async () => {
     try {
-        console.log(order)
+        
         await updateEntrepreneurOrderStatus(order.transactionItemId, "Completed");
         toast.success('Order status updated to "Completed"');
         onHide(); 
@@ -121,7 +121,7 @@ const OrderDetails = ({ show, onHide, order }) => {
   };
   const handleCancelPurchase = async () => {
     try {
-        console.log(order)
+        
         await updateEntrepreneurOrderStatus(order.transactionItemId, "Canceled"); 
         toast.success('Order status updated to "Canceled"');
         onHide(); 

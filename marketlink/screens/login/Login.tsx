@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./Login.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../src/firebase/firebaseConfig";
 import { useAuth } from '../../util/AuthContext';
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
   };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
-    console.log("Login attempt with:", email);  // Logging only email for privacy
+    
     event.preventDefault();
     if (!validateInputs()) return;
 
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
           if (storedUserData) {
               const userData = JSON.parse(storedUserData);
               setUser(userData);
-              console.log("User set after login:", userData);
+              
           }
           if (result.route) {
               navigate(result.route);
@@ -63,7 +63,7 @@ const Login: React.FC = () => {
 
   const handlePasswordReset = async () => {
     if (!email) {
-        console.log("Please enter your email address first.")
+        
         toast.error("Please enter your email address first.");
     } else{
       try {

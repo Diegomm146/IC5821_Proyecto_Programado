@@ -41,17 +41,17 @@ const EntrepreneurProfile: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Checking local storage for user data...');
+    
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       const userData = JSON.parse(userDataString);
-      console.log('Loaded entrepreneur data:', userData);
+      
       setEntrepreneur(userData);
-      console.log('Fetching products for entrepreneur UID:', userData.uid);
+      
       if (userData.uid) {
           getProductsByEntrepreneur(userData.uid)
               .then(products => {
-                  console.log('Loaded products:', products);
+                  
                   setProducts(products);
               })
               .catch(error => {

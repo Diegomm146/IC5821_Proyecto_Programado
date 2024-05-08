@@ -6,7 +6,7 @@
   padding-bottom: 100px;
   min-height: 100vh;
   margin: 0 auto;
-  transition: background-color 0.3s ease; /* Smooth transition for any background color change */
+  transition: background-color 0.3s ease; 
 }
 
 .itemContainer {
@@ -20,7 +20,7 @@
 
 .itemContainer:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds shadow for depth perception on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
 }
 
 .titles {
@@ -31,7 +31,7 @@
   margin-left: 32px;
   margin-top: 30px;
   text-align: left;
-  transition: color 0.2s ease; /* Smooth transition for text color changes */
+  transition: color 0.2s ease; 
 }
 
 .imgItemEntrepreneur, .imgItemHome {
@@ -40,11 +40,11 @@
   height: auto;
   object-fit: cover;
   border-radius: 10px;
-  transition: opacity 0.3s ease; /* Smooth transition for fade effects */
+  transition: opacity 0.3s ease; 
 }
 
 .imgItemEntrepreneur:hover, .imgItemHome:hover {
-  opacity: 0.8; /* Slight fade effect on hover to draw attention */
+  opacity: 0.8; 
 }
 
 .textItemHome {
@@ -61,8 +61,8 @@
   max-width: 90%;
   overflow-x: auto;
   padding: 20px 0;
-  scrollbar-color: darkgrey #E4ECE5; /* Custom scrollbar colors for modern browsers */
-  scrollbar-width: thin; /* Adjust scrollbar width for non-webkit browsers */
+  scrollbar-color: darkgrey #E4ECE5; 
+  scrollbar-width: thin; 
 }
 
 .horizontalScroll > * {
@@ -86,10 +86,10 @@
   }
 
   .titles {
-    margin-left: 16px; /* Smaller left margin for smaller screens */
+    margin-left: 16px; 
   }
 
   .imgItemEntrepreneur, .imgItemHome {
-    max-width: 150px; /* Smaller images for smaller screens */
+    max-width: 150px; 
   }
 }

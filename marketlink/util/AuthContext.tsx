@@ -4,7 +4,7 @@ interface User {
     id: string;
     name: string;
     email: string;
-    type: string; // Ejemplo: 'entrepreneur' o 'user'
+    type: string; 
 }
 
 interface AuthContextType {
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (storedUserData) {
             const userData = JSON.parse(storedUserData);
             setUser(userData);
-            console.log("User loaded from storage:", userData);
+            
         }
     }, [setUser]);
 

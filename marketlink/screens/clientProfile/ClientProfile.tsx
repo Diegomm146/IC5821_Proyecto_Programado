@@ -2,7 +2,6 @@ import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./ClientProfile.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import Stack from 'react-bootstrap/Stack';
-import Image from 'react-bootstrap/Image';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { getUser, updateClientUserName } from "../../src/assets/Api";
@@ -10,8 +9,6 @@ import { User } from "../../src/assets/Classes";
 import { getAuth, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { redirect } from "react-router-dom";
-import { set } from "firebase/database";
 
 
 const ClientProfile: FunctionComponent = () => {

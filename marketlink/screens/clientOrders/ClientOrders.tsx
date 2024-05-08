@@ -33,7 +33,7 @@ const ClientOrders: FunctionComponent = () => {
             if (uid !== "") {
                 try {
                     const items = await getOrders(uid);
-                    console.log(items);
+                    
                     setOrders(items);
                 } catch (error: any) {
                     toast.error("Error fetching orders: " + error.message);
@@ -67,7 +67,7 @@ const ClientOrders: FunctionComponent = () => {
 };
 
 const OrderComponent: FunctionComponent<{ order: any }> = ({ order }) => {
-    console.log(order);
+    
     return (
         <ListGroup.Item>
             <Row style={{margin:"10px"}}>

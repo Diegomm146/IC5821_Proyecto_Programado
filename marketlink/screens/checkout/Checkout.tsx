@@ -2,9 +2,9 @@ import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./Checkout.module.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import FormLabel from 'react-bootstrap/FormLabel'
+import FormLabel from 'react-bootstrap/FormLabel';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CartItemData } from "../../src/assets/Classes";
 import { getCartItems, deleteCartItems } from "../../src/assets/Api";
 import { toast } from "react-toastify";
@@ -81,9 +81,9 @@ const Checkout: FunctionComponent = () => {
             });
 
             await batch.commit();
-            console.log("Transaction items created successfully!");
+            
             await deleteCartItems(uid);
-            console.log("Purchase completed successfully!")
+            
             toast.success("Purchase completed successfully!");
             setTimeout(() => {
                 navigate("/client-profile"); 

@@ -16,7 +16,7 @@ const RegisterClient: FunctionComponent = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Check if all fields are filled and validate them
+    
     if (!userName || !email || !password) {
       toast.error("All fields are required.");
       setError("All fields are required.");
