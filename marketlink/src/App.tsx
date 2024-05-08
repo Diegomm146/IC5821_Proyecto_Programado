@@ -16,6 +16,8 @@ import EntrepreneurOrders from '../screens/entrepreneurOrders/EntrepreneurOrders
 import CreateProduct from '../screens/createProduct/CreateProduct';
 import EditProduct from '../screens/editProduct/EditProduct';
 import { AuthProvider, useAuth } from '../util/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
   return (
@@ -42,6 +44,7 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 function App() {
   return (
     <AuthProvider>
+      <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <Routes>
         <Route path="/" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
         <Route path="/login" element={<Login />} />

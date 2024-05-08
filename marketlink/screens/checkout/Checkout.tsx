@@ -46,7 +46,7 @@ const Checkout: FunctionComponent = () => {
                     const items = await getCartItems(uid);
                     setTotal(items.reduce((acc, item) => acc + item.price, 0));
                     setCartItems(items);
-                } catch (error) {
+                } catch (error: any) { 
                     toast.error("Error fetching cart items: " + error.message);
                 }
             }
@@ -70,7 +70,6 @@ const Checkout: FunctionComponent = () => {
             });
             console.log(transactionDoc);
 
-            // Create transaction items for each cart item
             const batch = writeBatch(db);
             cartItems.forEach(item => {
                 const docRef = doc(transactionItemsRef);
@@ -92,7 +91,7 @@ const Checkout: FunctionComponent = () => {
             }, 2000);
 
         } catch (error) {
-            toast.error("Error completing purchase: " + error.message);
+            toast.error("Error completing purchase: " + (error as Error).message);
         }
     };
 

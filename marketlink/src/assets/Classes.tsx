@@ -11,6 +11,7 @@ export class User {
 }
 
 export class Product {
+    
     id: string;
     category: string;
     description: string;

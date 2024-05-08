@@ -2,78 +2,63 @@
   background: #E4ECE5;
   text-align: center;
   width: 80%;
-  height: 100vh; 
-  margin: 0 auto; 
+  height: 100vh;
+  margin: 0 auto;
   display: grid;
   place-items: center;
+  padding: 2% 10%;
 }
 
 .iniciarSesionEntrepreneurRegistration {
   font-family: 'Inter', sans-serif;
   color: #244242;
   margin-bottom: 20px;
+  font-size: 2rem;
 }
 
-.Form.Control {
-width: 300%;
+@media (max-width: 992px) {
+  .iniciarSesionEntrepreneurRegistration {
+    font-size: 1.5rem;
+  }
 }
 
-.rowsRegisterEntrepreneur {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+@media (max-width: 768px) {
+  .iniciarSesionEntrepreneurRegistration {
+    font-size: 1.2rem;
+  }
+
+  .inputsEntrepreneurRegistration, .taEntrepreneurRegistration {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .formContainer {
+    max-width: 100%;
+    padding: 5px;
+  }
+
+  .submitButtonEntrepenuerRegistration {
+    width: 50%;
+    padding: 10px;
+  }
 }
 
-.inputsEntrepreneurRegistration {
+.inputsEntrepreneurRegistration, .taEntrepreneurRegistration {
   font-family: 'Inter', sans-serif;
-  padding: 5px;
+  padding: 10px;
   text-align: center;
   border-radius: 20px;
   margin-bottom: 20px;
-  width: 450px;
-  place-items: center;
-  border: none;
-}
-.taEntrepreneurRegistration{
-  font-family: 'Inter', sans-serif;
-  padding: 5px;
-  text-align: center;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  width: 450px;
-  max-height: 400px;
-  place-items: center;
-  border: none;
-  resize: none;
-  height: 300px;
-}
-
-.formRows {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  max-width: 500px; 
-  margin: auto;
+  max-width: 600px;
+  border: 2px solid transparent;
 }
-.formInputs {
-  font-family: 'Inter', sans-serif;
-  padding: 0.75rem;
-  margin-bottom: 1rem; 
-  border-radius: 20px;
-  border: 1px solid #ced4da;
-  background-color: #f8f9fa;
-  width: calc(100% - 1.5rem); 
-  box-sizing: border-box;
+
+.inputsEntrepreneurRegistration:focus, .taEntrepreneurRegistration:focus {
+  border-color: #83AF4B;
+  outline: none;
+  box-shadow: 0 0 5px #83AF4B;
 }
 
 .submitButtonEntrepenuerRegistration {
@@ -88,10 +73,26 @@ width: 300%;
   cursor: pointer;
   color: #244242;
   font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .submitButtonEntrepenuerRegistration:hover {
   color: #83AF4B;
+  background: #E4ECE5;
   border: 5px solid #83AF4B;
-  background: transparent;
+  transform: translateY(-5px);
+}
+
+.logoStyle {
+  max-width: 200px;
+  max-height: 250px;
+  padding-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .logoStyle {
+    max-width: 150px;
+    max-height: 200px;
+    padding-top: 50px;
+  }
 }

@@ -34,7 +34,7 @@ const ClientOrders: FunctionComponent = () => {
                 try {
                     const items = await getOrders(uid);
                     setOrders(items);
-                } catch (error) {
+                } catch (error: any) {
                     toast.error("Error fetching orders: " + error.message);
                 }
             }

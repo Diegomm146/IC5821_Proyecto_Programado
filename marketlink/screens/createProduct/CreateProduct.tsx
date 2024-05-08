@@ -14,12 +14,12 @@ const CreateProduct: React.FC = () => {
     const [imagesURL, setImagesURL] = useState<string[]>([]);
     const [hasError, setHasError] = useState(false);
 
-    const formatPrice = (input) => {
+    const formatPrice = (input: string) => {
         const numeric = input.replace(/\D/g, '');
         return numeric.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
 
-    const handlePriceChange = (e) => {
+    const handlePriceChange = (e: { target: { value: any; }; }) => {
         setPrice(formatPrice(e.target.value));
     };
 
@@ -67,13 +67,14 @@ const CreateProduct: React.FC = () => {
                 <Row className="mb-3">
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label className={styles.formLabelCreateProduct}>Name</Form.Label>
+                            <Form.Label className={styles.formLabelCreateProduct}>Product Name</Form.Label>
                             <Form.Control
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 className={name === "" && hasError ? "error" : ""}
                                 isInvalid={hasError && !name}
+                                placeholder="Enter product name"
                             />
                         </Form.Group>
                     </Col>
@@ -85,6 +86,7 @@ const CreateProduct: React.FC = () => {
                                 onChange={(e) => setCategory(e.target.value)}
                                 className={category === "" && hasError ? "error" : ""}
                                 isInvalid={hasError && !category}
+
                             >
                                 <option>Select an option</option>
                                 <option value="electronics">Electronics</option>
@@ -123,6 +125,7 @@ const CreateProduct: React.FC = () => {
                                 onChange={(e) => setStock(e.target.value)}
                                 className={stock === "" && hasError ? "error" : ""}
                                 isInvalid={hasError && !stock}
+                                placeholder="Enter available quantity"
                             />
                         </Form.Group>
                     </Col>
@@ -138,12 +141,13 @@ const CreateProduct: React.FC = () => {
                                 onChange={(e) => setDescription(e.target.value)}
                                 className={description === "" && hasError ? "error" : ""}
                                 isInvalid={hasError && !description}
+                                placeholder="Enter product description"
                             />
                         </Form.Group>
                     </Col>
                     <Col md={6}>
                         <Form.Group controlId="ControlTextarea">
-                            <Form.Label className={styles.formLabelCreateProduct}>Imágenes</Form.Label>
+                            <Form.Label className={styles.formLabelCreateProduct}>Images</Form.Label>
                             <Form.Control
                                 type="file"
                                 multiple
@@ -151,14 +155,16 @@ const CreateProduct: React.FC = () => {
                                 accept="image/*"
                                 className={imagesURL.length === 0 && hasError ? "error" : ""}
                                 isInvalid={hasError && imagesURL.length === 0}
+                                placeholder="Upload product images"
                             />
                         </Form.Group>
                     </Col>
                 </Row>
-                <Button type="submit" className={styles.btnCreateProduct}>Crear</Button>
+                <Button type="submit" className={styles.btnCreateProduct}>Create</Button>
             </Form>
         </div>
     );
+    
 };
 
 export default CreateProduct;

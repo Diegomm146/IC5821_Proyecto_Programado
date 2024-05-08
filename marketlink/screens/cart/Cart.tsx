@@ -36,7 +36,7 @@ const Cart: FunctionComponent = () => {
                         console.log(items);
                         setCartItems(items);
                     }
-                } catch (error) {
+                } catch (error: any) {
                     toast.error("Error fetching cart items: " + error.message);
                 }
             }
@@ -48,7 +48,7 @@ const Cart: FunctionComponent = () => {
         try {
             await deleteCartItem(cartItemId);
             setCartItems(currentItems => currentItems.filter(item => item.id !== cartItemId));
-        } catch (error) {
+        } catch (error: any) {
             toast.error("Failed to delete item: " + error.message);
         }
     };
@@ -68,7 +68,7 @@ const Cart: FunctionComponent = () => {
             } else {
                 toast.error("Some items are no longer available.");
             }
-        } catch (error) {
+        } catch (error: any) {
             toast.error("Failed to complete purchase: " + error.message);
         }
     };

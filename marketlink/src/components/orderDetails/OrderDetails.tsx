@@ -22,17 +22,17 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ show, onHide, order }) => {
     return (
       <Modal show={show} onHide={onHide} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Pedido: {order.id}</Modal.Title>
+          <Modal.Title>Order: {order.id}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Stack gap={3}>
-            <div><strong>Cliente:</strong> {order.clientName} <br/> {order.clientEmail}</div>
-            <div><strong>Fecha:</strong> {order.date}</div>
-            <div><strong>Monto:</strong> ${order.amount.toFixed(2)}</div>
-            <div><strong>ID de Factura:</strong> {order.invoiceId}</div>
-            <div><strong>Producto:</strong> {order.productName}</div>
+            <div><strong>Client:</strong> {order.clientName} <br/> {order.clientEmail}</div>
+            <div><strong>Date:</strong> {order.date}</div>
+            <div><strong>Amount:</strong> ${order.amount.toFixed(2)}</div>
+            <div><strong>Invoice ID:</strong> {order.invoiceId}</div>
+            <div><strong>Product:</strong> {order.productName}</div>
             <div>
-              <strong>Especificaciones de envío:</strong>
+              <strong>Shipping Specifications:</strong>
               <ul>
                 {order.shippingSpecs.map((spec, index) => (
                   <li key={index}>{spec}</li>
@@ -42,8 +42,8 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ show, onHide, order }) => {
           </Stack>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onHide}>Cancelar</Button>
-          <Button variant="success" onClick={() => console.log('Completing order...')}>Completar</Button>
+          <Button variant="secondary" onClick={onHide}>Cancel</Button>
+          <Button variant="success" onClick={() => console.log('Completing order...')}>Complete</Button>
         </Modal.Footer>
       </Modal>
     );

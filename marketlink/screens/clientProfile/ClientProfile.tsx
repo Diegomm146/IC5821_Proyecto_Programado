@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { getUser, updateClientUserName } from "../../src/assets/Api";
 import { User } from "../../src/assets/Classes";
 import { getAuth, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
-import { useNavigate } from 'react-router-dom'; // Make sure to import useNavigate
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { redirect } from "react-router-dom";
 import { set } from "firebase/database";
@@ -51,7 +51,7 @@ const ClientProfile: FunctionComponent = () => {
         toast.success("Username updated successfully!");
         setUser({ ...user, name: newUsername });
         setShowUpdateUsername(false);
-      } catch (error) {
+      } catch (error: any) {
         toast.error("Failed to update username: " + error.message);
       }
     }

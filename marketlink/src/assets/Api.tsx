@@ -150,7 +150,7 @@ export const getProduct = async (productId: string): Promise<Product> => {
 }
 
 const getEntrepreneur = async (entrepreneurId: string): Promise<Entrepreneur> => {
-    const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId.id);
+    const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId);
     const entrepreneurDoc = await getDoc(entrepreneurRef);
     if (!entrepreneurDoc.exists()) {
         return new Entrepreneur("", "", "", "", "", "");
@@ -181,7 +181,7 @@ export const getCartItems = async (userId: string): Promise<CartItemData[]> => {
         console.log(doc)
 
         const cartItem = doc.data() as CartItem; 
-        const product = await getProduct(cartItem.productId.id);
+        const product = await getProduct(cartItem.productId); 
         const productName = product.name;
         const productUrl = product.imagesURL[0];
         const productID = product.id
@@ -284,6 +284,12 @@ export const getProductById = async (productId: string): Promise<Product | null>
 export const addCartItem = async (userId: string, priceAtAddition: number, productId: string, quantity: number): Promise<void> => {
     console.log("Adding cart item for user ID:", userId);
     const cart = await getCart(userId);
+
+    if (!cart) {
+        console.log("No cart found for user ID:", userId);
+        return;
+    }
+
     console.log("Cart found with ID:", cart.id);
     const cartItemsRef = collection(db, "CartItem");
     await addDoc(cartItemsRef, {
@@ -294,6 +300,7 @@ export const addCartItem = async (userId: string, priceAtAddition: number, produ
     });
     console.log("Cart item added successfully for product ID:", productId);
 };
+
 
 export const getEntrepreneurByCartItemId = async (cartItemId: string): Promise<Entrepreneur> => {
     console.log("Fetching entrepreneur for cart item ID:", cartItemId);
@@ -313,12 +320,12 @@ export const getEntrepreneurByCartItemId = async (cartItemId: string): Promise<E
     }
 };
 
-export const getProductByCartItemId = async (cartItemId: string): Promise<Product> => {
+export const getProductByCartItemId = async (cartItemId: string): Promise<Product | null> => {
     const cartItemRef = doc(db, "CartItem");
     const cartItemDoc = await getDoc(cartItemRef);
     if (!cartItemDoc.exists()) {
         console.log("No cart item found with ID:", cartItemId);
-        return new Product("", "", "", "", [], "", 0, 0);
+        return null;
     }
     const cartItemData = cartItemDoc.data();
     return getProductById(cartItemData.productId.id);
@@ -340,7 +347,7 @@ export const checkItemAvailability = async (productId: string, quantity: number)
 export const updateProduct = async (productId: string, updatedProductData: Product): Promise<void> => {
     console.log("Attempting to update product with ID:", productId, "Data:", updatedProductData);
     const productRef = doc(db, "Product", productId);
-    const cleanData = {};
+    const cleanData: { [key: string]: string | number | undefined } = {}; 
     Object.keys(updatedProductData).forEach(key => {
         const value = updatedProductData[key];
         if (value !== undefined) {
@@ -355,6 +362,7 @@ export const updateProduct = async (productId: string, updatedProductData: Produ
         throw new Error("Failed to update product");
     }
 };
+
 
 
 export const deleteCartItems = async (userId: string): Promise<void> => {
@@ -435,7 +443,7 @@ export const updateClientUserName = async (userId: string, updatedUserName: stri
     }
 }
 
-export const getOrdersForEntrepreneur = async (userId: string): Promise<Order[]> => {
+export const getOrdersForEntrepeneur = async (userId: string): Promise<Order[]> => {
     const transactionsQuery = query(collection(db, "Transaction"), where("user", "==", doc(db, "User", userId)));
     const transactionsSnapshot = await getDocs(transactionsQuery);
 

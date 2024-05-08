@@ -5,7 +5,7 @@ import { auth, storage } from "../../src/firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Entrepreneur } from '../../src/assets/Classes.tsx'; 
-import { addEntrepreneur } from '../../src/assets/Api.tsx'; 
+import { addEntrepreneur } from '../../src/assets/Api.jsx'; 
 import { useNavigate } from "react-router-dom";
 
 const EntrepreneurRegistration: React.FC = () => {
@@ -69,16 +69,16 @@ const EntrepreneurRegistration: React.FC = () => {
   }
   return (
     <Container className={styles.registrationContainer}>
-      <Row>
-        <Col  style={{margin:"auto"}}>
-          <div className={`${styles.rowsRegisterEntrepreneur} row`} style={{height: "25%"}}>
-            <a onClick={handleHome} style={{cursor:"pointer"}}>
-              <img src="../../image.png" alt="logo" style={{ maxWidth: "200px", maxHeight: "250px", paddingTop: "100px"}} />
+      <Row className={styles.centeredContent}>
+        <Col>
+          <div className={`${styles.rowsRegisterEntrepreneur} row`}>
+            <a onClick={handleHome} style={{ cursor: "pointer" }}>
+              <img src="../../image.png" alt="logo" className={styles.logoStyle} />
             </a>
           </div>
           <Form onSubmit={handleSubmit} className={styles.formContainer}>
             <h3 className={styles.iniciarSesionEntrepreneurRegistration}>
-              Registrarse como emprendedor
+              Register as an Entrepreneur
             </h3>
             <Form.Group>
               <Form.Control
@@ -129,7 +129,6 @@ const EntrepreneurRegistration: React.FC = () => {
               <Form.Control
                 type="file"
                 onChange={handleFileChange}
-                className="form-control-file"
               />
             </Form.Group>
             <Button

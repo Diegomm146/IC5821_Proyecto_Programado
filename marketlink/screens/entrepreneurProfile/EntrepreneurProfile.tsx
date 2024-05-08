@@ -5,14 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { Entrepreneur, Product } from '../../src/assets/Classes';
 import { getProductsByEntrepreneur } from '../../src/assets/Api';
 import styles from './EntrepreneurProfile.module.css';
-
 interface ItemProps {
   name: string;
   price: number;
   imagesURL: string[];
-  onEdit: (productId: string) => void;  
+  onEdit: (productId: string) => void;
+  onDelete: (productId: string) => void;
 }
-
 const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEdit, onDelete }) => {
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
@@ -26,8 +25,8 @@ const Item: React.FunctionComponent<ItemProps> = ({ name, price, imagesURL, onEd
       <div className={styles.productDetails}>
         <p className={styles.textItemEntrepreneurProfile}>{name}</p>
         <p className={styles.textItemEntrepreneurProfile}>${price.toFixed(2)}</p>
-        <Button variant="outline-primary" onClick={() => onEdit("")} className={styles.editButton}>Editar</Button>
-        <Button variant="outline-danger" onClick={() => onDelete("")} className={styles.deleteButton}>Eliminar</Button>
+        <Button variant="outline-primary" onClick={() => onEdit("")} className={styles.editButton}>Edit</Button>
+        <Button variant="outline-danger" onClick={() => onDelete("")} className={styles.deleteButton}>Delete</Button>
       </div>
     </div>
   );
@@ -77,7 +76,7 @@ const EntrepreneurProfile: React.FC = () => {
   return (
     <Container className={styles.EntrepreneurProfileContainer} fluid>
       <Row className="justify-content-center mt-4">
-        <Col md={6}>
+        <Col md={8}> {/* Cambiado de md={6} a md={8} para dar más espacio */}
           <Card className={styles.profileCard}>
             <Card.Body>
               <Row>
@@ -99,13 +98,15 @@ const EntrepreneurProfile: React.FC = () => {
           <h2 className={styles.titleEntrepreneurProfile}>
             Our Products
             <Button className={styles.footerButton} onClick={handleCreateProductClick}>
-        <FaPlus />
-      </Button>
+              <FaPlus />
+            </Button>
           </h2>
           <Row>
             {products.map(product => (
               <Col xs={6} md={4} lg={3} key={product.id}>
-                <Item name={product.name} price={product.price} imagesURL={product.imagesURL} onEdit={() => handleEditProduct(product.id)} />
+                <Item name={product.name} price={product.price} imagesURL={product.imagesURL} onEdit={() => handleEditProduct(product.id)} onDelete={function (productId: string): void {
+                  throw new Error('Function not implemented.');
+                } } />
               </Col>
             ))}
           </Row>
@@ -113,6 +114,7 @@ const EntrepreneurProfile: React.FC = () => {
       </Row>
     </Container>
   );
+  
 };
 
 export default EntrepreneurProfile;

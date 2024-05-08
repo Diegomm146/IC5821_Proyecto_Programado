@@ -47,7 +47,7 @@ const Home: FunctionComponent = () => {
   );
 };
 
-const Item = ({ product }) => {
+const Item = ({ product }: { product: Product }) => {
   const navigate = useNavigate();
 
   return (
@@ -61,7 +61,7 @@ const Item = ({ product }) => {
   );
 };
 
-const EntrepreneurItem = ({ entrepreneur }) => {
+const EntrepreneurItem = ({ entrepreneur }: { entrepreneur: Entrepreneur }) => {
   return (
     <div className={styles.itemContainer}>
       <Link to={`/entrepreneur-profile/${entrepreneur.id}`}>
