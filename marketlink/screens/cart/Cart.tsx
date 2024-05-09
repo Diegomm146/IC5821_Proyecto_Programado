@@ -103,7 +103,7 @@ const CartItemComponent: React.FunctionComponent<{ item: CartItemData, onDelete:
         <ListGroup.Item className={styles.cartItem}>
             <Row>
                 <Col>
-                    <img src={item.productImage || "../../../defaultproduct.png"} className={styles.imgProductoCart} alt={item.productName}/>
+                    <img src={item.productImage || "../../../defaultproduct.png"} className={styles.imgProductoCart} alt={`Image of ${item.productName}`} />
                 </Col>
                 <Col>
                     <div className={styles.textCartItem}>{item.productName}</div>
@@ -111,10 +111,12 @@ const CartItemComponent: React.FunctionComponent<{ item: CartItemData, onDelete:
                 </Col>
                 <Col>
                     <div className={styles.textCartItem}>${item.price.toFixed(2)}</div>
-                    <div className={styles.textCartItem}>Qty: {item.quantity}</div>
+                    <div className={styles.textCartItem}>Quantity: {item.quantity}</div>
                 </Col>
                 <Col>
-                    <Button variant="link" onClick={onDelete} className={styles.deleteButton}><img src="../../../delete.png" alt="Delete" /></Button>
+                    <Button variant="link" onClick={onDelete} className={styles.deleteButton} aria-label="Delete Item">
+                        <img src="../../../red-trash-can.png" alt="Delete item" />
+                    </Button>
                 </Col>
             </Row>
         </ListGroup.Item>
