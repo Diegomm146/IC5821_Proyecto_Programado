@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getOrders } from "../../src/assets/Api";
 import { toast } from "react-toastify";
+import { Table } from "react-bootstrap";
 
 const ClientOrders: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -44,76 +45,62 @@ const ClientOrders: FunctionComponent = () => {
         fetchOrders();
     }, [uid]);  
 
-    return (
-        <html>
-            <body className={styles.mainContainerClientOrders}>
-                <Container>
-                    <Row>
-                        <h1 className={styles.titleClientOrders}>Orders Placed</h1>
-                    </Row>
-                    <Row>
-                        <Col md={{ span: 10, offset: 1 }} style={{ maxHeight: '700px', overflowY: 'auto' }}>
-                            <ListGroup>
-                                {orders.map((order, index) => (
-                                    <OrderComponent key={index} order={order} />
-                                ))}
-                            </ListGroup>
-                        </Col>
-                    </Row>
-                </Container>
-            </body>
-        </html>
-    );
-};
+    useEffect(() => {
+        const fetchOrders = async () => {
+            if (uid !== "") {
+                try {
+                    const items = await getOrders(uid);
+                    
+                    setOrders(items);
+                } catch (error) {
+                    toast.error("Error fetching orders ");
+                }
+            }
+        };
 
-const OrderComponent: FunctionComponent<{ order: any }> = ({ order }) => {
-    console.log(order);
+        fetchOrders();
+    }, [uid]);  
+
     return (
-        <ListGroup.Item>
-            <Row style={{margin:"10px"}}>
-                <Col>
-                    <img src={order.productImage || "../../../defaultproduct.png"} className={styles.imgProductoClientOrders} />
-                </Col>
-                <Col>
-                    <Row className={styles.textClientOrders}>
-                        <text>Product: {order.productName}</text>
-                    </Row>
-                    <Row className={styles.textClientOrders}>
-                        <text>
-                            <text>Entrepreneur: {order.entrepreneurName}</text>
-                        </text>
-                    </Row>
-                </Col>
-                <Col >
-                    <Row className={styles.textClientOrders}>
-                        <text>Paid: ${order.amoutPaid}</text>
-                    </Row>
-                    <Row className={styles.textClientOrders}>
-                        <text>Quantity: {order.quantity}</text>
-                    </Row>
-                </Col>
-                <Col>
-                    <Row className={styles.bigTextClientOrders}>
-                        <text>Shipping Specifications: {order.shippingDetails}</text>
-                    </Row>
-                </Col>
-                <Col>
-                    <Row className={styles.textClientOrders}>
-                        <text>
-                        <text>Date: {order.dateCompleted}</text>
-                        </text>
-                    </Row>
-                    <Row className={styles.textClientOrders}>
-                        <text>Payment Method: {order.paymentMethod}</text>
-                    </Row>
-                </Col>
-                <Col>
-                    <Row className={styles.bigTextClientOrders}>
-                        <text>Status: {order.status}</text>
-                    </Row>
+        <Container className={styles.mainContainerClientOrders}>
+            <Row>
+                <h1 className={styles.titleClientOrders}>Orders Placed</h1>
+            </Row>
+            <Row>
+                <Col md={{ span: 10, offset: 1 }} style={{ maxHeight: '700px', overflowY: 'auto' }}>
+                    <Table striped bordered hover responsive>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product</th>
+                                <th>Entrepreneur</th>
+                                <th>Paid</th>
+                                <th>Quantity</th>
+                                <th>Shipping Details</th>
+                                <th>Date Completed</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {orders.map((order, index) => (
+                                <tr key={index}>
+                                    <td><img src={order.productImage || "../../../defaultproduct.png"} alt="Product" className={styles.imgProductoClientOrders} /></td>
+                                    <td>{order.productName}</td>
+                                    <td>{order.entrepreneurName}</td>
+                                    <td>${order.amountPaid}</td>
+                                    <td>{order.quantity}</td>
+                                    <td>{order.shippingDetails}</td>
+                                    <td>{order.dateCompleted}</td>
+                                    <td>{order.paymentMethod}</td>
+                                    <td>{order.status}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
                 </Col>
             </Row>
-        </ListGroup.Item>
-    )
-}
+        </Container>
+    );
+};
 export default ClientOrders;

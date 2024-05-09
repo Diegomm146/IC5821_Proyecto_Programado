@@ -165,18 +165,18 @@ export class Order {
     productName: string;
     quantity: string;
     status: string;
-    amoutPaid: string;
+    amountPaid: string;
     shippingDetails: string;
     dateCompleted: Date;
     paymentMethod: string;
 
-    constructor(productImage: string, entrepreneurName: string, amoutPaid: string ,productName: string, quantity: string,  status: string, shippingDetails: string, dateCompleted: Date, paymentMethod: string) {
+    constructor(productImage: string, entrepreneurName: string, amountPaid: string ,productName: string, quantity: string,  status: string, shippingDetails: string, dateCompleted: Date, paymentMethod: string) {
         this.productImage = productImage;
         this.entrepreneurName = entrepreneurName;
         this.productName = productName;
         this.quantity = quantity;
         this.status = status;
-        this.amoutPaid = amoutPaid;
+        this.amountPaid = amountPaid;
         this.shippingDetails = shippingDetails;
         this.dateCompleted = dateCompleted;
         this.paymentMethod = paymentMethod;
