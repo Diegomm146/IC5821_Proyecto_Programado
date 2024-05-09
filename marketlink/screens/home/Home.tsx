@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, KeyboardEvent, useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Stack } from "react-bootstrap";
@@ -18,7 +18,7 @@ const Home: FunctionComponent = () => {
         const fetchedEntrepreneurs = await getEntrepreneurs();
         setEntrepreneurs(fetchedEntrepreneurs);
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+        
       }
     };
 
@@ -50,9 +50,22 @@ const Home: FunctionComponent = () => {
 const Item = ({ product }: { product: Product }) => {
   const navigate = useNavigate();
 
+  const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>, url: string) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      navigate(url);
+    }
+  };
+
   return (
-    <div className={styles.itemContainer} onClick={() => navigate(`/product-view/${product.id}`)} role="button" tabIndex={0}>
-      <img src={product.imagesURL[0] || '../../defaultproduct.png'} className={styles.imgItemHome} alt={product.name} />
+    <div
+      className={styles.itemContainer}
+      onClick={() => navigate(`/product-view/${product.id}`)}
+      onKeyDown={(e) => handleKeyPress(e, `/product-view/${product.id}`)}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${product.name}, priced at $${product.price.toFixed(2)}`}
+    >
+      <img src={product.imagesURL[0] || '../../defaultproduct.png'} className={styles.imgItemHome} alt={`Image of ${product.name}`} />
       <div className={styles.productDetails}>
         <p className={styles.textItemHome}>{product.name}</p>
         <p className={styles.textItemHome}>${product.price.toFixed(2)}</p>
@@ -63,9 +76,9 @@ const Item = ({ product }: { product: Product }) => {
 
 const EntrepreneurItem = ({ entrepreneur }: { entrepreneur: Entrepreneur }) => {
   return (
-    <div className={styles.itemContainer}>
+    <div className={styles.itemContainer} tabIndex={0} aria-label={`Profile of ${entrepreneur.name}`}>
       <Link to={`/entrepreneur-profile/${entrepreneur.id}`}>
-        <img src={entrepreneur.logoURL || '../../defaultentrepreneur.png'} className={styles.imgItemEntrepreneur} alt={entrepreneur.name} />
+        <img src={entrepreneur.logoURL || '../../defaultentrepreneur.png'} className={styles.imgItemEntrepreneur} alt={`Logo of ${entrepreneur.name}`} />
       </Link>
       <div className={styles.productDetails}>
         <p className={styles.textItemHome}>{entrepreneur.name}</p>

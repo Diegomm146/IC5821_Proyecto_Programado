@@ -87,20 +87,20 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <div className="container-fluid h-100">
+      <main className="container-fluid h-100">  
         <div className="row h-100">
           <div className="col">
-            <div className={`${styles.rows} row`} style={{ height: "25%" }}>
-              <a onClick={handleHome} style={{cursor:"pointer"}}>
+            <header className={`${styles.rows} row`} style={{ height: "25%" }}> 
+              <a onClick={handleHome} style={{ cursor: "pointer" }} role="button" aria-label="Return to home"> 
                 <img src="../../../image.png" alt="logo" style={{ maxWidth: "150px", maxHeight: "250px" }} />
               </a>
-              <h1 className={styles.iniciarSesion} >Market Link</h1>
-            </div>
-            <div className={`${styles.rows} row`} style={{ height: "15%" }}>
+              <h1 className={styles.iniciarSesion}>Market Link</h1>
+            </header>
+            <section className={`${styles.rows} row`} style={{ height: "15%" }}>  
               <h1 className={styles.iniciarSesion}>Login</h1>
-            </div>
-            <div className={`${styles.rows} row`} style={{ height: "30%" }}>
-              <form className={styles.formContainer} onSubmit={onSubmit}>
+            </section>
+            <section className={`${styles.rows} row`} style={{ height: "30%" }}> 
+              <form className={styles.formContainer} onSubmit={onSubmit} aria-label="Login form"> 
                 <input 
                   type="email" 
                   className={styles.inputs} 
@@ -108,6 +108,7 @@ const Login: React.FC = () => {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  aria-required="true" 
                 />
                 <input 
                   type="password" 
@@ -116,10 +117,12 @@ const Login: React.FC = () => {
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  aria-required="true" 
                 />
                 <button 
                   type="submit" 
-                  className={styles.botonTransparente} 
+                  className={styles.botonTransparente}
+                  aria-label="Submit login"  
                 >
                   Submit
                 </button>
@@ -127,6 +130,7 @@ const Login: React.FC = () => {
                   type="button" 
                   className={styles.botonTransparente} 
                   onClick={handlePasswordReset}
+                  aria-label="Reset password"  
                 >
                   Change Password
                 </button>
@@ -135,6 +139,8 @@ const Login: React.FC = () => {
                   <a 
                     className={styles.linkRegisterLogin} 
                     onClick={handleRegisterClient}
+                    role="button" 
+                    aria-label="Register as client" 
                   >
                      Client  
                   </a>
@@ -142,17 +148,20 @@ const Login: React.FC = () => {
                   <a 
                     className={styles.linkRegisterLogin} 
                     onClick={handleRegisterSeller}
+                    role="button" 
+                    aria-label="Register as entrepreneur" 
                   >
                     Entrepreneur
                   </a>
                 </p>
               </form>
-            </div>
+            </section>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
+  
 };
 
 export default Login;

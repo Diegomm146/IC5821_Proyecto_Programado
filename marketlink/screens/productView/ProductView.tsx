@@ -53,25 +53,32 @@ const ProductView: FunctionComponent = () => {
         }
     };
 
-        return (
-            <Container className={styles.mainContainerProductView}>
-                <Row>
-                    <Col md={6}>
-                        <Image src={product?.imagesURL[0] || '../../defaultproduct.png'} rounded className={styles.mainImgProductView} alt="Main Product"/>
-                    </Col>
-                    <Col md={6}>
-                        <div className={styles.productDetails}>
-                            <h3>{product?.name}</h3>
-                            <p>{product?.description}</p>
-                            <p><strong>Price:</strong> ${product?.price}</p>
-                            <p><strong>Stock:</strong> {product?.stock}</p>
-                            <input type="number" value={quantity} onChange={handleQuantityChange} min="1" max={product?.stock} className={styles.quantityInput}/>
-                            <Button onClick={handleAddToCart} className={styles.buttonAddToCart}>Add to Cart</Button>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    };
-
+    return (
+        <Container className={styles.mainContainerProductView}>
+            <Row>
+                <Col md={6}>
+                    <Image src={product?.imagesURL[0] || '../../defaultproduct.png'} rounded className={styles.mainImgProductView} alt={`Image of ${product?.name}`} />
+                </Col>
+                <Col md={6}>
+                    <div className={styles.productDetails}>
+                        <h3>{product?.name}</h3>
+                        <p>{product?.description}</p>
+                        <p><strong>Price:</strong> ${product?.price}</p>
+                        <p><strong>Stock:</strong> {product?.stock}</p>
+                        <input 
+                            type="number" 
+                            value={quantity} 
+                            onChange={handleQuantityChange} 
+                            min="1" 
+                            max={product?.stock} 
+                            className={styles.quantityInput}
+                            aria-label="Quantity"
+                        />
+                        <Button onClick={handleAddToCart} className={styles.buttonAddToCart} aria-label="Add to cart">Add to Cart</Button>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+    );
+ };
 export default ProductView;

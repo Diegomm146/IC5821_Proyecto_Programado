@@ -74,21 +74,24 @@ const RegisterClient: FunctionComponent = () => {
                     type="email" className={styles.inputsRegisterClient} placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    aria-label="Email Address" 
                   />
                   <input 
                     type="text" className={styles.inputsRegisterClient} placeholder="Username"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
+                    aria-label="Username" 
                   />
                   <input 
                     type="password" className={styles.inputsRegisterClient} placeholder="Password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    aria-label="Password" 
                   />
-                  <button type="submit" className={styles.botonTransparenteRegisterClient} style={{ width: "15%", marginBottom:"15px" }}>Accept</button>
+                  <button type="submit" className={styles.botonTransparenteRegisterClient} aria-label="Accept and register" style={{ width: "15%", marginBottom:"15px" }}>Accept</button>
                   {error && (
                     <div className="alert alert-danger alert-dismissible">
-                      <button type="button" className="close" onClick={() => setError("")}><span aria-hidden="true">&times;</span></button>
+                      <button type="button" className="close" onClick={() => setError("")} aria-label="Close Alert"><span aria-hidden="true">&times;</span></button>
                       <strong>Error!</strong> {error}
                     </div>
                   )}
@@ -99,6 +102,7 @@ const RegisterClient: FunctionComponent = () => {
       </div>
     </div>
   );
+  
 };
 
 export default RegisterClient;

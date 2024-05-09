@@ -54,12 +54,10 @@
     }
 }
 
-
-
 .descriptionProductView {
     text-align: left;
     font-family: 'Inter', sans-serif;
-    color: #244242;
+    color: #244242; 
     font-weight: bold;
     margin-bottom: 20px;
     padding: 0 20px; 
@@ -71,7 +69,7 @@
     background-color: white;
     border: 2px solid #83AF4B; 
     border-radius: 31px;
-    color: #244242;
+    color: #244242; 
     width: 160px;
     height: 40px;
     margin: 10px auto; 
@@ -85,7 +83,7 @@
     background-color: transparent;
     border: 3px solid #83AF4B; 
     border-radius: 20px;
-    color: #83AF4B;
+    color: #83AF4B; 
     padding: 8px 16px;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -95,7 +93,7 @@
 }
 
 .buttonAddToCart:hover {
-    color: #E4ECE5;
+    color: #E4ECE5; 
     background-color: #244242; 
     border-color: #E4ECE5; 
 }
@@ -129,4 +127,3 @@
     background-color: #244242;
     border-color: #E4ECE5;
 }
-
