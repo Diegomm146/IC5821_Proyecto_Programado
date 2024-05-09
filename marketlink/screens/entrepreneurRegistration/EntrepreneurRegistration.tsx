@@ -35,7 +35,7 @@ const EntrepreneurRegistration: React.FC = () => {
       }
     
       if (!user?.uid || !email) {
-        console.error("Required user information is missing.");
+        
         return;
       }
   
@@ -53,7 +53,7 @@ const EntrepreneurRegistration: React.FC = () => {
   
       window.location.href = "/login";
     } catch (e) {
-      console.error("Error in user registration and data insertion:", e);
+      
     }
   };
 

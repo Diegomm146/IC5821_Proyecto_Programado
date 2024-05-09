@@ -54,14 +54,14 @@ const EntrepreneurProfile: React.FC = () => {
                   
                   setProducts(products);
               })
-              .catch(error => {
-                  console.error('Failed to fetch products:', error);
+              .catch(() => {
+                  
               });
       } else {
-          console.error('No UID found on the entrepreneur data.');
+          
       }
     } else {
-      console.error('No entrepreneur data found in local storage.');
+      
     }
   }, []);
 

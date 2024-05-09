@@ -47,7 +47,7 @@ export const addEntrepreneur = async (entrepreneur: Entrepreneur): Promise<void>
         });
         
     } catch (e) {
-        console.error("Error adding entrepreneur:", e);
+        
     }
 };
 
@@ -79,7 +79,7 @@ export const signIn = async (email: string, password: string) => {
         
         return { error: "no user data available" };
     } catch (error) {
-        console.error("Authentication failed:", error);
+        
         return { error: "authentication failed. please check your credentials and try again." };
     }
 };
@@ -94,7 +94,7 @@ const getRouteForUser = (type: string) => {
         case "Administrator":
             return "/admin-dashboard";
         default:
-            console.error("Unknown user type:", type);
+            
             return "/login";
     }
 };
@@ -113,7 +113,7 @@ export const addProduct = async (product: Product): Promise<void> => {
         const docRef = await addDoc(collection(db, "Product"), productData);
         
     } catch (error) {
-        console.error("Error adding product:", error);
+        
     }
 };
 
@@ -131,7 +131,7 @@ const getCart = async (userId: string): Promise<Cart | null> => {
 
         return new Cart(cartSnapshot.docs[0].id, userId);
     } catch (error) {
-        console.error("Failed to fetch cart for user " + userId + ":", error);
+        
         throw error; 
     }
 }
@@ -212,7 +212,7 @@ export const deleteCartItem = async (cartItemId: string): Promise<void> => {
         await deleteDoc(doc(db, "CartItem", cartItemId));
         
     } catch (error) {
-        console.error("Error removing document: ", error);
+        
     }
 }
 
@@ -238,7 +238,7 @@ export const getProductsByEntrepreneur = async (entrepreneurId: string): Promise
             );
         });
     } catch (error) {
-        console.error("Error fetching products by entrepreneur:", error);
+        
         throw new Error("Unable to fetch products");
     }
 };
@@ -365,7 +365,7 @@ export const updateProduct = async (productId: string, updatedProductData: Produ
         await updateDoc(productRef, cleanData);
         
     } catch (error) {
-        console.error("Failed to update product with ID:", productId, "Error:", error);
+        
         throw new Error("Failed to update product");
     }
 };
@@ -395,7 +395,7 @@ export const deleteCartItems = async (userId: string): Promise<void> => {
         await Promise.all(promises);
         
     } catch (error) {
-        console.error("Error deleting items: ", error);
+        
     }
 };
 
@@ -448,7 +448,7 @@ export const updateClientUserName = async (userId: string, updatedUserName: stri
             name: updatedUserName
           });
     } catch (error) {
-        console.error("Failed to update user with ID:", userId, "Error:", error);
+        
         throw new Error("Failed to update user");
     }
 }
@@ -505,7 +505,7 @@ export const deleteProduct = async (productId: string): Promise<boolean> => {
         
         return true; 
     } catch (error) {
-        console.error('Error deleting product:', error);
+        
         return false; 
     }
 };

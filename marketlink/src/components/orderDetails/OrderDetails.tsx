@@ -43,7 +43,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ show, onHide, order }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onHide}>Cancel</Button>
-          <Button variant="success" onClick={() => console.log('Completing order...')}>Complete</Button>
+          <Button variant="success" onClick={() => {}}>Complete</Button>
         </Modal.Footer>
       </Modal>
     );

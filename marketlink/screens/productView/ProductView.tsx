@@ -23,8 +23,8 @@ const ProductView: FunctionComponent = () => {
                 .then(fetchedProduct => {
                     setProduct(fetchedProduct);
                 })
-                .catch(error => {
-                    console.error("Error fetching product:", error);
+                .catch(() => {
+                    
                     setProduct(null);
                 });
         }

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"; 
-import { getAuth } from "firebase/auth"; //setear autenticaciones
+import { getAuth } from "firebase/auth"; 
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -14,7 +14,7 @@ measurementId: "G-QGMK19K8LS"
 };
 
 const app = initializeApp(firebaseConfig);
-console.log('Firebase App initialized:', app);
+
 
 const db = getFirestore(app);
 const auth = getAuth(app);
