@@ -61,39 +61,41 @@ const EntrepreneurOrders = () => {
       </Row>
       <Row>
         <Col md={{ span: 10, offset: 1 }} style={{ maxHeight: '700px', overflowY: 'auto' }}>
-          <Table bordered responsive striped>
-            <thead>
-              <tr>
-                <th>Client</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Product</th>
-                <th>Shipping Specs</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map(order => (
-                <tr>
-                  <td>{order.clientEmail}</td>
-                  <td>{order.date.toString()}</td>
-                  <td>{order.amount}</td>
-                  <td>{order.product}</td>
-                  <td>{order.shippingSpecs}</td>
-                  <td>{order.status}</td>
-                  <td>
-                    <Button
-                      style={{ color: "#83AF4B", backgroundColor: "transparent", border: "5px solid #83AF4B" }}
-                      className={styles.btnEntrepreneurOrders}
-                      onClick={() => handleShowModal(order)}
-                    >
-                      View
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+        <Table bordered responsive striped aria-describedby="ordersDesc">
+  <caption id="ordersDesc">List of orders placed by clients</caption>
+  <thead>
+    <tr>
+      <th scope="col">Client</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Product</th>
+      <th scope="col">Shipping Specs</th>
+      <th scope="col">Status</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {orders.map((order, index) => (
+      <tr key={index}>
+        <td>{order.clientEmail}</td>
+        <td>{order.date.toString()}</td>
+        <td>{order.amount}</td>
+        <td>{order.product}</td>
+        <td>{order.shippingSpecs}</td>
+        <td>{order.status}</td>
+        <td>
+          <Button
+            style={{ color: "#83AF4B", backgroundColor: "transparent", border: "5px solid #83AF4B" }}
+            className={styles.btnEntrepreneurOrders}
+            onClick={() => handleShowModal(order)}
+          >
+            View
+          </Button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</Table>
         </Col>
       </Row>
       {selectedOrder && (

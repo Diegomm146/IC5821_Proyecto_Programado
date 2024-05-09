@@ -32,7 +32,6 @@ const Cart: FunctionComponent = () => {
                 try {
                     const items = await getCartItems(uid);
                     if (items.length !== 0) {
-                        
                         setCartItems(items);
                     }
                 } catch (error: any) {
@@ -73,28 +72,26 @@ const Cart: FunctionComponent = () => {
     };
 
     return (
-        <html>
-            <body className={styles.mainContainerCart}>
-                <h1 className={styles.titleCart}>Cart</h1>
-                <Row>
-                    <Col md={{ span: 8, offset: 1 }}>
-                    <ListGroup>
-                        {cartItems.map((item) => (
-                            <CartItemComponent key={item.id} item={item} onDelete={() => handleDelete(item.id)} />
-                        ))}
-                    </ListGroup>
-                    </Col>
-                    <Col md={{ span: 3, offset: 0 }}>
-                        <div>
-                            <h4>
-                                Subtotal ({cartItems.reduce((total, item) => total + item.quantity, 0)} Products): ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
-                            </h4>
-                            <Button className={styles.buttonCart} onClick={handleCompletePurchase}>Complete Purchase</Button>
-                        </div>
-                    </Col>
-                </Row>
-            </body>
-        </html>
+        <div className={styles.mainContainerCart}>
+            <h1 className={styles.titleCart}>Cart</h1>
+            <Row>
+                <Col md={{ span: 8, offset: 1 }}>
+                <ListGroup>
+                    {cartItems.map((item) => (
+                        <CartItemComponent key={item.id} item={item} onDelete={() => handleDelete(item.id)} />
+                    ))}
+                </ListGroup>
+                </Col>
+                <Col md={{ span: 3, offset: 0 }}>
+                    <div>
+                        <h4>
+                            Subtotal ({cartItems.reduce((total, item) => total + item.quantity, 0)} Products): ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
+                        </h4>
+                        <Button className={styles.buttonCart} onClick={handleCompletePurchase}>Complete Purchase</Button>
+                    </div>
+                </Col>
+            </Row>
+        </div>
     );
 };
 

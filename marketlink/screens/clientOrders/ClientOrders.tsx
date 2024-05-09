@@ -1,7 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./ClientOrders.module.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -34,26 +33,9 @@ const ClientOrders: FunctionComponent = () => {
             if (uid !== "") {
                 try {
                     const items = await getOrders(uid);
-                    
                     setOrders(items);
                 } catch (error: any) {
                     toast.error("Error fetching orders: " + error.message);
-                }
-            }
-        };
-
-        fetchOrders();
-    }, [uid]);  
-
-    useEffect(() => {
-        const fetchOrders = async () => {
-            if (uid !== "") {
-                try {
-                    const items = await getOrders(uid);
-                    
-                    setOrders(items);
-                } catch (error) {
-                    toast.error("Error fetching orders ");
                 }
             }
         };
@@ -69,17 +51,18 @@ const ClientOrders: FunctionComponent = () => {
             <Row>
                 <Col md={{ span: 10, offset: 1 }} style={{ maxHeight: '700px', overflowY: 'auto' }}>
                     <Table striped bordered hover responsive>
+                        <caption>Orders Placed by the Client</caption>
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Product</th>
-                                <th>Entrepreneur</th>
-                                <th>Paid</th>
-                                <th>Quantity</th>
-                                <th>Shipping Details</th>
-                                <th>Date Completed</th>
-                                <th>Payment Method</th>
-                                <th>Status</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Entrepreneur</th>
+                                <th scope="col">Paid</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Shipping Details</th>
+                                <th scope="col">Date Completed</th>
+                                <th scope="col">Payment Method</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
