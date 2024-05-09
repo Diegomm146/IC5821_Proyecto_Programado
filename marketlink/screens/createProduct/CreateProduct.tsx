@@ -57,7 +57,7 @@ const CreateProduct: React.FC = () => {
                 const urls = await Promise.all(uploadPromises);
                 setImagesURL(prevUrls => [...prevUrls, ...urls]);
             } catch (error) {
-                console.error("Error uploading files:", error);
+                
             }
         }
     };
