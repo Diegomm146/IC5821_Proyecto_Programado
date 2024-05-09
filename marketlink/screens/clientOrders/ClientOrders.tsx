@@ -67,7 +67,7 @@ const ClientOrders: FunctionComponent = () => {
 };
 
 const OrderComponent: FunctionComponent<{ order: any }> = ({ order }) => {
-    
+    console.log(order);
     return (
         <ListGroup.Item>
             <Row style={{margin:"10px"}}>

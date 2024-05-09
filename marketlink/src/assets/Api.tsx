@@ -413,7 +413,6 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
 
         const items = await Promise.all(transactionItemsSnapshot.docs.map(async (itemDoc) => {
             const itemData = itemDoc.data();
-            
             const product = await getProduct(itemData.product);
             
             const entrepreneur = await getEntrepreneur(product.entrepreneur);
@@ -426,20 +425,22 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
                 status: itemData.status
             };
         }));
-        return new Order(
-            items.map(item => item.productImage).join(", "), 
-            items.map(item => item.entrepreneurName).join(", "), 
-            items.map(item => item.priceAtPurchase).join(", "), 
-            items.map(item => item.productName).join(", "), 
-            items.map(item => item.quantity).join(", "),
-            items.map(item => item.status).join(", "),
+        console.log(items);
+        return items.map(item => new Order(
+            item.productImage,
+            item.entrepreneurName,
+            item.priceAtPurchase,
+            item.productName,
+            item.quantity,
+            item.status,
             shippingDetails,
-            date, 
-            method,
-        );
+            date,
+            method
+        ));
     }));
-    return orders;
+    return orders.flat();
 }
+
 export const updateClientUserName = async (userId: string, updatedUserName: string): Promise<void> => {
     
     const userRef = doc(db, "User", userId);
