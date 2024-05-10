@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AltoContrastContextType {
     isHighContrast: boolean;
@@ -6,7 +6,7 @@ interface AltoContrastContextType {
 }
 
 const defaultState = {
-    isHighContrast: false, // El estado inicial ahora se definirá basándose en localStorage
+    isHighContrast: false, 
     toggleHighContrast: () => {}
 };
 
@@ -21,7 +21,7 @@ interface Props {
 export const HighContrastProvider: React.FC<Props> = ({ children }) => {
     const [isHighContrast, setIsHighContrast] = useState<boolean>(() => {
         const stored = localStorage.getItem('highContrast');
-        console.log('Initial high contrast state:', stored);
+        
         return stored === 'true' ? true : false;
     });
 
@@ -29,7 +29,7 @@ export const HighContrastProvider: React.FC<Props> = ({ children }) => {
         setIsHighContrast(prev => {
             const newState = !prev;
             localStorage.setItem('highContrast', String(newState));
-            console.log('High contrast toggled:', newState);
+            
             return newState;
         });
     };

@@ -29,19 +29,19 @@
 }
 
 .highContrast .footer {
-  background-color: #000; /* Fondo oscuro */
-  color: #fff; /* Texto claro */
-  box-shadow: 0 -2px 10px rgba(255, 255, 255, 0.3); /* Sombra clara para contraste */
+  background-color: #000; 
+  color: #fff; 
+  box-shadow: 0 -2px 10px rgba(255, 255, 255, 0.3); 
 }
 
 .highContrast .footerButton {
   background-color: transparent;
-  border: 3px solid #FFD700; /* Borde dorado para visibilidad */
-  color: #FFD700; /* Texto dorado para visibilidad */
+  border: 3px solid #FFD700; 
+  color: #FFD700; 
 }
 
 .highContrast .footerButton:hover {
-  color: #000; /* Texto oscuro para contraste en hover */
-  background-color: #FFD700; /* Fondo dorado */
-  border-color: #000; /* Borde oscuro para contraste en hover */
+  color: #000; 
+  background-color: #FFD700; 
+  border-color: #000; 
 }

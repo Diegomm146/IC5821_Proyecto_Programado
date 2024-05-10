@@ -76,10 +76,10 @@
 }
 
 .highContrast .whiteTextButton:hover, .highContrast .nav-link:hover {
-  color: #f0e14a; /* Un color más llamativo para el modo de alto contraste */
+  color: #f0e14a; 
 }
 
-/* Estilos adicionales para el botón de alternancia de modo */
+
 .icon-container svg {
   width: 20px;
   height: 20px;

@@ -16,7 +16,7 @@ const RegisterClient: FunctionComponent = () => {
   const navigate = useNavigate();
 
   const { isHighContrast } = useHighContrast();
-  console.log('Login component - High Contrast Mode:', isHighContrast);
+  
     const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
 

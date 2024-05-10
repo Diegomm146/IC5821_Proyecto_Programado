@@ -11,7 +11,7 @@ const Home: FunctionComponent = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [entrepreneurs, setEntrepreneurs] = useState<Entrepreneur[]>([]);
   const { isHighContrast } = useHighContrast();
-  console.log('Home component - High Contrast Mode:', isHighContrast);
+  
     const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
   useEffect(() => {

@@ -19,7 +19,7 @@ const EntrepreneurRegistration: React.FC = () => {
   const navigate = useNavigate();
 
   const { isHighContrast } = useHighContrast();
-  console.log('Login component - High Contrast Mode:', isHighContrast);
+  
     const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

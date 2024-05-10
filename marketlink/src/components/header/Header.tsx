@@ -1,10 +1,9 @@
-import React from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../util/AuthContext';
 import { useHighContrast } from '../../../src/assets/HighContrastContext';
 import styles from './Header.module.css';
-import { FaHome, FaUserCircle, FaPlusCircle, FaBoxOpen, FaSignInAlt, FaUserPlus, FaSignOutAlt, FaAdjust, FaSun, FaMoon } from 'react-icons/fa';
+import { FaHome, FaUserCircle, FaPlusCircle, FaBoxOpen, FaSignInAlt, FaUserPlus, FaSignOutAlt, FaSun, FaMoon } from 'react-icons/fa';
 import { CiShoppingCart } from "react-icons/ci";
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
@@ -23,7 +22,7 @@ const Header = () => {
       await signOut(auth);
       navigate('/login');
     } catch (error) {
-      console.error("Logout failed:", error);
+      
     }
   };
 

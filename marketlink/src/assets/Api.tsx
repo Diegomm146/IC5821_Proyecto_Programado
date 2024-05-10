@@ -425,7 +425,7 @@ export const getOrders = async (userId: string): Promise<Order[]> => {
                 status: itemData.status
             };
         }));
-        console.log(items);
+        
         return items.map(item => new Order(
             item.productImage,
             item.entrepreneurName,

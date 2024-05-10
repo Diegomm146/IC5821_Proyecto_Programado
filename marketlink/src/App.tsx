@@ -50,7 +50,7 @@ function App() {
   const { isHighContrast } = useHighContrast();
 
   useEffect(() => {
-      console.log('App component - High Contrast Mode:', isHighContrast);
+      
   }, [isHighContrast]);
 
   
