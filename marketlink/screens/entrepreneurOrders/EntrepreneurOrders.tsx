@@ -172,7 +172,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ show, onHide, order }) => {
             <strong>Client:</strong> {order.clientEmail}
           </div>
           <div>
-            <strong>Date:</strong> {order.date.toLocaleDateString()}
+            <strong>Date:</strong> {order.date}
           </div>
           <div>
             <strong>Amount:</strong> {order.amount}
