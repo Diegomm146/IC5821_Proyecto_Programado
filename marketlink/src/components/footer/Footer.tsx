@@ -1,8 +1,15 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import styles from './Footer.module.css';
+import { useHighContrast } from '../../assets/HighContrastContext';
 
 const Footer = () => {
+
+  const { isHighContrast } = useHighContrast();
+  const footerClass = isHighContrast ? `${styles.footer} ${styles.highContrast}` : styles.footer;
+
+
   return (
+    <div className={footerClass}>
     <footer className={styles.footer}>
       <Container>
         <Row>
@@ -18,6 +25,7 @@ const Footer = () => {
         </Row>
       </Container>
     </footer>
+    </div>
   );
 };
 

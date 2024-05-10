@@ -31,6 +31,8 @@
   align-items: center;
 }
 
+
+
 .dropdown-menu {
   background-color: #244242;
   border: none;
@@ -47,4 +49,44 @@
   justify-content: space-around;
   align-items: center;
   background-color: #244242;
+  border-radius: 50px;
+  padding: 5px;
+  transition: background-color 0.3s;
+}
+
+.highContrast .dropdown-menu,
+.highContrast .icon,
+.highContrast .icon-container {
+  background-color: black;
+  color: white;
+}
+
+.highContrast .custom-nav {
+  background-color: black;
+  color: white;
+}
+
+.highContrast .header {
+  background-color: black;
+}
+
+.highContrast .whiteTextButton, .highContrast .nav-link {
+  color: #fff;
+  background-color: transparent;
+}
+
+.highContrast .whiteTextButton:hover, .highContrast .nav-link:hover {
+  color: #f0e14a; /* Un color más llamativo para el modo de alto contraste */
+}
+
+/* Estilos adicionales para el botón de alternancia de modo */
+.icon-container svg {
+  width: 20px;
+  height: 20px;
+  color: white;
+  transition: color 0.3s;
+}
+
+.highContrast .icon-container svg {
+  color: #f0e14a;
 }

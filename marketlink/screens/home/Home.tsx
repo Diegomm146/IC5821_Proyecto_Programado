@@ -5,10 +5,13 @@ import { Stack } from "react-bootstrap";
 import { getProducts, getEntrepreneurs } from "../../src/assets/Api";
 import { Product, Entrepreneur } from "../../src/assets/Classes";
 import { useNavigate, Link } from 'react-router-dom';
+import { useHighContrast } from '../../src/assets/HighContrastContext';
 
 const Home: FunctionComponent = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [entrepreneurs, setEntrepreneurs] = useState<Entrepreneur[]>([]);
+  const { isHighContrast } = useHighContrast();
+    const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +29,7 @@ const Home: FunctionComponent = () => {
   }, []);
 
   return (
+    <div className={homeClass}>
     <div className={styles.mainContainerHome}>
       <section>
         <h1 className={styles.titles}>Featured Products</h1>
@@ -43,6 +47,7 @@ const Home: FunctionComponent = () => {
           ))}
         </Stack>
       </section>
+    </div>
     </div>
   );
 };

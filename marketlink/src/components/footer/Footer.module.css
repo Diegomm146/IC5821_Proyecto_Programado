@@ -1,29 +1,142 @@
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #244242;  
-  padding: 20px 0;
-  z-index: 1000; 
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); 
+/* Estilos básicos, no afectados directamente por el modo de alto contraste */
+.loginContainer {
+  background: #E4ECE5;
+  text-align: center;
+  width: 80%;
+  height: 100vh; 
+  margin: 0 auto; 
+  display: grid;
+  place-items: center;
+  padding-top: 100px;
+  padding-left: 200px;
+  padding-right: 200px;
 }
-  
-.footerButton {
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.iniciarSesion {
+  font-family: 'Inter', sans-serif;
+  color: #244242; 
+  margin-bottom: 20px;
+  padding-bottom: 40px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputs {
+  font-family: 'Inter', sans-serif;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  border: 2px solid transparent;
+  outline: none; 
+}
+
+.inputs:focus {
+  border-color: #0056b3; 
+  box-shadow: 0 0 5px #0056b3; 
+}
+
+.botonTransparente {
   text-align: center;
   font-family: 'Inter', sans-serif;
-  background-color: transparent; 
-  border: 3px solid #83AF4B; 
-  border-radius: 20px; 
-  color: #83AF4B; 
-  margin: 0 auto;
-  font-weight: bold; 
-  padding: 8px 16px; 
+  background: transparent;
+  border: 5px solid #244242;
+  border-radius: 20px;
+  padding: 12px 24px; 
+  margin-top: 20px;
+  width: 40%;
+  cursor: pointer;
+  color: #244242;
+  font-weight: bold;
   transition: all 0.3s ease; 
 }
 
-.footerButton:hover {
-  color: #E4ECE5;
-  background-color: #244242; 
-  border-color: #E4ECE5; 
+.botonTransparente:hover, .botonTransparente:focus {
+  color: #83AF4B; 
+  background: #E4ECE5; 
+  border-color: #83AF4B;
+  transform: translateY(-5px);
+  outline: 2px solid #0056b3; 
+}
+
+.linkRegisterLogin {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  color: #244242; 
+  font-weight: bold;
+  margin: 20px 8px; 
+  display: inline-block; 
+  text-decoration: none; 
+}
+
+.linkRegisterLogin:hover, .linkRegisterLogin:focus {
+  text-decoration: underline; 
+  color: #0056b3; 
+}
+
+*:focus {
+  outline: 3px solid #0056b3; 
+  outline-offset: 2px; 
+}
+
+/* Estilos para alto contraste activado */
+.highContrast .loginContainer {
+  background: black;
+  color: white;
+}
+
+.highContrast .iniciarSesion {
+  color: white;
+}
+
+.highContrast .inputs {
+  background: #333;
+  color: white;
+  border: 2px solid white;
+}
+
+.highContrast .inputs:focus {
+  border-color: yellow;
+  box-shadow: 0 0 5px yellow;
+}
+
+.highContrast .botonTransparente {
+  background: #444;
+  border: 5px solid white;
+  color: white;
+}
+
+.highContrast .botonTransparente:hover, .highContrast .botonTransparente:focus {
+  color: yellow;
+  background: black;
+  border-color: yellow;
+}
+
+.highContrast .linkRegisterLogin {
+  color: white;
+}
+
+.highContrast .linkRegisterLogin:hover, .highContrast .linkRegisterLogin:focus {
+  color: yellow;
+}
+
+.highContrast *:focus {
+  outline: 3px solid yellow;
 }

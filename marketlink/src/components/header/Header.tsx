@@ -1,15 +1,20 @@
+import React from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../util/AuthContext';
+import { useHighContrast } from '../../../src/assets/HighContrastContext';
 import styles from './Header.module.css';
-import { FaHome, FaUserCircle, FaPlusCircle, FaBoxOpen, FaSignInAlt, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaUserCircle, FaPlusCircle, FaBoxOpen, FaSignInAlt, FaUserPlus, FaSignOutAlt, FaAdjust, FaSun, FaMoon } from 'react-icons/fa';
 import { CiShoppingCart } from "react-icons/ci";
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 
 const Header = () => {
   const { user, setUser } = useAuth();
+  const { isHighContrast, toggleHighContrast } = useHighContrast();
   const navigate = useNavigate();
+
+  const headerClass = isHighContrast ? `${styles.header} ${styles.highContrast}` : styles.header;
 
   const handleLogout = async () => {
     try {
@@ -23,7 +28,8 @@ const Header = () => {
   };
 
   return (
-    <Navbar as="header" variant="dark" fixed="top" className={styles.header} aria-label="Main Navigation">
+    <div className={headerClass}>
+    <Navbar as="header" variant="dark" fixed="top" className={headerClass} aria-label="Main Navigation">
       <Container>
         <Navbar.Brand as={Link} to="/" aria-label="Go to Home Page">
           <FaHome aria-hidden="true" /> Market Link
@@ -38,9 +44,14 @@ const Header = () => {
           ) : (
             <PublicNavLinks />
           )}
+          {/* Botón de alternancia para el modo de alto contraste */}
+          <Button variant="outline-light" onClick={toggleHighContrast} aria-label="Toggle High Contrast Mode" className="icon-container">
+            {isHighContrast ? <FaMoon /> : <FaSun />}
+          </Button>
         </Nav>
       </Container>
     </Navbar>
+    </div>
   );
 };
 

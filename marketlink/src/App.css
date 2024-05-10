@@ -1,0 +1,10 @@
+/* App.css */
+body.high-contrast {
+    background-color: #000;
+    color: #FFF;
+}
+
+.high-contrast button {
+    background-color: #333;
+    color: #FFF;
+}

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../src/firebase/firebaseConfig";
 import { useAuth } from '../../util/AuthContext';
+import { useHighContrast } from '../../src/assets/HighContrastContext';
 
 interface LoginResult {
   error?: string;
@@ -19,6 +20,9 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const { setUser } = useAuth(); 
+
+  const { isHighContrast } = useHighContrast();
+    const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
   const validateInputs = (): boolean => {
     if (!email.trim() || !password.trim()) {
@@ -86,6 +90,7 @@ const Login: React.FC = () => {
   }
 
   return (
+    <div className={homeClass}>
     <div className={styles.loginContainer}>
       <main className="container-fluid h-100">  
         <div className="row h-100">
@@ -159,6 +164,7 @@ const Login: React.FC = () => {
           </div>
         </div>
       </main>
+    </div>
     </div>
   );
   

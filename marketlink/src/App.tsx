@@ -19,6 +19,10 @@ import { AuthProvider, useAuth } from '../util/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+import { HighContrastProvider } from './assets/HighContrastContext';
+
+
 function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
   return (
     <div>
@@ -42,8 +46,11 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 };
 
 function App() {
+
+  
   return (
     <AuthProvider>
+      <HighContrastProvider>
       <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <Routes>
         <Route path="/" element={<LayoutWithHeaderAndFooter><Home /></LayoutWithHeaderAndFooter>} />
@@ -60,6 +67,7 @@ function App() {
         <Route path="/create-product" element={<PrivateRoute><LayoutWithHeaderAndFooter><CreateProduct /></LayoutWithHeaderAndFooter></PrivateRoute>} />
         <Route path="/edit-product/:productId" element={<PrivateRoute><LayoutWithHeaderAndFooter><EditProduct /></LayoutWithHeaderAndFooter></PrivateRoute>} />
       </Routes>
+      </HighContrastProvider>
     </AuthProvider>
   );
 }

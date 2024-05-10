@@ -2,7 +2,7 @@
   background: #E4ECE5;
   text-align: center;
   width: 80%;
-  padding-top: 100px;
+  padding-top: 50px;
   padding-bottom: 100px;
   min-height: 100vh;
   margin: 0 auto;
@@ -97,4 +97,39 @@
   .imgItemEntrepreneur, .imgItemHome {
     max-width: 150px; 
   }
+}
+
+
+.highContrast .mainContainerHome {
+  background-color: #000; 
+  color: #FFF; 
+}
+
+.highContrast .itemContainer {
+  background-color: #333; 
+  color: #FFF; 
+}
+
+.highContrast .itemContainer:focus {
+  outline: 2px solid #FFD700; 
+}
+
+.highContrast .titles {
+  color: #FFF; 
+}
+
+.highContrast .imgItemEntrepreneur, .highContrast .imgItemHome {
+  box-shadow: 0 0 8px #FFF; 
+}
+
+.highContrast .textItemHome {
+  color: #FFF; 
+}
+
+.highContrast .horizontalScroll {
+  scrollbar-color: #AAA #333; 
+}
+
+.highContrast .horizontalScroll::-webkit-scrollbar-thumb {
+  background-color: #AAA; 
 }
