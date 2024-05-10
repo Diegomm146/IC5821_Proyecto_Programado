@@ -96,3 +96,39 @@
     padding-top: 50px;
   }
 }
+
+.highContrast .registrationContainer {
+  background: #000; /* Fondo oscuro */
+  color: #fff; /* Texto claro */
+}
+
+.highContrast .iniciarSesionEntrepreneurRegistration {
+  color: #FFD700; /* Un color brillante para títulos, como amarillo dorado */
+}
+
+.highContrast .inputsEntrepreneurRegistration, .highContrast .taEntrepreneurRegistration {
+  background: #333; /* Fondo más oscuro para inputs */
+  color: #fff; /* Texto claro */
+  border: 2px solid #FFD700; /* Borde más visible */
+}
+
+.highContrast .inputsEntrepreneurRegistration:focus, .highContrast .taEntrepreneurRegistration:focus {
+  border-color: #FFA500; /* Un color brillante y diferente para el foco, como naranja */
+  box-shadow: 0 0 5px #FFA500; /* Sombra que coincide con el borde en foco */
+}
+
+.highContrast .submitButtonEntrepenuerRegistration {
+  color: #FFD700; /* Texto en color dorado */
+  border-color: #FFD700; /* Borde dorado */
+  background: #333; /* Fondo oscuro */
+}
+
+.highContrast .submitButtonEntrepenuerRegistration:hover {
+  color: #000; /* Texto oscuro cuando se hace hover */
+  background: #FFD700; /* Fondo dorado */
+  border-color: #000; /* Borde oscuro */
+}
+
+.highContrast .logoStyle {
+  filter: brightness(0) invert(1); /* Invierte los colores del logo para alto contraste */
+}

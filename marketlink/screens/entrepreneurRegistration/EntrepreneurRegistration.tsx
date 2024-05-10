@@ -7,6 +7,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Entrepreneur } from '../../src/assets/Classes.tsx';
 import { addEntrepreneur } from '../../src/assets/Api.jsx';
 import { useNavigate } from "react-router-dom";
+import { useHighContrast } from '../../src/assets/HighContrastContext';
 
 const EntrepreneurRegistration: React.FC = () => {
   const [businessName, setBusinessName] = useState("");
@@ -16,6 +17,10 @@ const EntrepreneurRegistration: React.FC = () => {
   const [description, setDescription] = useState("");
   const [logo, setLogo] = useState<File | null>(null);
   const navigate = useNavigate();
+
+  const { isHighContrast } = useHighContrast();
+  console.log('Login component - High Contrast Mode:', isHighContrast);
+    const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,6 +73,7 @@ const EntrepreneurRegistration: React.FC = () => {
     navigate('/');
   }
   return (
+    <div className={homeClass}>
     <Container className={styles.registrationContainer}>
       <Row className={styles.centeredContent}>
         <Col>
@@ -142,6 +148,7 @@ const EntrepreneurRegistration: React.FC = () => {
         </Col>
       </Row>
     </Container>
+    </div>
   );
 
 };

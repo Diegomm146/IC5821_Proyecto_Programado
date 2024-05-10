@@ -22,6 +22,7 @@ const Login: React.FC = () => {
   const { setUser } = useAuth(); 
 
   const { isHighContrast } = useHighContrast();
+  console.log('Login component - High Contrast Mode:', isHighContrast);
     const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
   const validateInputs = (): boolean => {

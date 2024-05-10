@@ -95,3 +95,56 @@
   outline: 3px solid #0056b3; 
   outline-offset: 2px; 
 }
+
+.highContrast .loginContainer {
+  background: #000; /* Fondo oscuro */
+  color: #fff; /* Texto claro */
+}
+
+.highContrast .rows {
+  color: #fff;
+}
+
+.highContrast .iniciarSesion {
+  color: #FFD700; /* Un color brillante para títulos, como amarillo dorado */
+}
+
+.highContrast .formContainer {
+  border-color: #fff; /* Bordes claros para elementos del formulario */
+}
+
+.highContrast .inputs {
+  background: #333; /* Fondo más oscuro para inputs */
+  color: #fff; /* Texto claro */
+  border-color: #FFD700; /* Borde más visible */
+}
+
+.highContrast .inputs:focus {
+  border-color: #FFA500; /* Un color brillante y diferente para el foco, como naranja */
+  box-shadow: 0 0 5px #FFA500; /* Sombra que coincida con el borde en foco */
+}
+
+.highContrast .botonTransparente {
+  color: #FFD700; /* Texto en color dorado */
+  border-color: #FFD700; /* Borde dorado */
+  background: #333; /* Fondo oscuro */
+}
+
+.highContrast .botonTransparente:hover, .highContrast .botonTransparente:focus {
+  color: #000; /* Texto oscuro cuando se hace hover o foco */
+  background: #FFD700; /* Fondo dorado */
+  border-color: #000; /* Borde oscuro */
+}
+
+.highContrast .linkRegisterLogin {
+  color: #FFD700; /* Texto dorado para links */
+}
+
+.highContrast .linkRegisterLogin:hover, .highContrast .linkRegisterLogin:focus {
+  color: #FFA500; /* Color naranja para hover y foco en links */
+  text-decoration: underline;
+}
+
+.highContrast *:focus {
+  outline: 3px solid #FFA500; /* Un contorno más visible para elementos enfocados */
+}

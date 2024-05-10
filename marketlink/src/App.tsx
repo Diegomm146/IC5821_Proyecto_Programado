@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../screens/login/Login';
 import RegisterClient from '../screens/registerClient/RegisterClient';
@@ -20,7 +20,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-import { HighContrastProvider } from './assets/HighContrastContext';
+import { HighContrastProvider, useHighContrast } from './assets/HighContrastContext';
 
 
 function LayoutWithHeaderAndFooter({ children }: { children: ReactNode }) {
@@ -46,6 +46,12 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 };
 
 function App() {
+
+  const { isHighContrast } = useHighContrast();
+
+  useEffect(() => {
+      console.log('App component - High Contrast Mode:', isHighContrast);
+  }, [isHighContrast]);
 
   
   return (

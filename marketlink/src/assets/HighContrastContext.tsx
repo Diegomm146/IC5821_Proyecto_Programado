@@ -20,15 +20,16 @@ interface Props {
 
 export const HighContrastProvider: React.FC<Props> = ({ children }) => {
     const [isHighContrast, setIsHighContrast] = useState<boolean>(() => {
-        // Intenta recuperar el estado de alto contraste desde localStorage al inicializar
         const stored = localStorage.getItem('highContrast');
-        return stored === 'true' ? true : false; // Si no hay nada almacenado, default es `false`
+        console.log('Initial high contrast state:', stored);
+        return stored === 'true' ? true : false;
     });
 
     const toggleHighContrast = () => {
         setIsHighContrast(prev => {
             const newState = !prev;
-            localStorage.setItem('highContrast', String(newState)); // Almacena el nuevo estado en localStorage
+            localStorage.setItem('highContrast', String(newState));
+            console.log('High contrast toggled:', newState);
             return newState;
         });
     };
