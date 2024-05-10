@@ -138,3 +138,71 @@
   background-color: #244242; 
   border-color: #E4ECE5; 
 }
+
+.highContrast .EntrepreneurProfileContainer {
+  background: #000; 
+  color: #FFF; 
+}
+
+.highContrast .profileCard {
+  background-color: #333; 
+  color: #FFF; 
+}
+
+.highContrast .nameEntrepreneurProfile,
+.highContrast .nameEntrepreneurProfile:hover {
+  color: #FFD700; 
+}
+
+.highContrast .descEntrepreneurProfile {
+  background-color: #555; 
+  color: #FFD700; 
+}
+
+.highContrast .descEntrepreneurProfile:hover {
+  background-color: #666; 
+}
+
+.highContrast .titleEntrepreneurProfile {
+  color: #FFF; 
+}
+
+.highContrast .productGrid .card {
+  background-color: #222; 
+  color: #FFF; 
+}
+
+.highContrast .imgItemEntrepreneurProfile {
+  border-color: #FFD700; 
+}
+
+.highContrast .editButton,
+.highContrast .deleteButton,
+.highContrast .footerButton {
+  background-color: #333; 
+  color: #FFD700; 
+}
+
+.highContrast .editButton:hover {
+  color: #000;
+  background-color: #FFD700; 
+  border-color: #000;
+}
+
+.highContrast .deleteButton,
+.highContrast .deleteButton:hover {
+  border-color: #FF6347; 
+  color: #FF6347; 
+  background-color: transparent; 
+}
+
+.highContrast .deleteButton:hover {
+  background-color: #FF6347;
+  color: #000;
+}
+
+.highContrast .footerButton:hover {
+  background-color: #FFD700; 
+  color: #000; 
+  border-color: #000;
+}

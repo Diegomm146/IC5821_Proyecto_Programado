@@ -3,8 +3,8 @@
   text-align: center;
   width: 80%;
   padding-top: 100px;
-  height: 100vh; 
-  margin: 0 auto; 
+  height: 100vh;
+  margin: 0 auto;
   display: grid;
   place-items: center;
 }
@@ -47,3 +47,35 @@
   background: transparent;
   border: 5px solid #83AF4B;
 }
+
+.highContrast .mainContainerClientProfile {
+  background: #000; 
+  color: #FFF; 
+}
+
+.highContrast .ppClientProfile {
+  border: 3px solid #FFD700; 
+}
+
+.highContrast .cardClientProfile {
+  background-color: #333; 
+  color: #FFF; 
+  border: 2px solid #FFD700; 
+}
+
+.highContrast .editButtonClientProfile {
+  color: #FFD700; 
+}
+
+.highContrast .buttonClientProfile {
+  background-color: #333; 
+  color: #FFD700; 
+  border: 5px solid #FFD700; 
+}
+
+.highContrast .buttonClientProfile:hover {
+  color: #000; 
+  background-color: #FFD700; 
+  border-color: #000; 
+}
+

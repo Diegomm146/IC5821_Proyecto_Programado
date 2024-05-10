@@ -45,6 +45,33 @@
     background: transparent;
   }
 
+.highContrast .mainContainerCheckout {
+    background: #000;
+    color: #FFF;
+}
 
+.highContrast .formLabelCheckout {
+    color: #FFD700;
+}
 
+.highContrast .especificacionesEnvioCheckout {
+    background-color: #333;
+    color: #FFF;
+    border: 2px solid #FFD700;
+}
 
+.highContrast .titleCheckout {
+    color: #FFD700;
+}
+
+.highContrast .buttonCheckout {
+    background-color: #333;
+    color: #FFD700;
+    border: 5px solid #FFD700;
+}
+
+.highContrast .buttonCheckout:hover {
+    color: #FFD700;
+    background-color: #000;
+    border: 5px solid #FFA500;
+}

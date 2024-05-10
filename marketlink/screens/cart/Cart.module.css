@@ -69,3 +69,49 @@
     outline: none; 
     box-shadow: 0 0 8px red; 
 }
+
+.highContrast .mainContainerCart {
+    background: #000;
+    color: #FFF;
+}
+
+.highContrast .titleCart {
+    color: #FFD700;
+}
+
+.highContrast .cartItem {
+    background-color: #333;
+    color: #FFF;
+    border: 2px solid #FFD700;
+}
+
+.highContrast .imgProductoCart {
+    border: 3px solid #FFD700;
+}
+
+.highContrast .textCartItem {
+    color: #FFD700;
+}
+
+.highContrast .buttonCart {
+    background-color: #333;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+}
+
+.highContrast .buttonCart:hover,
+.highContrast .buttonCart:focus {
+    background-color: #FFD700;
+    color: #000;
+    border-color: #000;
+    box-shadow: 0 0 10px #FFA500;
+}
+
+.highContrast .deleteButton img {
+    filter: invert(100%);
+}
+
+.highContrast .deleteButton:focus,
+.highContrast .deleteButton:hover {
+    box-shadow: 0 0 8px #FF6347;
+}

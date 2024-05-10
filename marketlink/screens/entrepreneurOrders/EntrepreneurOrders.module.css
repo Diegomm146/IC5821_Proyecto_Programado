@@ -23,3 +23,26 @@
     font-weight: bold; 
     width: 80px;
 }
+
+.highContrast .mainContainerEntrepreneurOrders {
+    background: #000; 
+    color: #FFF; 
+}
+
+.highContrast .titleEntrepreneurOrders {
+    color: #FFD700; 
+}
+
+.highContrast .btnEntrepreneurOrders {
+    background-color: #333; 
+    color: #FFF; 
+    border: 2px solid #FFD700; 
+}
+
+.highContrast .btnEntrepreneurOrders:hover,
+.highContrast .btnEntrepreneurOrders:focus {
+    background-color: #FFD700; 
+    color: #000; 
+    border-color: #000; 
+}
+

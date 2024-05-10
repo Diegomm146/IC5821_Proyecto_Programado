@@ -32,3 +32,17 @@
     height: 100px;
     margin-right: 10px;
 }
+
+.highContrast .mainContainerClientOrders {
+    background: #000;
+    color: #FFF;
+}
+
+.highContrast .textClientOrders,
+.highContrast .bigTextClientOrders {
+    color: #FFD700;
+}
+
+.highContrast .imgProductoClientOrders {
+    border: 3px solid #FFD700;
+}

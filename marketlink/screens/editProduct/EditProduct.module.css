@@ -105,3 +105,78 @@ input:focus, textarea:focus {
     border-color: #83AF4B;
     box-shadow: 0 0 5px #83AF4B;
 }
+
+.highContrast .mainContainerEditProduct {
+    background: #000;
+    color: #FFF;
+}
+
+.highContrast .formLabelEditProduct,
+.highContrast .formLabelEditProduct:hover {
+    color: #FFD700;
+}
+
+.highContrast .descripcionEditarProducto {
+    background: #333;
+    color: #FFF;
+    border-color: #FFD700;
+}
+
+.highContrast .descripcionEditarProducto:focus {
+    border-color: #FFA500;
+    box-shadow: 0 0 5px #FFA500;
+}
+
+.highContrast .titleEditProduct {
+    color: #FFD700;
+}
+
+.highContrast .btnEditProduct,
+.highContrast .btnDeleteEditProduct {
+    background: #333;
+    border: 5px solid #FFD700;
+    color: #FFD700;
+}
+
+.highContrast .btnEditProduct:hover {
+    color: #000;
+    background: #FFD700;
+    border-color: #000;
+    transform: translateY(-5px);
+}
+
+.highContrast .btnDeleteEditProduct {
+    border-color: #FF6347;
+    color: #FF6347;
+}
+
+.highContrast .btnDeleteEditProduct:hover {
+    background-color: #FF6347;
+    color: #000;
+    transform: translateY(-5px);
+}
+
+.highContrast .ddEditProduct,
+.highContrast .ddEditProduct:hover {
+    background-color: #333;
+    border-color: #FFD700;
+}
+
+.highContrast input,
+.highContrast textarea {
+    background: #333;
+    color: #FFF;
+    border: 1px solid #FFD700;
+}
+
+.highContrast input.error,
+.highContrast textarea.error {
+    border: 1px solid red;
+}
+
+.highContrast input:focus,
+.highContrast textarea:focus {
+    border-color: #FFA500;
+    box-shadow: 0 0 5px #FFA500;
+}
+

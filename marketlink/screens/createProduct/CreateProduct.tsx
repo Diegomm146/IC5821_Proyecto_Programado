@@ -5,6 +5,7 @@ import { Product } from '../../src/assets/Classes';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import styles from "./CreateProduct.module.css";
 import { toast } from 'react-toastify';
+import {useHighContrast} from "../../src/assets/HighContrastContext.tsx";
 
 const CreateProduct: React.FC = () => {
     const [name, setName] = useState('');
@@ -14,6 +15,10 @@ const CreateProduct: React.FC = () => {
     const [stock, setStock] = useState('');
     const [imagesURL, setImagesURL] = useState<string[]>([]);
     const [hasError, setHasError] = useState(false);
+
+    const { isHighContrast } = useHighContrast();
+
+    const homeClass = isHighContrast ? `${styles.home} ${styles.highContrast}` : styles.home;
 
     const formatPrice = (input: string) => {
         const numeric = input.replace(/\D/g, '');
@@ -63,6 +68,7 @@ const CreateProduct: React.FC = () => {
     };
 
     return (
+        <div className={homeClass}>
         <div className={styles.mainContainerCreateProduct}>
             <Form onSubmit={handleSubmit}>
                 <h1 className={styles.titleCreateProduct}>Create Product</h1>
@@ -164,6 +170,7 @@ const CreateProduct: React.FC = () => {
                 </Row>
                 <Button type="submit" className={styles.btnCreateProduct}>Create</Button>
             </Form>
+        </div>
         </div>
     );
     

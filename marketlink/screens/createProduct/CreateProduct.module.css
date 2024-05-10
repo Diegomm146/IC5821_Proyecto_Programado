@@ -99,3 +99,65 @@ input:focus, textarea:focus {
     border-color: #83AF4B;
     box-shadow: 0 0 5px #83AF4B;
 }
+
+.highContrast .mainContainerCreateProduct {
+    background: #000;
+    color: #FFF;
+}
+
+.highContrast .formLabelCreateProduct,
+.highContrast .formLabelCreateProduct:hover {
+    color: #FFD700;
+}
+
+.highContrast .descripcionCrearProducto {
+    color: #FFF;
+    background: #333;
+    border-color: #FFD700;
+}
+
+.highContrast .descripcionCrearProducto:focus {
+    border-color: #FFA500;
+    box-shadow: 0 0 5px #FFA500;
+}
+
+.highContrast .titleCreateProduct {
+    color: #FFD700;
+}
+
+.highContrast .btnCreateProduct {
+    background: #333;
+    border: 5px solid #FFD700;
+    color: #FFD700;
+}
+
+.highContrast .btnCreateProduct:hover {
+    color: #000;
+    background: #FFD700;
+    border-color: #000;
+    transform: translateY(-5px);
+}
+
+.highContrast .ddCreateProduct,
+.highContrast .ddCreateProduct:hover {
+    background-color: #333;
+    border-color: #FFD700;
+}
+
+.highContrast input,
+.highContrast textarea {
+    background: #333;
+    color: #FFF;
+    border: 1px solid #FFD700;
+}
+
+.highContrast input:focus,
+.highContrast textarea:focus {
+    border-color: #FFA500;
+    box-shadow: 0 0 5px #FFA500;
+}
+
+.highContrast input.error,
+.highContrast textarea.error {
+    border: 1px solid red;
+}

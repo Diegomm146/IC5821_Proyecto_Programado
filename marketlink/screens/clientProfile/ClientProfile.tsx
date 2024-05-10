@@ -1,21 +1,31 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./ClientProfile.module.css";
-import 'bootstrap/dist/css/bootstrap.css';
-import Stack from 'react-bootstrap/Stack';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import "bootstrap/dist/css/bootstrap.css";
+import Stack from "react-bootstrap/Stack";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import { getUser, updateClientUserName } from "../../src/assets/Api";
 import { User } from "../../src/assets/Classes";
-import { getAuth, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
+import {
+  getAuth,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useHighContrast } from "../../src/assets/HighContrastContext.tsx";
 
 const ClientProfile: FunctionComponent = () => {
   const [user, setUser] = useState<User>();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [showUpdateUsername, setShowUpdateUsername] = useState(false);
-  const [newUsername, setNewUsername] = useState('');
+  const [newUsername, setNewUsername] = useState("");
+
+  const { isHighContrast } = useHighContrast();
+
+  const homeClass = isHighContrast
+    ? `${styles.home} ${styles.highContrast}`
+    : styles.home;
 
   const auth = getAuth();
 
@@ -23,7 +33,7 @@ const ClientProfile: FunctionComponent = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(await getUser(user.uid));
-      } else { 
+      } else {
         navigate("/login");
       }
     });
@@ -55,38 +65,73 @@ const ClientProfile: FunctionComponent = () => {
   };
 
   return (
-<div className={styles.mainContainerClientProfile}>
-      <Stack gap={4} style={{ paddingTop: "100px", width: "400px" }}>
-        <Card className={styles.cardClientProfile}>
-          <Card.Body style={{ display: "flex", alignItems: "center" }}>
-            <span>Email: {user?.email}</span>
-          </Card.Body>
-        </Card>
-        <Card className={styles.cardClientProfile}>
-          <Card.Body style={{ display: "flex", alignItems: "center" }}>
-            <span>Username: {user?.name}</span>
-            <a onClick={() => setShowUpdateUsername(!showUpdateUsername)} className={styles.editButton} style={{ cursor:"pointer", marginLeft: "auto" }}>
-              <img src="../../../edit.png" alt="Edit" style={{width:"55%"}} />
-            </a>
-          </Card.Body>
-          {showUpdateUsername && (
-            <div style={{ marginTop: "10px", display: "flex", alignItems: "center" }}>
-              <input
-                type="text"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-                placeholder="Enter new username"
-                style={{ flexGrow: 1, marginRight: "10px" }}
-              />
-              <Button variant="success" onClick={handleUpdateUsername}>Confirm</Button>
-              <Button variant="danger" onClick={() => setShowUpdateUsername(false)}>Cancel</Button>
-            </div>
-          )}
-        </Card>
-        <Button className={styles.buttonClientProfile} onClick={() => navigate('/cart')}>Go to Cart</Button>
-        <Button className={styles.buttonClientProfile} onClick={handlePasswordReset}>Change Password</Button>
-        <Button className={styles.buttonClientProfile} href="/client-orders">Orders</Button>
-      </Stack>
+    <div className={homeClass}>
+      <div className={styles.mainContainerClientProfile}>
+        <Stack gap={4} style={{ paddingTop: "100px", width: "400px" }}>
+          <Card className={styles.cardClientProfile}>
+            <Card.Body style={{ display: "flex", alignItems: "center" }}>
+              <span>Email: {user?.email}</span>
+            </Card.Body>
+          </Card>
+          <Card className={styles.cardClientProfile}>
+            <Card.Body style={{ display: "flex", alignItems: "center" }}>
+              <span>Username: {user?.name}</span>
+              <a
+                onClick={() => setShowUpdateUsername(!showUpdateUsername)}
+                className={styles.editButton}
+                style={{ cursor: "pointer", marginLeft: "auto" }}
+              >
+                <img
+                  src="../../../edit.png"
+                  alt="Edit"
+                  style={{ width: "55%" }}
+                />
+              </a>
+            </Card.Body>
+            {showUpdateUsername && (
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  type="text"
+                  value={newUsername}
+                  onChange={(e) => setNewUsername(e.target.value)}
+                  placeholder="Enter new username"
+                  style={{ flexGrow: 1, marginRight: "10px" }}
+                />
+                <Button variant="success" onClick={handleUpdateUsername}>
+                  Confirm
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => setShowUpdateUsername(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            )}
+          </Card>
+          <Button
+            className={styles.buttonClientProfile}
+            onClick={() => navigate("/cart")}
+          >
+            Go to Cart
+          </Button>
+          <Button
+            className={styles.buttonClientProfile}
+            onClick={handlePasswordReset}
+          >
+            Change Password
+          </Button>
+          <Button className={styles.buttonClientProfile} href="/client-orders">
+            Orders
+          </Button>
+        </Stack>
+      </div>
     </div>
   );
 };
