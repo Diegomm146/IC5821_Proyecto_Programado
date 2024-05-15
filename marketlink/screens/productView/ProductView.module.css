@@ -1,101 +1,97 @@
 .mainContainerProductView {
     background: #E4ECE5;
     text-align: center;
-    width: 80%; 
+    width: 80%;
     padding-top: 100px;
-    height: 1200px; 
-    margin: 20px auto; 
+    height: 850px;
+    margin: auto;
 }
 
 .mainImgProductView {
-    width: 50%; 
-    max-width: 500px; 
-    min-width: 250px; 
-    height: auto; 
+    width: 50%;
+    max-width: 500px;
+    min-width: 250px;
+    height: auto;
     margin: auto;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 1200px) {
     .mainImgProductView {
-        width: 60%; 
+        width: 60%;
     }
 }
 
 @media (max-width: 768px) {
     .mainContainerProductView {
-        width: 100%; 
-        height: auto; 
+        width: 100%;
         padding-top: 50px;
     }
 
     .mainImgProductView {
-        width: 80%; 
-        padding: 10px; 
+        width: 80%;
+        padding: 10px;
     }
 }
 
-.imgProductView {
-    width: 20vw;
-    height: auto;
-    margin: auto;
-    padding: 2%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    max-width: 100px;
-    min-width: 50px;
-}
-
-@media (max-width: 768px) {
-    .imgProductView {
-        width: 25vw;
-    }
-}
-
-.descriptionProductView {
+.productDetails {
     text-align: left;
     font-family: 'Inter', sans-serif;
-    color: #244242; 
+    color: #244242;
     font-weight: bold;
     margin-bottom: 20px;
-    padding: 0 20px; 
+    padding: 0 20px;
 }
 
-.cantidadProductView {
+.productDetails h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.productDetails h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.productDetails p {
+    margin-bottom: 10px;
+}
+
+.quantityInput {
     text-align: center;
     font-family: 'Inter', sans-serif;
     background-color: white;
-    border: 2px solid #83AF4B; 
+    border: 2px solid #83AF4B;
     border-radius: 31px;
-    color: #244242; 
+    color: #244242;
     width: 160px;
     height: 40px;
-    margin: 10px auto; 
+    margin: 10px auto;
     font-weight: bold;
-    padding-left: 12px; 
+    padding-left: 12px;
 }
 
 .buttonAddToCart {
     text-align: center;
     font-family: 'Inter', sans-serif;
     background-color: transparent;
-    border: 3px solid #83AF4B; 
+    border: 3px solid #83AF4B;
     border-radius: 20px;
-    color: #83AF4B; 
+    color: #83AF4B;
     padding: 8px 16px;
     transition: all 0.3s ease;
     cursor: pointer;
     font-weight: bold;
     display: inline-block;
-    margin-top: 10px; 
+    margin-top: 10px;
 }
 
 .buttonAddToCart:hover {
-    color: #E4ECE5; 
-    background-color: #244242; 
-    border-color: #E4ECE5; 
+    color: #E4ECE5;
+    background-color: #244242;
+    border-color: #E4ECE5;
 }
 
 .footer {
@@ -104,7 +100,7 @@
     bottom: 0;
     width: 100%;
     background-color: #244242;
-    color: white; 
+    color: white;
     padding: 20px 0;
     text-align: center;
     z-index: 1000;
@@ -138,16 +134,11 @@
     box-shadow: 0 4px 8px rgba(255, 215, 0, 0.6);
 }
 
-.highContrast .imgProductView {
-    border: 3px solid #FFD700;
-    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.6);
-}
-
-.highContrast .descriptionProductView {
+.highContrast .productDetails {
     color: #FFD700;
 }
 
-.highContrast .cantidadProductView {
+.highContrast .quantityInput {
     background-color: #333;
     color: #FFD700;
     border: 2px solid #FFA500;
@@ -182,4 +173,3 @@
     background-color: #FFD700;
     border-color: #000;
 }
-

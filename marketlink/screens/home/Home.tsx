@@ -45,7 +45,7 @@ const Home: FunctionComponent = () => {
           </Stack>
         </section>
         <section>
-          <h1 className={styles.titles}>Meet Our Shelves</h1>
+          <h2 className={styles.titles}>Meet Our Shelves</h2>
           <Stack
             direction="horizontal"
             gap={3}

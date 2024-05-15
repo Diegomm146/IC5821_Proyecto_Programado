@@ -86,9 +86,6 @@ const Login: React.FC = () => {
   const handleRegisterSeller = async () => {
     navigate("/register-entrepreneur");
   };
-  const handleHome = async () => {
-    navigate("/");
-  };
 
   return (
     <div className={homeClass}>
@@ -98,31 +95,29 @@ const Login: React.FC = () => {
             <div className="col">
               <header
                 className={`${styles.rows} row`}
-                style={{ height: "25%" }}
+                style={{ height: "auto", paddingBottom: "20px" }}
               >
-                <a
-                  onClick={handleHome}
-                  style={{ cursor: "pointer" }}
-                  role="button"
-                  aria-label="Return to home"
-                >
-                  <img
-                    src="../../../image.png"
-                    alt="logo"
-                    style={{ maxWidth: "150px", maxHeight: "250px" }}
-                  />
-                </a>
-                <h1 className={styles.iniciarSesion}>Market Link</h1>
+                <img
+                  src="../../../image.png"
+                  alt="logo"
+                  style={{ maxWidth: "150px", maxHeight: "250px" }}
+                />
               </header>
               <section
                 className={`${styles.rows} row`}
-                style={{ height: "15%" }}
+                style={{ height: "auto", paddingBottom: "20px" }}
               >
-                <h1 className={styles.iniciarSesion}>Login</h1>
+                <h1 className={styles.iniciarSesion}>Market Link</h1>
               </section>
               <section
                 className={`${styles.rows} row`}
-                style={{ height: "30%" }}
+                style={{ height: "auto", paddingBottom: "20px" }}
+              >
+                <h2 className={styles.loginTitle}>Login</h2>
+              </section>
+              <section
+                className={`${styles.rows} row`}
+                style={{ height: "auto" }}
               >
                 <form
                   className={styles.formContainer}
@@ -162,26 +157,24 @@ const Login: React.FC = () => {
                   >
                     Change Password
                   </button>
-                  <p>
-                    Register as
-                    <a
-                      className={styles.linkRegisterLogin}
+                  <div className={styles.registerContainer}>
+                    <button
+                      type="button"
+                      className={styles.botonTransparente}
                       onClick={handleRegisterClient}
-                      role="button"
                       aria-label="Register as client"
                     >
-                      Client
-                    </a>
-                    /
-                    <a
-                      className={styles.linkRegisterLogin}
+                      Register as Client
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.botonTransparente}
                       onClick={handleRegisterSeller}
-                      role="button"
                       aria-label="Register as entrepreneur"
                     >
-                      Entrepreneur
-                    </a>
-                  </p>
+                      Register as Entrepreneur
+                    </button>
+                  </div>
                 </form>
               </section>
             </div>

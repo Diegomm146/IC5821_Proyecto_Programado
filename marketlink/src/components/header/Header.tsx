@@ -17,11 +17,14 @@ import {
 import { CiShoppingCart } from "react-icons/ci";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const { user, setUser } = useAuth();
   const { isHighContrast, toggleHighContrast } = useHighContrast();
   const navigate = useNavigate();
+
+  const [announcement, setAnnouncement] = useState<string>('');
 
   const headerClass = isHighContrast
     ? `${styles.header} ${styles.highContrast}`
@@ -35,6 +38,17 @@ const Header = () => {
       navigate("/login");
     } catch (error) {}
   };
+
+  useEffect(() => {
+    if (isHighContrast !== null) {
+      setAnnouncement(isHighContrast ? 'High contrast mode enabled' : 'High contrast mode disabled');
+    }
+  }, [isHighContrast]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setAnnouncement(''), 3000);
+    return () => clearTimeout(timeoutId);
+  }, [announcement]);
 
   return (
     <div className={headerClass}>
@@ -63,11 +77,15 @@ const Header = () => {
             <Button
               variant="outline-light"
               onClick={toggleHighContrast}
-              aria-label="Toggle High Contrast Mode"
+              aria-pressed={isHighContrast}
+              aria-label={isHighContrast ? 'Disable high contrast mode' : 'Enable high contrast mode'}
               className="icon-container"
             >
               {isHighContrast ? <FaMoon /> : <FaSun />}
             </Button>
+            <div aria-live="polite" style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
+              {announcement}
+            </div>
           </Nav>
         </Container>
       </Navbar>
@@ -75,11 +93,7 @@ const Header = () => {
   );
 };
 
-const EntrepreneurNavLinks = ({
-  handleLogout,
-}: {
-  handleLogout: () => void;
-}) => (
+const EntrepreneurNavLinks = ({ handleLogout }: { handleLogout: () => void }) => (
   <>
     <Nav.Link
       as={Link}

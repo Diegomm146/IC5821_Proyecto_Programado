@@ -2,11 +2,11 @@
     background: #E4ECE5;
     text-align: center;
     width: 80%;
-    padding-top: 100px; 
+    padding-top: 100px;
     padding-left: 100px;
-    padding-right: 100px; 
-    height: 100vh; 
-    margin: 0 auto; 
+    padding-right: 100px;
+    height: 100vh;
+    margin: 0 auto;
     transition: background-color 0.3s, padding-top 0.2s;
 }
 
@@ -24,8 +24,8 @@
 }
 
 .descripcionEditarProducto {
-    font-family: 'Inter', sans-serif;    
-    color: #244242; 
+    font-family: 'Inter', sans-serif;
+    color: #244242;
     height: 150px;
     resize: none;
     padding: 10px;
@@ -40,42 +40,36 @@
 
 .titleEditProduct {
     margin-top: 70px;
-    font-family: 'Inter', sans-serif;    
-    color: #244242; 
-    font-weight: bold; 
+    font-family: 'Inter', sans-serif;
+    color: #244242;
+    font-weight: bold;
     font-size: 30px;
     animation: fadeInDown 1s both;
 }
 
-.btnEditProduct, .btnDeleteEditProduct {
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translate3d(0, -100%, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.btnEditProduct {
     text-align: center;
     font-family: 'Inter', sans-serif;
     background: transparent;
-    border: 5px solid #244242; 
+    border: 5px solid #244242;
     border-radius: 31px;
-    color: #244242; 
-    font-weight: bold; 
+    color: #244242;
+    font-weight: bold;
     width: 150px;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
 .btnEditProduct:hover {
     color: #83AF4B;
     border-color: #83AF4B;
     background: #E4ECE5;
-    transform: translateY(-5px);
-}
-
-.btnDeleteEditProduct {
-    border-color: #CE3E3E;
-    color: #CE3E3E;
-}
-
-.btnDeleteEditProduct:hover {
-    background-color: #CE3E3E;
-    color: #ffffff;
     transform: translateY(-5px);
 }
 
@@ -131,8 +125,7 @@ input:focus, textarea:focus {
     color: #FFD700;
 }
 
-.highContrast .btnEditProduct,
-.highContrast .btnDeleteEditProduct {
+.highContrast .btnEditProduct {
     background: #333;
     border: 5px solid #FFD700;
     color: #FFD700;
@@ -142,17 +135,6 @@ input:focus, textarea:focus {
     color: #000;
     background: #FFD700;
     border-color: #000;
-    transform: translateY(-5px);
-}
-
-.highContrast .btnDeleteEditProduct {
-    border-color: #FF6347;
-    color: #FF6347;
-}
-
-.highContrast .btnDeleteEditProduct:hover {
-    background-color: #FF6347;
-    color: #000;
     transform: translateY(-5px);
 }
 
@@ -175,8 +157,7 @@ input:focus, textarea:focus {
 }
 
 .highContrast input:focus,
-.highContrast textarea:focus {
+highContrast textarea:focus {
     border-color: #FFA500;
     box-shadow: 0 0 5px #FFA500;
 }
-

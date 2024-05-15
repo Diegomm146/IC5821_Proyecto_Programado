@@ -2,9 +2,9 @@
   background: #E4ECE5;
   text-align: center;
   width: 80%;
-  padding-top: 50px; 
-  padding-left: 50px; 
-  padding-right: 50px; 
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
   min-height: 100vh;
   margin: 0 auto;
   transition: background-color 0.3s, padding-top 0.2s;
@@ -14,16 +14,15 @@
   background-color: #f4f4f4;
   border-radius: 20px;
   padding: 20px;
-  width: 1000px; 
+  width: 1000px;
   max-width: 95%;
-  margin: 20px auto; 
+  margin: 20px auto;
   transition: background-color 0.3s ease, box-shadow 0.3s ease-in-out;
   text-align: left;
 }
 
-
 .profileCard:hover {
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15); 
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 
 .nameEntrepreneurProfile {
@@ -33,7 +32,7 @@
 }
 
 .nameEntrepreneurProfile:hover {
-  color: #83AF4B; 
+  color: #83AF4B;
 }
 
 .descEntrepreneurProfile {
@@ -42,11 +41,11 @@
   padding: 10px;
   border-radius: 10px;
   font-size: 16px;
-  transition: background-color 0.2s ease; 
+  transition: background-color 0.2s ease;
 }
 
 .descEntrepreneurProfile:hover {
-  background-color: #6e9440; 
+  background-color: #6e9440;
 }
 
 .titleEntrepreneurProfile {
@@ -55,7 +54,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: margin-bottom 0.2s ease; 
+  transition: margin-bottom 0.2s ease;
 }
 
 .productGrid {
@@ -66,7 +65,7 @@
 .productGrid .card {
   width: 100%;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
 }
 
 .productGrid .card:hover {
@@ -77,22 +76,22 @@
 .imgItemEntrepreneurProfile {
   min-height: 50px;
   min-width: 50px;
-  max-width: 200px; 
-  max-height: 200px; 
+  max-width: 200px;
+  max-height: 200px;
   display: block;
   margin: auto;
-  border-radius: 10%; 
-  transition: transform 0.3s ease; 
+  border-radius: 10%;
+  transition: transform 0.3s ease;
 }
 
 .imgItemEntrepreneurProfile:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
 .editButton, .deleteButton {
   font-family: 'Inter', sans-serif;
-  background-color: transparent; 
-  border: 3px solid; 
+  background-color: transparent;
+  border: 3px solid;
   border-radius: 20px;
   color: #83AF4B;
   margin: 5px;
@@ -106,7 +105,7 @@
 
 .editButton:hover {
   color: #E4ECE5;
-  background-color: #244242; 
+  background-color: #244242;
   border-color: #E4ECE5;
 }
 
@@ -116,84 +115,84 @@
 }
 
 .deleteButton:hover {
-  background-color: #d9534f; 
+  background-color: #d9534f;
   color: white;
 }
 
 .footerButton {
   text-align: center;
   font-family: 'Inter', sans-serif;
-  background-color: transparent; 
-  border: 3px solid #83AF4B; 
-  border-radius: 20px; 
-  color: #83AF4B; 
+  background-color: transparent;
+  border: 3px solid #83AF4B;
+  border-radius: 20px;
+  color: #83AF4B;
   margin: left;
-  font-weight: bold; 
-  padding: 8px 16px; 
-  transition: all 0.3s ease; 
+  font-weight: bold;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
 }
 
 .footerButton:hover {
   color: #E4ECE5;
-  background-color: #244242; 
-  border-color: #E4ECE5; 
+  background-color: #244242;
+  border-color: #E4ECE5;
 }
 
 .highContrast .EntrepreneurProfileContainer {
-  background: #000; 
-  color: #FFF; 
+  background: #000;
+  color: #FFF;
 }
 
 .highContrast .profileCard {
-  background-color: #333; 
-  color: #FFF; 
+  background-color: #333;
+  color: #FFF;
 }
 
 .highContrast .nameEntrepreneurProfile,
 .highContrast .nameEntrepreneurProfile:hover {
-  color: #FFD700; 
+  color: #FFD700;
 }
 
 .highContrast .descEntrepreneurProfile {
-  background-color: #555; 
-  color: #FFD700; 
+  background-color: #555;
+  color: #FFD700;
 }
 
 .highContrast .descEntrepreneurProfile:hover {
-  background-color: #666; 
+  background-color: #666;
 }
 
 .highContrast .titleEntrepreneurProfile {
-  color: #FFF; 
+  color: #FFF;
 }
 
 .highContrast .productGrid .card {
-  background-color: #222; 
-  color: #FFF; 
+  background-color: #222;
+  color: #FFF;
 }
 
 .highContrast .imgItemEntrepreneurProfile {
-  border-color: #FFD700; 
+  border-color: #FFD700;
 }
 
 .highContrast .editButton,
 .highContrast .deleteButton,
 .highContrast .footerButton {
-  background-color: #333; 
-  color: #FFD700; 
+  background-color: #333;
+  color: #FFD700;
 }
 
 .highContrast .editButton:hover {
   color: #000;
-  background-color: #FFD700; 
+  background-color: #FFD700;
   border-color: #000;
 }
 
 .highContrast .deleteButton,
 .highContrast .deleteButton:hover {
-  border-color: #FF6347; 
-  color: #FF6347; 
-  background-color: transparent; 
+  border-color: #FF6347;
+  color: #FF6347;
+  background-color: transparent;
 }
 
 .highContrast .deleteButton:hover {
@@ -202,7 +201,7 @@
 }
 
 .highContrast .footerButton:hover {
-  background-color: #FFD700; 
-  color: #000; 
+  background-color: #FFD700;
+  color: #000;
   border-color: #000;
 }

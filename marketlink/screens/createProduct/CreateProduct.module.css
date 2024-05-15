@@ -2,11 +2,11 @@
     background: #E4ECE5;
     text-align: center;
     width: 80%;
-    padding-top: 100px; 
+    padding-top: 100px;
     padding-left: 100px;
-    padding-right: 100px; 
-    height: 100vh; 
-    margin: 0 auto; 
+    padding-right: 100px;
+    height: 100vh;
+    margin: 0 auto;
     transition: background-color 0.3s, padding-top 0.2s;
 }
 
@@ -24,8 +24,8 @@
 }
 
 .descripcionCrearProducto {
-    font-family: 'Inter', sans-serif;    
-    color: #244242; 
+    font-family: 'Inter', sans-serif;
+    color: #244242;
     height: 150px;
     resize: none;
     padding: 10px;
@@ -40,9 +40,9 @@
 
 .titleCreateProduct {
     margin-top: 70px;
-    font-family: 'Inter', sans-serif;    
-    color: #244242; 
-    font-weight: bold; 
+    font-family: 'Inter', sans-serif;
+    color: #244242;
+    font-weight: bold;
     font-size: 30px;
     animation: fadeInDown 1s both;
 }
@@ -54,16 +54,16 @@
 
 .btnCreateProduct {
     text-align: center;
-    font-family: 'Inter', sans-serif;    
+    font-family: 'Inter', sans-serif;
     background: transparent;
     border: 5px solid #244242;
     border-radius: 31px;
-    color: #244242; 
-    font-weight: bold; 
+    color: #244242;
+    font-weight: bold;
     width: 150px;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
 .btnCreateProduct:hover {

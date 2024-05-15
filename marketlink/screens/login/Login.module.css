@@ -2,36 +2,45 @@
   background: #E4ECE5;
   text-align: center;
   width: 80%;
-  height: 100vh; 
-  margin: 0 auto; 
-  display: grid;
-  place-items: center;
-  padding-top: 100px;
-  padding-left: 200px;
-  padding-right: 200px;
-}
-
-.rows {
+  height: 100vh;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  padding: 50px 20px;
+  box-sizing: border-box;
+}
+
+.rows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .iniciarSesion {
   font-family: 'Inter', sans-serif;
-  color: #244242; 
+  color: #244242;
   margin-bottom: 20px;
-  padding-bottom: 40px;
   font-size: 30px;
   font-weight: bold;
+}
+
+.loginTitle {
+  font-family: 'Inter', sans-serif;
+  color: #244242;
+  margin-bottom: 40px;
+  font-size: 24px;
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 
 .inputs {
@@ -39,16 +48,15 @@
   padding: 10px;
   text-align: center;
   border-radius: 20px;
-  margin-bottom: 20px;
   width: 100%;
   max-width: 600px;
   border: 2px solid transparent;
-  outline: none; 
+  outline: none;
 }
 
 .inputs:focus {
-  border-color: #0056b3; 
-  box-shadow: 0 0 5px #0056b3; 
+  border-color: #0056b3;
+  box-shadow: 0 0 5px #0056b3;
 }
 
 .botonTransparente {
@@ -57,48 +65,37 @@
   background: transparent;
   border: 5px solid #244242;
   border-radius: 20px;
-  padding: 12px 24px; 
-  margin-top: 20px;
-  width: 40%;
+  padding: 12px 24px;
   cursor: pointer;
   color: #244242;
   font-weight: bold;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }
 
 .botonTransparente:hover, .botonTransparente:focus {
-  color: #83AF4B; 
-  background: #E4ECE5; 
+  color: #83AF4B;
+  background: #E4ECE5;
   border-color: #83AF4B;
   transform: translateY(-5px);
-  outline: 2px solid #0056b3; 
+  outline: 2px solid #0056b3;
 }
 
-.linkRegisterLogin {
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  color: #244242; 
-  font-weight: bold;
-  margin: 20px 8px; 
-  display: inline-block; 
-  text-decoration: none; 
+.registerContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
 }
-
-.linkRegisterLogin:hover, .linkRegisterLogin:focus {
-  text-decoration: underline; 
-  color: #0056b3; 
-}
-
 
 *:focus {
-  outline: 3px solid #0056b3; 
-  outline-offset: 2px; 
+  outline: 3px solid #0056b3;
+  outline-offset: 2px;
 }
 
 .highContrast .loginContainer {
-  background: #000; 
-  color: #fff; 
+  background: #000;
+  color: #fff;
 }
 
 .highContrast .rows {
@@ -106,45 +103,49 @@
 }
 
 .highContrast .iniciarSesion {
-  color: #FFD700; 
+  color: #FFD700;
+}
+
+.highContrast .loginTitle {
+  color: #FFD700;
 }
 
 .highContrast .formContainer {
-  border-color: #fff; 
+  border-color: #fff;
 }
 
 .highContrast .inputs {
-  background: #333; 
-  color: #fff; 
-  border-color: #FFD700; 
+  background: #333;
+  color: #fff;
+  border-color: #FFD700;
 }
 
 .highContrast .inputs:focus {
-  border-color: #FFA500; 
-  box-shadow: 0 0 5px #FFA500; 
+  border-color: #FFA500;
+  box-shadow: 0 0 5px #FFA500;
 }
 
 .highContrast .botonTransparente {
-  color: #FFD700; 
-  border-color: #FFD700; 
-  background: #333; 
+  color: #FFD700;
+  border-color: #FFD700;
+  background: #333;
 }
 
 .highContrast .botonTransparente:hover, .highContrast .botonTransparente:focus {
-  color: #000; 
-  background: #FFD700; 
-  border-color: #000; 
+  color: #000;
+  background: #FFD700;
+  border-color: #000;
 }
 
 .highContrast .linkRegisterLogin {
-  color: #FFD700; 
+  color: #FFD700;
 }
 
 .highContrast .linkRegisterLogin:hover, .highContrast .linkRegisterLogin:focus {
-  color: #FFA500; 
+  color: #FFA500;
   text-decoration: underline;
 }
 
 .highContrast *:focus {
-  outline: 3px solid #FFA500; 
+  outline: 3px solid #FFA500;
 }

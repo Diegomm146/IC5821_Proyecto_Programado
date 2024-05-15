@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Image, Button } from "react-bootstrap";
-import { FaPencilAlt, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Entrepreneur, Product } from "../../src/assets/Classes";
 import { getProductsByEntrepreneur, deleteProduct } from "../../src/assets/Api";
@@ -25,11 +25,16 @@ const Item: React.FunctionComponent<ItemProps> = ({
 }) => {
   return (
     <div className={styles.itemContainerEntrepreneurProfile}>
-      <a href={"/product-view"} target="_blank" rel="noopener noreferrer">
+      <a
+        href={"/product-view"}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`View details of ${name}`}
+      >
         <img
           src={imagesURL[0] || "../../defaultproduct.png"}
           className={styles.imgItemEntrepreneurProfile}
-          alt={name}
+          alt={`Image of ${name}`}
         />
       </a>
       <div className={styles.productDetails}>
@@ -41,6 +46,7 @@ const Item: React.FunctionComponent<ItemProps> = ({
           variant="outline-primary"
           onClick={() => onEdit(name)}
           className={styles.editButton}
+          aria-label={`Edit ${name}`}
         >
           Edit
         </Button>
@@ -48,6 +54,7 @@ const Item: React.FunctionComponent<ItemProps> = ({
           variant="outline-danger"
           onClick={() => onDelete(name)}
           className={styles.deleteButton}
+          aria-label={`Delete ${name}`}
         >
           Delete
         </Button>
@@ -71,18 +78,13 @@ const EntrepreneurProfile: React.FC = () => {
     const userDataString = localStorage.getItem("userData");
     if (userDataString) {
       const userData = JSON.parse(userDataString);
-
       setEntrepreneur(userData);
 
       if (userData.uid) {
         getProductsByEntrepreneur(userData.uid)
-          .then((products) => {
-            setProducts(products);
-          })
+          .then((products) => setProducts(products))
           .catch(() => {});
-      } else {
       }
-    } else {
     }
   }, []);
 
@@ -127,12 +129,8 @@ const EntrepreneurProfile: React.FC = () => {
                       src={entrepreneur.logoURL || "../../defaultpp.png"}
                       rounded
                       height="100"
+                      alt="Profile logo"
                     />
-                  </Col>
-                  <Col xs={6} className="text-right">
-                    <Button variant="link">
-                      <FaPencilAlt />
-                    </Button>
                   </Col>
                 </Row>
                 <Card.Title className={styles.nameEntrepreneurProfile}>
@@ -156,6 +154,7 @@ const EntrepreneurProfile: React.FC = () => {
               <Button
                 className={styles.footerButton}
                 onClick={handleCreateProductClick}
+                aria-label="Create new product"
               >
                 <FaPlus />
               </Button>

@@ -75,8 +75,8 @@ const ProductView: FunctionComponent = () => {
           </Col>
           <Col md={6}>
             <div className={styles.productDetails}>
-              <h3>{product?.name}</h3>
-              <p>{product?.description}</p>
+              <h1>{product?.name}</h1>
+              <h2>{product?.description}</h2>
               <p>
                 <strong>Price:</strong> ${product?.price}
               </p>

@@ -98,37 +98,37 @@
 }
 
 .highContrast .registrationContainer {
-  background: #000; 
-  color: #fff; 
+  background: #000;
+  color: #fff;
 }
 
 .highContrast .iniciarSesionEntrepreneurRegistration {
-  color: #FFD700; 
+  color: #FFD700;
 }
 
 .highContrast .inputsEntrepreneurRegistration, .highContrast .taEntrepreneurRegistration {
-  background: #333; 
-  color: #fff; 
-  border: 2px solid #FFD700; 
+  background: #333;
+  color: #fff;
+  border: 2px solid #FFD700;
 }
 
 .highContrast .inputsEntrepreneurRegistration:focus, .highContrast .taEntrepreneurRegistration:focus {
-  border-color: #FFA500; 
-  box-shadow: 0 0 5px #FFA500; 
+  border-color: #FFA500;
+  box-shadow: 0 0 5px #FFA500;
 }
 
 .highContrast .submitButtonEntrepenuerRegistration {
-  color: #FFD700; 
-  border-color: #FFD700; 
-  background: #333; 
+  color: #FFD700;
+  border-color: #FFD700;
+  background: #333;
 }
 
 .highContrast .submitButtonEntrepenuerRegistration:hover {
-  color: #000; 
-  background: #FFD700; 
-  border-color: #000; 
+  color: #000;
+  background: #FFD700;
+  border-color: #000;
 }
 
 .highContrast .logoStyle {
-  filter: brightness(0) invert(1); 
+  filter: brightness(0) invert(1);
 }

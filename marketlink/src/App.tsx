@@ -18,7 +18,6 @@ import EditProduct from "../screens/editProduct/EditProduct";
 import { AuthProvider, useAuth } from "../util/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import {
   HighContrastProvider,
   useHighContrast,
@@ -65,97 +64,59 @@ function App() {
         />
         <Routes>
           <Route
-            path="/"
+            path="/*"
             element={
               <LayoutWithHeaderAndFooter>
-                <Home />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register-client" element={<RegisterClient />} />
+                  <Route
+                    path="/register-entrepreneur"
+                    element={<EntrepreneurRegistration />}
+                  />
+                  <Route path="/client-profile" element={<ClientProfile />} />
+                  <Route
+                    path="/product-view/:productId"
+                    element={<ProductView />}
+                  />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/client-orders" element={<ClientOrders />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route
+                    path="/entrepreneur-profile"
+                    element={
+                      <PrivateRoute>
+                        <EntrepreneurProfile />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/entrepreneur-orders"
+                    element={
+                      <PrivateRoute>
+                        <EntrepreneurOrders />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/create-product"
+                    element={
+                      <PrivateRoute>
+                        <CreateProduct />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/edit-product/:productId"
+                    element={
+                      <PrivateRoute>
+                        <EditProduct />
+                      </PrivateRoute>
+                    }
+                  />
+                </Routes>
               </LayoutWithHeaderAndFooter>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register-client" element={<RegisterClient />} />
-          <Route
-            path="/register-entrepreneur"
-            element={<EntrepreneurRegistration />}
-          />
-          <Route
-            path="/client-profile"
-            element={
-              <LayoutWithHeaderAndFooter>
-                <ClientProfile />
-              </LayoutWithHeaderAndFooter>
-            }
-          />
-          <Route
-            path="/product-view/:productId"
-            element={
-              <LayoutWithHeaderAndFooter>
-                <ProductView />
-              </LayoutWithHeaderAndFooter>
-            }
-          />
-          <Route
-            path="/checkout"
-            element={
-              <LayoutWithHeaderAndFooter>
-                <Checkout />
-              </LayoutWithHeaderAndFooter>
-            }
-          />
-          <Route
-            path="/client-orders"
-            element={
-              <LayoutWithHeaderAndFooter>
-                <ClientOrders />
-              </LayoutWithHeaderAndFooter>
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <LayoutWithHeaderAndFooter>
-                <Cart />
-              </LayoutWithHeaderAndFooter>
-            }
-          />
-          <Route
-            path="/entrepreneur-profile"
-            element={
-              <PrivateRoute>
-                <LayoutWithHeaderAndFooter>
-                  <EntrepreneurProfile />
-                </LayoutWithHeaderAndFooter>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/entrepreneur-orders"
-            element={
-              <PrivateRoute>
-                <LayoutWithHeaderAndFooter>
-                  <EntrepreneurOrders />
-                </LayoutWithHeaderAndFooter>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/create-product"
-            element={
-              <PrivateRoute>
-                <LayoutWithHeaderAndFooter>
-                  <CreateProduct />
-                </LayoutWithHeaderAndFooter>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/edit-product/:productId"
-            element={
-              <PrivateRoute>
-                <LayoutWithHeaderAndFooter>
-                  <EditProduct />
-                </LayoutWithHeaderAndFooter>
-              </PrivateRoute>
             }
           />
         </Routes>

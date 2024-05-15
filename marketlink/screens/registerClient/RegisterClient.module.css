@@ -1,108 +1,118 @@
-.loginContainerRegisterClient {
+.container {
   background: #E4ECE5;
   text-align: center;
   width: 80%;
-  height: 100vh; 
-  margin: 0 auto; 
-  display: grid;
-  place-items: center;
-  padding: 0 20px; 
-}
-
-.rowsRegisterClient {
+  height: 100vh;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  padding: 50px 20px;
+  box-sizing: border-box;
 }
 
-.iniciarSesionRegisterClient {
-  font-family: 'Inter', sans-serif;
-  color: #244242; 
-  margin-bottom: 20px;
-  font-size: 30px; 
-}
-
-.formContainerRegisterClient {
+.rows {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; 
-}
-
-.inputsRegisterClient {
-  font-family: 'Inter', sans-serif;
-  padding: 12px; 
-  text-align: center;
-  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
-  width: 80%; 
-  max-width: 700px;
-  outline: none; 
 }
 
-.inputsRegisterClient:focus {
-  border-color: #83AF4B; 
-  box-shadow: 0 0 8px #83AF4B; 
+.logo {
+  max-width: 150px;
+  max-height: 250px;
+  padding-top: 100px;
 }
 
-.botonTransparenteRegisterClient {
-  text-align: center;
+.iniciarSesion {
   font-family: 'Inter', sans-serif;
-  background: transparent;
-  border: 3px solid #244242; 
-  border-radius: 20px;
-  padding: 10px 20px; 
-  margin-top: 20px;
-  width: 50%; 
-  cursor: pointer;
   color: #244242;
+  margin-bottom: 20px;
+  font-size: 30px;
   font-weight: bold;
 }
 
-.botonTransparenteRegisterClient:hover, .botonTransparenteRegisterClient:focus {
-  color: #E4ECE5; 
-  background-color: #244242; 
-  border-color: #83AF4B; 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-
-.highContrast .loginContainerRegisterClient {
-  background: #000; 
-  color: #fff; 
+.inputs {
+  font-family: 'Inter', sans-serif;
+  padding: 12px;
+  text-align: center;
+  border-radius: 20px;
+  width: 80%;
+  max-width: 700px;
+  border: 2px solid transparent;
+  outline: none;
 }
 
-.highContrast .rowsRegisterClient {
+.inputs:focus {
+  border-color: #83AF4B;
+  box-shadow: 0 0 8px #83AF4B;
+}
+
+.botonTransparente {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  background: transparent;
+  border: 3px solid #244242;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #244242;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.botonTransparente:hover, .botonTransparente:focus {
+  color: #E4ECE5;
+  background-color: #244242;
+  border-color: #83AF4B;
+}
+
+.highContrast .container {
+  background: #000;
   color: #fff;
 }
 
-.highContrast .iniciarSesionRegisterClient {
-  color: #FFD700; 
+.highContrast .rows {
+  color: #fff;
 }
 
-.highContrast .formContainerRegisterClient {
-  border-color: #fff; 
+.highContrast .iniciarSesion {
+  color: #FFD700;
 }
 
-.highContrast .inputsRegisterClient {
-  background: #333; 
-  color: #fff; 
-  border: 2px solid #FFD700; 
+.highContrast .formContainer {
+  border-color: #fff;
 }
 
-.highContrast .inputsRegisterClient:focus {
-  border-color: #FFA500; 
-  box-shadow: 0 0 8px #FFA500; 
+.highContrast .inputs {
+  background: #333;
+  color: #fff;
+  border: 2px solid #FFD700;
 }
 
-.highContrast .botonTransparenteRegisterClient {
-  color: #FFD700; 
-  border-color: #FFD700; 
-  background: #333; 
+.highContrast .inputs:focus {
+  border-color: #FFA500;
+  box-shadow: 0 0 8px #FFA500;
 }
 
-.highContrast .botonTransparenteRegisterClient:hover, .highContrast .botonTransparenteRegisterClient:focus {
-  color: #000; 
-  background: #FFD700; 
-  border-color: #000; 
+.highContrast .botonTransparente {
+  color: #FFD700;
+  border-color: #FFD700;
+  background: #333;
+}
+
+.highContrast .botonTransparente:hover, .highContrast .botonTransparente:focus {
+  color: #000;
+  background: #FFD700;
+  border-color: #000;
 }
