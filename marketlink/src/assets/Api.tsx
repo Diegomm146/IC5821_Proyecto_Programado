@@ -162,7 +162,7 @@ const getCart = async (userId: string): Promise<Cart | null> => {
   }
 };
 
-export const getProduct = async (productId: string): Promise<Product> => {
+export const getProduct = async (productId: any): Promise<Product> => {
   const productRef = doc(db, "Product", productId.id);
   const productDoc = await getDoc(productRef);
   if (!productDoc.exists()) {
@@ -201,7 +201,7 @@ export const getProductString = async (productId: string): Promise<Product> => {
 };
 
 export const getEntrepreneur = async (
-  entrepreneurId: string,
+  entrepreneurId: any,
 ): Promise<Entrepreneur> => {
   const entrepreneurRef = doc(db, "Entrepreneur", entrepreneurId.id);
   const entrepreneurDoc = await getDoc(entrepreneurRef);
@@ -383,7 +383,7 @@ export const getProductByCartItemId = async (): Promise<Product | null> => {
 };
 
 export const checkItemAvailability = async (
-  productId: string,
+  productId: any,
   quantity: number,
 ): Promise<boolean> => {
   const product = await getProductById(productId.id);
