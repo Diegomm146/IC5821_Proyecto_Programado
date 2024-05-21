@@ -103,7 +103,7 @@ const EditProduct: React.FC = () => {
                   onChange={handleChange}
                   aria-required="true"
                   aria-label="Product name"
-                  className={!product?.name && "error"}
+                  className={product?.name ? "" : "error"}
                 />
                 {!product?.name && (
                   <Form.Control.Feedback type="invalid">
@@ -127,7 +127,7 @@ const EditProduct: React.FC = () => {
                   onChange={handleChange}
                   aria-required="true"
                   aria-label="Product category"
-                  className={!product?.category && "error"}
+                  className={product?.category ? "" : "error"}
                 >
                   <option value="">Select an option</option>
                   <option value="electronics">Electronics</option>
@@ -165,7 +165,7 @@ const EditProduct: React.FC = () => {
                   onChange={handleChange}
                   aria-required="true"
                   aria-label="Product price"
-                  className={!product?.price && "error"}
+                  className={product?.price ? "" : "error"}
                 />
                 {!product?.price && (
                   <Form.Control.Feedback type="invalid">
@@ -190,7 +190,7 @@ const EditProduct: React.FC = () => {
                   onChange={handleChange}
                   aria-required="true"
                   aria-label="Product stock"
-                  className={!product?.stock && "error"}
+                  className={product?.stock ? "" : "error"}
                 />
                 {!product?.stock && (
                   <Form.Control.Feedback type="invalid">
@@ -218,7 +218,7 @@ const EditProduct: React.FC = () => {
                   onChange={handleChange}
                   aria-required="true"
                   aria-label="Product description"
-                  className={!product?.description && "error"}
+                  className={product?.description ? "" : "error"}
                 />
                 {!product?.description && (
                   <Form.Control.Feedback type="invalid">
